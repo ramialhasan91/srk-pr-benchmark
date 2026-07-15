@@ -1,0 +1,295 @@
+{
+  "seed": 20260714,
+  "B": 10000,
+  "ci": {
+    "psat_srk": {
+      "aad": 1.8274902221926996,
+      "ci_lo": 1.4242114312426792,
+      "ci_hi": 2.3650610404929293
+    },
+    "psat_pr": {
+      "aad": 1.1366075975894068,
+      "ci_lo": 0.8919186195117587,
+      "ci_hi": 1.4663916817501381
+    },
+    "psat_srktwu": {
+      "aad": 1.261674015407607,
+      "ci_lo": 0.8635176502733152,
+      "ci_hi": 1.7811584110322365
+    },
+    "psat_prtwu": {
+      "aad": 1.2573434986130503,
+      "ci_lo": 0.864705642447772,
+      "ci_hi": 1.7569804572417702
+    },
+    "rho_srk": {
+      "aad": 13.280470373195858,
+      "ci_lo": 11.123036054354463,
+      "ci_hi": 15.562745496440051
+    },
+    "rho_pr": {
+      "aad": 6.927750584689408,
+      "ci_lo": 5.518804243798175,
+      "ci_hi": 8.493331948367848
+    },
+    "rho_prvt": {
+      "aad": 3.174900780252176,
+      "ci_lo": 2.909849168821806,
+      "ci_hi": 3.4873130422428384
+    },
+    "rho_prvtc": {
+      "aad": 5.112552699803906,
+      "ci_lo": 3.72008162400153,
+      "ci_hi": 6.7439874810606
+    },
+    "rhov_srk": {
+      "aad": 2.440019439910659,
+      "ci_lo": 1.7656710446693333,
+      "ci_hi": 3.280395012096157
+    },
+    "rhov_pr": {
+      "aad": 2.0402187174951534,
+      "ci_lo": 1.6151304569516582,
+      "ci_hi": 2.5528922227107818
+    },
+    "rhov_srktwu": {
+      "aad": 2.329254510951329,
+      "ci_lo": 1.650035517904267,
+      "ci_hi": 3.172873399041236
+    },
+    "rhov_prtwu": {
+      "aad": 1.8884187933910728,
+      "ci_lo": 1.3171908982680507,
+      "ci_hi": 2.6385723532582057
+    },
+    "rhov_prvt": {
+      "aad": 1.822913951678979,
+      "ci_lo": 1.4317966789201928,
+      "ci_hi": 2.3372510212141564
+    },
+    "h_srk": {
+      "aad": 2.7389002791704513,
+      "ci_lo": 2.3324807377507137,
+      "ci_hi": 3.263446501905646
+    },
+    "h_pr": {
+      "aad": 2.1060693292203636,
+      "ci_lo": 1.79823316097402,
+      "ci_hi": 2.5152350310073137
+    },
+    "h_srktwu": {
+      "aad": 2.2920890075791216,
+      "ci_lo": 1.8372506357618767,
+      "ci_hi": 2.8759224940283525
+    },
+    "h_prtwu": {
+      "aad": 2.201064140414271,
+      "ci_lo": 1.7888968767787796,
+      "ci_hi": 2.7479141588745604
+    }
+  },
+  "sign_tests": {
+    "psat_pr_vs_srk": {
+      "wins": 27,
+      "n": 32,
+      "p_two_sided": 0.00011307420209050179
+    },
+    "psat_srktwu_vs_srk": {
+      "wins": 29,
+      "n": 32,
+      "p_two_sided": 2.5560148060321808e-06
+    },
+    "psat_prtwu_vs_pr": {
+      "wins": 22,
+      "n": 32,
+      "p_two_sided": 0.050102459732443094
+    },
+    "psat_prtwu_vs_srktwu": {
+      "wins": 19,
+      "n": 32,
+      "p_two_sided": 0.37708558747544885
+    },
+    "h_pr_vs_srk": {
+      "wins": 29,
+      "n": 32,
+      "p_two_sided": 2.5560148060321808e-06
+    },
+    "h_srktwu_vs_srk": {
+      "wins": 29,
+      "n": 32,
+      "p_two_sided": 2.5560148060321808e-06
+    },
+    "h_prtwu_vs_pr": {
+      "wins": 16,
+      "n": 32,
+      "p_two_sided": 1.0
+    },
+    "rho_pr_vs_srk": {
+      "wins": 26,
+      "n": 32,
+      "p_two_sided": 0.0005350527353584766
+    },
+    "rhov_pr_vs_srk": {
+      "wins": 19,
+      "n": 32,
+      "p_two_sided": 0.37708558747544885
+    },
+    "rhov_prtwu_vs_pr": {
+      "wins": 24,
+      "n": 32,
+      "p_two_sided": 0.0070003666914999485
+    }
+  },
+  "Zc_model": {
+    "srk": 0.3333333333333333,
+    "pr": 0.3074
+  },
+  "near_critical": {
+    "srk": {
+      "pearson_r": 0.9830796069790203,
+      "ols_slope": 0.9804406633220676,
+      "ols_intercept": -4.375454000273138,
+      "x_limit": {
+        "R-1234yf": -20.582,
+        "R-125": -19.431,
+        "R-134a": -21.993,
+        "R-32": -27.117,
+        "acetone": -29.1,
+        "ammonia": -26.185,
+        "argon": -13.15,
+        "benzene": -19.277,
+        "carbon dioxide": -17.624,
+        "carbon monoxide": -12.441,
+        "cyclohexane": -17.508,
+        "ethane": -16.029,
+        "ethanol": -25.913,
+        "ethylbenzene": -22.731,
+        "hydrogen sulfide": -14.581,
+        "isobutane": -17.242,
+        "m-xylene": -22.424,
+        "methane": -14.113,
+        "methanol": -34.272,
+        "n-butane": -17.87,
+        "n-decane": -25.155,
+        "n-heptane": -17.611,
+        "n-hexane": -20.063,
+        "n-octane": -22.422,
+        "n-pentane": -19.412,
+        "nitrogen": -13.183,
+        "o-xylene": -20.296,
+        "oxygen": -11.726,
+        "p-xylene": -23.235,
+        "propane": -17.062,
+        "toluene": -20.605,
+        "water": -31.168
+      },
+      "y_obs": {
+        "R-1234yf": -24.909,
+        "R-125": -23.749,
+        "R-134a": -26.229,
+        "R-32": -32.46,
+        "acetone": -33.884,
+        "ammonia": -30.602,
+        "argon": -17.005,
+        "benzene": -22.926,
+        "carbon dioxide": -21.687,
+        "carbon monoxide": -16.935,
+        "cyclohexane": -21.375,
+        "ethane": -20.171,
+        "ethanol": -29.578,
+        "ethylbenzene": -26.593,
+        "hydrogen sulfide": -16.723,
+        "isobutane": -21.621,
+        "m-xylene": -26.407,
+        "methane": -18.069,
+        "methanol": -35.458,
+        "n-butane": -22.401,
+        "n-decane": -27.466,
+        "n-heptane": -21.681,
+        "n-hexane": -24.106,
+        "n-octane": -26.945,
+        "n-pentane": -23.904,
+        "nitrogen": -17.044,
+        "o-xylene": -22.263,
+        "oxygen": -17.383,
+        "p-xylene": -26.139,
+        "propane": -21.184,
+        "toluene": -24.552,
+        "water": -37.339
+      }
+    },
+    "pr": {
+      "pearson_r": 0.9819864444579984,
+      "ols_slope": 0.9869885709368224,
+      "ols_intercept": -2.5548942545928393,
+      "x_limit": {
+        "R-1234yf": -13.882,
+        "R-125": -12.634,
+        "R-134a": -15.413,
+        "R-32": -20.968,
+        "acetone": -23.119,
+        "ammonia": -19.957,
+        "argon": -5.823,
+        "benzene": -12.466,
+        "carbon dioxide": -10.674,
+        "carbon monoxide": -5.054,
+        "cyclohexane": -10.549,
+        "ethane": -8.945,
+        "ethanol": -19.663,
+        "ethylbenzene": -16.212,
+        "hydrogen sulfide": -7.374,
+        "isobutane": -10.26,
+        "m-xylene": -15.879,
+        "methane": -6.867,
+        "methanol": -28.727,
+        "n-butane": -10.941,
+        "n-decane": -18.841,
+        "n-heptane": -10.66,
+        "n-hexane": -13.319,
+        "n-octane": -15.877,
+        "n-pentane": -12.613,
+        "nitrogen": -5.859,
+        "o-xylene": -13.572,
+        "oxygen": -4.278,
+        "p-xylene": -16.758,
+        "propane": -10.065,
+        "toluene": -13.907,
+        "water": -25.362
+      },
+      "y_obs": {
+        "R-1234yf": -16.605,
+        "R-125": -15.296,
+        "R-134a": -18.037,
+        "R-32": -24.991,
+        "acetone": -26.554,
+        "ammonia": -22.942,
+        "argon": -8.161,
+        "benzene": -14.457,
+        "carbon dioxide": -13.069,
+        "carbon monoxide": -8.002,
+        "cyclohexane": -12.737,
+        "ethane": -11.52,
+        "ethanol": -21.657,
+        "ethylbenzene": -18.456,
+        "hydrogen sulfide": -7.696,
+        "isobutane": -13.034,
+        "m-xylene": -18.236,
+        "methane": -9.316,
+        "methanol": -28.209,
+        "n-butane": -13.883,
+        "n-decane": -19.338,
+        "n-heptane": -12.97,
+        "n-hexane": -15.696,
+        "n-octane": -18.795,
+        "n-pentane": -15.508,
+        "nitrogen": -8.141,
+        "o-xylene": -13.641,
+        "oxygen": -8.539,
+        "p-xylene": -17.939,
+        "propane": -12.581,
+        "toluene": -16.216,
+        "water": -30.372
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+# Versions used to generate the published numbers
+# (also recorded in data/run_metadata.json)
+CoolProp==8.0.0
+numpy==2.4.4
+pandas==3.0.2
+matplotlib==3.10.8

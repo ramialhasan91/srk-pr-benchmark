@@ -1,0 +1,44 @@
+{
+  "python": "3.12.3",
+  "coolprop": "8.0.0",
+  "numpy": "2.4.4",
+  "pandas": "3.0.2",
+  "n_fluids": 32,
+  "n_T_per_fluid": 40,
+  "n_points": 1280,
+  "Tr_max": 0.985,
+  "psat_solver": "successive substitution on fugacity ratio, Wilson start",
+  "psat_tol_fugacity_ratio": 1e-11,
+  "psat_tol_fallback_near_Tc": 1e-07,
+  "failed_psat_solves": {
+    "srk": 0,
+    "pr": 0,
+    "srktwu": 0,
+    "prtwu": 0
+  },
+  "vt_nonphysical_points": 3,
+  "clapeyron_check": {
+    "relative_step": 0.0001,
+    "n_checks": 5120,
+    "n_skipped": 0,
+    "max_rel_diff": 5.971265637505496e-07,
+    "median_rel_diff": 5.0248423644205786e-08,
+    "per_model_max": {
+      "srk": 5.873069057749092e-07,
+      "pr": 5.407461729500795e-07,
+      "srktwu": 5.938063034616192e-07,
+      "prtwu": 5.971265637505496e-07
+    }
+  },
+  "vt_invariance_checks": 192,
+  "vt_invariance_max_abs_residual_lnphi": 1.1703311930677529e-14,
+  "anchor_sweep": {
+    "aad_min": 3.108145625280667,
+    "Tr_at_min": 0.7487179487179487,
+    "aad_at_070": 3.1772407097721334,
+    "flat_window_Tr": [
+      0.5,
+      0.786025641025641
+    ]
+  }
+}
