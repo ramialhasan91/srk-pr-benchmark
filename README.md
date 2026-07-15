@@ -86,9 +86,13 @@ pdflatex supplementary.tex && bibtex supplementary && pdflatex supplementary.tex
 
 ## Citation
 
-If you use this code or data, please cite the associated article (Fluid Phase Equilibria) and,
-for the exact software version, the archived release.
-<!-- TODO (author): add the article DOI and the Zenodo software DOI once available. -->
+If you use this code or data, please cite:
+
+> R. Alhasan, "How accurate are the SRK and Peng–Robinson equations of state
+> for saturation properties? A reproducible benchmark against reference
+> equations of state for 32 fluids," Fluid Phase Equilibria (2026).
+
+Software archive: [https://doi.org/10.5281/zenodo.21370716](https://doi.org/10.5281/zenodo.21370716)
 
 ## License
 
