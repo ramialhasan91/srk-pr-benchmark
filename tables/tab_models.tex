@@ -1,0 +1,19 @@
+\begin{table}[H]
+\centering
+\caption{The $\alpha$-functions compared. The first six are generalized (input: $T_c$, $p_c$, $\omega$ only); the seventh uses component-specific parameters and serves only as a fitted reference.}
+\label{tab:tab_models}
+\small
+\begin{tabular}{llp{4.6cm}p{4.2cm}l}
+\toprule
+Label & Form & Parameterization & Fitted to & Ref. \\
+\midrule
+Soave & Soave, Eq. {eq:soave} & original $m(\omega)$ of each cubic (SRK 1972; PR 1976) & hydrocarbon $p^{sat}$ (SRK: at $T_r = 0.7$; PR: normal boiling point to $T_c$) & [cite:soave1972,peng1976] \\
+Soave-19 & Soave, Eq. {eq:soave} & updated third-degree polynomial $m(\omega)$ for RK and PR & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ of 1721 compounds, triple point to $T_c$ & [cite:pina2019] \\
+Twu-95 & Twu, Eq. {eq:twu95} & universal $\alpha^{(0)}$, $\alpha^{(1)}$, linear in $\omega$ & hydrocarbon $p^{sat}$, triple point to $T_c$ & [cite:twu1995a,twu1995b] \\
+Twu-c & Twu-91, Eq. {eq:twu91} & consistent, $N=2$, $L(\omega)$, $M(\omega)$ quadratic & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ (PR: 1800 fluids; RK: 2018 set) & [cite:pina2022,pina2018] \\
+Coquelet & exponential, Eq. {eq:coq} & $C_1$--$C_3$ quadratic in $\omega$ (correlations of Mahmoodi and Sedigh for PR and SRK, as compiled by Xiao and Yang) & $p^{sat}$ of pure compounds & [cite:coquelet2004,mahmoodi2017,xiao2025] \\
+MS & exponential, consistent, Eq. {eq:ms} & $C_1$, $C_2$ quadratic in $\omega$, $C_3$ Gaussian in $\omega$ (as compiled by Xiao and Yang) & $p^{sat}$ of pure compounds with consistency constraints & [cite:mahmoodi2017,xiao2025] \\
+Twu-fit & Twu-91, Eq. {eq:twu91} & component-specific consistent $(L, M, N)$ per fluid & same database as Twu-c, per fluid & [cite:pina2022] \\
+\bottomrule
+\end{tabular}
+\end{table}

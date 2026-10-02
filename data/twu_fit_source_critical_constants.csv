@@ -1,0 +1,42 @@
+# Critical temperature and pressure of the 37 benchmark fluids as listed in Table S3 of the Supporting
+# Information of Pina-Martinez, Privat & Jaubert, AIChE J. 68 (2022) e17518 (the constants with which the
+# component-specific Twu-91 parameters of data/twu_fit_params.csv were regressed). Used only by
+# code/06_twufit_source_constants.py to quantify the critical-constant confound of the Twu-fit reference.
+fluid,coolprop,name_in_source,Tc_src_K,pc_src_bar
+nitrogen,Nitrogen,NITROGEN,126.2,34.0
+oxygen,Oxygen,OXYGEN,154.58,50.43
+argon,Argon,ARGON,150.86,48.98
+carbon monoxide,CarbonMonoxide,CARBON MONOXIDE,132.92,34.99
+carbon dioxide,CarbonDioxide,CARBON DIOXIDE,304.21,73.83
+hydrogen sulfide,HydrogenSulfide,HYDROGEN SULFIDE,373.53,89.63
+methane,Methane,METHANE,190.56,45.99
+ethane,Ethane,ETHANE,305.32,48.72
+propane,n-Propane,PROPANE,369.83,42.48
+n-butane,n-Butane,n-BUTANE,425.12,37.96
+isobutane,IsoButane,ISOBUTANE,407.8,36.4
+n-pentane,n-Pentane,n-PENTANE,469.7,33.7
+n-hexane,n-Hexane,n-HEXANE,507.6,30.25
+n-heptane,n-Heptane,n-HEPTANE,540.2,27.4
+n-octane,n-Octane,n-OCTANE,568.7,24.9
+n-decane,n-Decane,n-DECANE,617.7,21.1
+cyclohexane,CycloHexane,CYCLOHEXANE,553.8,40.8
+benzene,Benzene,BENZENE,562.05,48.95
+toluene,Toluene,TOLUENE,591.75,41.08
+ethylbenzene,EthylBenzene,ETHYLBENZENE,617.15,36.09
+o-xylene,o-Xylene,o-XYLENE,630.3,37.63
+m-xylene,m-Xylene,m-XYLENE,617.0,35.41
+p-xylene,p-Xylene,p-XYLENE,616.2,35.31
+water,Water,WATER,647.1,220.64
+methanol,Methanol,METHANOL,512.5,80.84
+ethanol,Ethanol,ETHANOL,514.0,61.37
+ammonia,Ammonia,AMMONIA,405.65,112.8
+acetone,Acetone,ACETONE,508.1,47.0
+dimethyl ether,DimethylEther,DIMETHYL ETHER,400.1,53.7
+sulfur dioxide,SulfurDioxide,SULFUR DIOXIDE,430.75,78.84
+ethylene oxide,EthyleneOxide,ETHYLENE OXIDE,469.15,71.9
+methyl chloride,R40,METHYL CHLORIDE,416.25,66.8
+tetrahydrofuran,Tetrahydrofuran,TETRAHYDROFURAN,540.15,51.9
+R-32,R32,DIFLUOROMETHANE,351.26,57.84
+R-125,R125,PENTAFLUOROETHANE,339.17,36.2
+R-134a,R134a,"1,1,1,2-TETRAFLUOROETHANE",374.18,40.56
+R-1234yf,R1234yf,"2,3,3,3-TETRAFLUOROPROPENE",367.85,33.82

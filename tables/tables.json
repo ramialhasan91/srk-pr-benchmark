@@ -1,0 +1,6880 @@
+{
+ "tab_models": {
+  "caption": "The $\\alpha$-functions compared. The first six are generalized (input: $T_c$, $p_c$, $\\omega$ only); the seventh uses component-specific parameters and serves only as a fitted reference.",
+  "header": [
+   [
+    "Label",
+    "Form",
+    "Parameterization",
+    "Fitted to",
+    "Ref."
+   ]
+  ],
+  "rows": [
+   [
+    "Soave",
+    "Soave, Eq. {eq:soave}",
+    "original $m(\\omega)$ of each cubic (SRK 1972; PR 1976)",
+    "hydrocarbon $p^{sat}$ (SRK: at $T_r = 0.7$; PR: normal boiling point to $T_c$)",
+    "[cite:soave1972,peng1976]"
+   ],
+   [
+    "Soave-19",
+    "Soave, Eq. {eq:soave}",
+    "updated third-degree polynomial $m(\\omega)$ for RK and PR",
+    "$p^{sat}$, $\\Delta h_{vap}$, $c_p^{liq}$ of 1721 compounds, triple point to $T_c$",
+    "[cite:pina2019]"
+   ],
+   [
+    "Twu-95",
+    "Twu, Eq. {eq:twu95}",
+    "universal $\\alpha^{(0)}$, $\\alpha^{(1)}$, linear in $\\omega$",
+    "hydrocarbon $p^{sat}$, triple point to $T_c$",
+    "[cite:twu1995a,twu1995b]"
+   ],
+   [
+    "Twu-c",
+    "Twu-91, Eq. {eq:twu91}",
+    "consistent, $N=2$, $L(\\omega)$, $M(\\omega)$ quadratic",
+    "$p^{sat}$, $\\Delta h_{vap}$, $c_p^{liq}$ (PR: 1800 fluids; RK: 2018 set)",
+    "[cite:pina2022,pina2018]"
+   ],
+   [
+    "Coquelet",
+    "exponential, Eq. {eq:coq}",
+    "$C_1$--$C_3$ quadratic in $\\omega$ (correlations of Mahmoodi and Sedigh for PR and SRK, as compiled by Xiao and Yang)",
+    "$p^{sat}$ of pure compounds",
+    "[cite:coquelet2004,mahmoodi2017,xiao2025]"
+   ],
+   [
+    "MS",
+    "exponential, consistent, Eq. {eq:ms}",
+    "$C_1$, $C_2$ quadratic in $\\omega$, $C_3$ Gaussian in $\\omega$ (as compiled by Xiao and Yang)",
+    "$p^{sat}$ of pure compounds with consistency constraints",
+    "[cite:mahmoodi2017,xiao2025]"
+   ],
+   [
+    "Twu-fit",
+    "Twu-91, Eq. {eq:twu91}",
+    "component-specific consistent $(L, M, N)$ per fluid",
+    "same database as Twu-c, per fluid",
+    "[cite:pina2022]"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_overall": {
+  "caption": "Overall average absolute deviation (AAD, \\%) from the reference equations of state, pooled over all 37 fluids and 1480 saturation states, with fluid-level bootstrap 95\\% confidence intervals in parentheses. The translated variants (classical Soave $\\alpha$; VT$_{corr}$, Rackett-anchored constant requiring no data; VT, density-anchored constant requiring one reference liquid density; Section 2.2) share the $p^{sat}$ and $\\Delta h_{vap}$ of the untranslated model (exact invariance, Section 2.2), and the same constant is applied to the vapor volume. $^{\\dagger}$Component-specific parameters; fitted reference, not a predictive model.",
+  "header": [
+   [
+    "Model",
+    "$p^{sat}$",
+    "$\\Delta h_{vap}$",
+    "$\\rho'$",
+    "$\\rho''$"
+   ]
+  ],
+  "rows": [
+   [
+    "SRK-Soave",
+    "1.78 (1.41--2.25)",
+    "2.74 (2.38--3.20)",
+    "13.12 (11.19--15.11)",
+    "2.50 (1.91--3.23)"
+   ],
+   [
+    "SRK-Soave-19",
+    "1.81 (1.46--2.27)",
+    "2.76 (2.41--3.22)",
+    "13.12 (11.18--15.10)",
+    "2.56 (1.98--3.26)"
+   ],
+   [
+    "SRK-Twu-95",
+    "1.20 (0.85--1.67)",
+    "2.29 (1.89--2.81)",
+    "13.05 (11.12--15.04)",
+    "2.36 (1.74--3.12)"
+   ],
+   [
+    "SRK-Twu-c",
+    "1.51 (1.18--1.95)",
+    "2.59 (2.24--3.05)",
+    "13.11 (11.19--15.10)",
+    "2.30 (1.74--2.99)"
+   ],
+   [
+    "SRK-Coquelet",
+    "1.45 (1.05--1.98)",
+    "2.35 (1.95--2.88)",
+    "13.05 (11.11--15.05)",
+    "2.57 (1.97--3.32)"
+   ],
+   [
+    "SRK-MS",
+    "1.23 (0.91--1.67)",
+    "2.44 (2.07--2.92)",
+    "13.08 (11.17--15.06)",
+    "2.37 (1.77--3.12)"
+   ],
+   [
+    "SRK-Twu-fit$^{\\dagger}$",
+    "0.92 (0.75--1.12)",
+    "2.04 (1.80--2.34)",
+    "13.09 (11.17--15.07)",
+    "1.92 (1.48--2.40)"
+   ],
+   [
+    "PR-Soave",
+    "1.10 (0.89--1.39)",
+    "2.10 (1.83--2.47)",
+    "6.51 (5.28--7.92)",
+    "2.04 (1.67--2.51)"
+   ],
+   [
+    "PR-Soave-19",
+    "1.48 (1.24--1.80)",
+    "2.31 (1.99--2.73)",
+    "6.54 (5.30--7.94)",
+    "2.65 (2.18--3.25)"
+   ],
+   [
+    "PR-Twu-95",
+    "1.20 (0.85--1.66)",
+    "2.19 (1.82--2.67)",
+    "6.54 (5.31--7.94)",
+    "1.87 (1.36--2.53)"
+   ],
+   [
+    "PR-Twu-c",
+    "1.15 (0.87--1.52)",
+    "2.33 (1.98--2.77)",
+    "6.52 (5.28--7.92)",
+    "2.27 (1.78--2.88)"
+   ],
+   [
+    "PR-Coquelet",
+    "1.37 (0.99--1.88)",
+    "2.22 (1.84--2.72)",
+    "6.53 (5.30--7.94)",
+    "2.08 (1.55--2.79)"
+   ],
+   [
+    "PR-MS",
+    "1.10 (0.76--1.55)",
+    "2.23 (1.88--2.69)",
+    "6.54 (5.30--7.94)",
+    "1.96 (1.46--2.63)"
+   ],
+   [
+    "PR-Twu-fit$^{\\dagger}$",
+    "0.76 (0.60--0.95)",
+    "1.82 (1.60--2.10)",
+    "6.52 (5.28--7.91)",
+    "1.72 (1.39--2.11)"
+   ],
+   null,
+   [
+    "SRK-VT$_{corr}$",
+    "as SRK",
+    "as SRK",
+    "6.33 (5.20--7.65)",
+    "2.29 (1.73--2.98)"
+   ],
+   [
+    "SRK-VT",
+    "as SRK",
+    "as SRK",
+    "4.83 (4.53--5.17)",
+    "2.21 (1.68--2.87)"
+   ],
+   [
+    "PR-VT$_{corr}$",
+    "as PR",
+    "as PR",
+    "5.08 (3.87--6.49)",
+    "1.94 (1.56--2.41)"
+   ],
+   [
+    "PR-VT",
+    "as PR",
+    "as PR",
+    "3.11 (2.88--3.40)",
+    "1.86 (1.51--2.31)"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_psat": {
+  "caption": "AAD (\\%) in vapor pressure by reduced-temperature range (five columns: the three ranges, the pooled range $T_r < 0.90$ and all points), by chemical family (number of fluids in parentheses: inorganic gases, alkanes, aromatics, polar/associating, refrigerants) and by polar/associating subgroup (hydrogen-bonding, polar aprotic), for the two cubics with each $\\alpha$-function ({tab:tab_models}). All models are strictly predictive except Twu-fit ($^{\\dagger}$, component-specific parameters, fitted reference). Volume translation does not alter this property, so the translated variants are omitted.",
+  "header": [
+   [
+    "",
+    "Reduced-temperature range",
+    "",
+    "",
+    "",
+    "",
+    "Chemical family",
+    "",
+    "",
+    "",
+    "",
+    "Subgroup",
+    ""
+   ],
+   [
+    "Model",
+    "0.50--0.70",
+    "0.70--0.90",
+    "0.90--0.985",
+    "< 0.90",
+    "All",
+    "Inorg. (6)",
+    "Alk. (11)",
+    "Arom. (6)",
+    "Polar (10)",
+    "Refr. (4)",
+    "H-bond (4)",
+    "Aprotic (6)"
+   ]
+  ],
+  "rows": [
+   [
+    "SRK-Soave",
+    "2.66",
+    "1.15",
+    "1.27",
+    "1.89",
+    "1.78",
+    "0.94",
+    "1.35",
+    "1.74",
+    "2.84",
+    "1.61",
+    "4.60",
+    "1.67"
+   ],
+   [
+    "SRK-Soave-19",
+    "2.78",
+    "1.11",
+    "1.26",
+    "1.93",
+    "1.81",
+    "1.02",
+    "1.38",
+    "1.74",
+    "2.88",
+    "1.63",
+    "4.54",
+    "1.77"
+   ],
+   [
+    "SRK-Twu-95",
+    "1.93",
+    "0.65",
+    "0.87",
+    "1.28",
+    "1.20",
+    "0.59",
+    "0.69",
+    "1.21",
+    "2.23",
+    "0.98",
+    "4.03",
+    "1.03"
+   ],
+   [
+    "SRK-Twu-c",
+    "2.10",
+    "1.09",
+    "1.15",
+    "1.59",
+    "1.51",
+    "0.86",
+    "1.09",
+    "1.45",
+    "2.49",
+    "1.28",
+    "4.11",
+    "1.41"
+   ],
+   [
+    "SRK-Coquelet",
+    "2.50",
+    "0.67",
+    "0.89",
+    "1.58",
+    "1.45",
+    "0.98",
+    "1.06",
+    "1.29",
+    "2.45",
+    "0.96",
+    "4.59",
+    "1.03"
+   ],
+   [
+    "SRK-MS",
+    "1.79",
+    "0.79",
+    "1.02",
+    "1.28",
+    "1.23",
+    "0.70",
+    "0.79",
+    "1.12",
+    "2.22",
+    "0.95",
+    "3.89",
+    "1.11"
+   ],
+   null,
+   [
+    "SRK-Twu-fit$^{\\dagger}$",
+    "0.88",
+    "0.94",
+    "0.97",
+    "0.91",
+    "0.92",
+    "0.62",
+    "0.68",
+    "0.76",
+    "1.46",
+    "0.94",
+    "1.20",
+    "1.63"
+   ],
+   null,
+   [
+    "PR-Soave",
+    "1.90",
+    "0.52",
+    "0.66",
+    "1.20",
+    "1.10",
+    "0.84",
+    "1.01",
+    "0.89",
+    "1.55",
+    "0.95",
+    "2.57",
+    "0.86"
+   ],
+   [
+    "PR-Soave-19",
+    "2.52",
+    "0.89",
+    "0.51",
+    "1.70",
+    "1.48",
+    "1.32",
+    "1.20",
+    "1.11",
+    "2.23",
+    "1.16",
+    "3.31",
+    "1.51"
+   ],
+   [
+    "PR-Twu-95",
+    "1.91",
+    "0.69",
+    "0.79",
+    "1.29",
+    "1.20",
+    "0.57",
+    "0.69",
+    "1.22",
+    "2.21",
+    "1.01",
+    "3.99",
+    "1.02"
+   ],
+   [
+    "PR-Twu-c",
+    "2.00",
+    "0.54",
+    "0.69",
+    "1.26",
+    "1.15",
+    "0.85",
+    "0.82",
+    "0.90",
+    "1.99",
+    "0.84",
+    "3.32",
+    "1.10"
+   ],
+   [
+    "PR-Coquelet",
+    "2.43",
+    "0.62",
+    "0.75",
+    "1.51",
+    "1.37",
+    "0.95",
+    "0.97",
+    "1.22",
+    "2.36",
+    "0.90",
+    "4.41",
+    "0.99"
+   ],
+   [
+    "PR-MS",
+    "1.65",
+    "0.67",
+    "0.84",
+    "1.16",
+    "1.10",
+    "0.46",
+    "0.61",
+    "1.03",
+    "2.16",
+    "0.85",
+    "3.89",
+    "1.00"
+   ],
+   null,
+   [
+    "PR-Twu-fit$^{\\dagger}$",
+    "0.91",
+    "0.66",
+    "0.67",
+    "0.78",
+    "0.76",
+    "0.52",
+    "0.50",
+    "0.59",
+    "1.24",
+    "0.91",
+    "0.98",
+    "1.42"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_hvap": {
+  "caption": "AAD (\\%) in the enthalpy of vaporization by reduced-temperature range, chemical family and polar/associating subgroup. Layout and model set as in {tab:tab_psat}; translated variants are identical to the untranslated models for this property and are omitted.",
+  "header": [
+   [
+    "",
+    "Reduced-temperature range",
+    "",
+    "",
+    "",
+    "",
+    "Chemical family",
+    "",
+    "",
+    "",
+    "",
+    "Subgroup",
+    ""
+   ],
+   [
+    "Model",
+    "0.50--0.70",
+    "0.70--0.90",
+    "0.90--0.985",
+    "< 0.90",
+    "All",
+    "Inorg. (6)",
+    "Alk. (11)",
+    "Arom. (6)",
+    "Polar (10)",
+    "Refr. (4)",
+    "H-bond (4)",
+    "Aprotic (6)"
+   ]
+  ],
+  "rows": [
+   [
+    "SRK-Soave",
+    "2.22",
+    "2.36",
+    "4.73",
+    "2.29",
+    "2.74",
+    "2.25",
+    "2.14",
+    "2.27",
+    "3.98",
+    "2.72",
+    "5.36",
+    "3.06"
+   ],
+   [
+    "SRK-Soave-19",
+    "2.26",
+    "2.40",
+    "4.68",
+    "2.33",
+    "2.76",
+    "2.31",
+    "2.16",
+    "2.28",
+    "4.00",
+    "2.73",
+    "5.31",
+    "3.13"
+   ],
+   [
+    "SRK-Twu-95",
+    "1.73",
+    "2.15",
+    "3.87",
+    "1.94",
+    "2.29",
+    "1.48",
+    "1.57",
+    "2.03",
+    "3.70",
+    "2.40",
+    "5.22",
+    "2.68"
+   ],
+   [
+    "SRK-Twu-c",
+    "2.12",
+    "2.21",
+    "4.51",
+    "2.16",
+    "2.59",
+    "2.17",
+    "1.99",
+    "2.11",
+    "3.82",
+    "2.55",
+    "5.11",
+    "2.95"
+   ],
+   [
+    "SRK-Coquelet",
+    "1.85",
+    "2.20",
+    "3.79",
+    "2.03",
+    "2.35",
+    "1.71",
+    "1.65",
+    "2.02",
+    "3.71",
+    "2.36",
+    "5.42",
+    "2.56"
+   ],
+   [
+    "SRK-MS",
+    "1.67",
+    "2.32",
+    "4.37",
+    "2.00",
+    "2.44",
+    "1.97",
+    "1.82",
+    "1.99",
+    "3.69",
+    "2.36",
+    "5.10",
+    "2.75"
+   ],
+   null,
+   [
+    "SRK-Twu-fit$^{\\dagger}$",
+    "0.84",
+    "2.16",
+    "4.39",
+    "1.51",
+    "2.04",
+    "1.47",
+    "1.71",
+    "1.76",
+    "2.83",
+    "2.21",
+    "3.13",
+    "2.64"
+   ],
+   null,
+   [
+    "PR-Soave",
+    "1.38",
+    "1.76",
+    "4.46",
+    "1.57",
+    "2.10",
+    "1.84",
+    "1.66",
+    "1.69",
+    "2.99",
+    "2.11",
+    "3.99",
+    "2.33"
+   ],
+   [
+    "PR-Soave-19",
+    "1.48",
+    "2.34",
+    "4.06",
+    "1.91",
+    "2.31",
+    "1.83",
+    "1.78",
+    "1.88",
+    "3.42",
+    "2.31",
+    "4.49",
+    "2.71"
+   ],
+   [
+    "PR-Twu-95",
+    "1.74",
+    "1.54",
+    "4.61",
+    "1.64",
+    "2.19",
+    "1.63",
+    "1.52",
+    "1.83",
+    "3.44",
+    "2.24",
+    "4.97",
+    "2.43"
+   ],
+   [
+    "PR-Twu-c",
+    "1.76",
+    "1.88",
+    "4.63",
+    "1.82",
+    "2.33",
+    "2.30",
+    "1.79",
+    "1.73",
+    "3.38",
+    "2.14",
+    "4.57",
+    "2.59"
+   ],
+   [
+    "PR-Coquelet",
+    "1.82",
+    "1.62",
+    "4.46",
+    "1.72",
+    "2.22",
+    "1.83",
+    "1.57",
+    "1.82",
+    "3.43",
+    "2.19",
+    "5.16",
+    "2.27"
+   ],
+   [
+    "PR-MS",
+    "1.56",
+    "1.72",
+    "4.86",
+    "1.64",
+    "2.23",
+    "1.82",
+    "1.66",
+    "1.76",
+    "3.42",
+    "2.16",
+    "4.87",
+    "2.46"
+   ],
+   null,
+   [
+    "PR-Twu-fit$^{\\dagger}$",
+    "0.62",
+    "1.72",
+    "4.68",
+    "1.18",
+    "1.82",
+    "1.51",
+    "1.49",
+    "1.48",
+    "2.50",
+    "1.96",
+    "2.74",
+    "2.34"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_polar": {
+  "caption": "The polar and associating fluids, one by one: acentric factor, Halm--Stiel polar factor $\\chi$ from the reference EoS, per-fluid AAD (\\%) in vapor pressure for the classical $\\alpha$-function, for the generalized $\\alpha$-function with the lowest pooled vapor-pressure AAD on each cubic (Twu-95 for SRK; MS for PR, which ties with Soave at two decimals in {tab:tab_overall}) and for the component-specific fitted reference (Twu-fit$^{\\dagger}$), and per-fluid AAD (\\%) in saturated-liquid density for untranslated and density-anchored translated PR. Fluids are ordered by subgroup and acentric factor; the other $\\alpha$-functions are tabulated per fluid in {stab:tabS_perfluid_psat_srk} and {stab:tabS_perfluid_psat_pr}.",
+  "header": [
+   [
+    "",
+    "",
+    "",
+    "$p^{sat}$, SRK",
+    "",
+    "",
+    "$p^{sat}$, PR",
+    "",
+    "",
+    "$\\rho'$, PR",
+    ""
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "$\\chi$",
+    "Soave",
+    "Twu-95",
+    "Twu-fit$^{\\dagger}$",
+    "Soave",
+    "MS",
+    "Twu-fit$^{\\dagger}$",
+    "PR",
+    "PR-VT"
+   ]
+  ],
+  "rows": [
+   "H-bonding",
+   [
+    "ammonia",
+    "0.256",
+    "0.012",
+    "2.35",
+    "1.57",
+    "1.08",
+    "0.71",
+    "1.51",
+    "1.36",
+    "12.50",
+    "3.69"
+   ],
+   [
+    "water",
+    "0.344",
+    "0.023",
+    "4.39",
+    "3.76",
+    "0.43",
+    "2.50",
+    "3.50",
+    "0.30",
+    "19.59",
+    "6.30"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "0.043",
+    "7.84",
+    "7.22",
+    "1.60",
+    "5.04",
+    "7.00",
+    "0.44",
+    "16.22",
+    "5.28"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "0.004",
+    "3.83",
+    "3.59",
+    "1.69",
+    "2.02",
+    "3.54",
+    "1.83",
+    "7.71",
+    "4.04"
+   ],
+   "polar aprotic",
+   [
+    "methyl chloride",
+    "0.150",
+    "0.010",
+    "1.00",
+    "0.54",
+    "0.88",
+    "0.76",
+    "0.67",
+    "1.25",
+    "3.70",
+    "2.38"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "0.004",
+    "1.12",
+    "0.65",
+    "1.47",
+    "0.96",
+    "0.50",
+    "1.03",
+    "3.69",
+    "2.78"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "0.012",
+    "2.18",
+    "1.28",
+    "2.78",
+    "0.59",
+    "1.38",
+    "2.52",
+    "4.91",
+    "2.86"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "0.009",
+    "2.16",
+    "1.31",
+    "2.68",
+    "0.97",
+    "1.32",
+    "2.31",
+    "4.67",
+    "3.05"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "0.002",
+    "0.91",
+    "0.44",
+    "1.37",
+    "1.05",
+    "0.39",
+    "0.83",
+    "2.40",
+    "2.56"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "0.013",
+    "2.64",
+    "1.95",
+    "0.63",
+    "0.85",
+    "1.76",
+    "0.56",
+    "13.98",
+    "4.20"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_ladder": {
+  "caption": "The volume-translation ladder: AAD (\\%) in saturated-liquid density for the untranslated cubics and for the two low-temperature-anchored choices of the constant $c$, by reduced-temperature range (classical Soave $\\alpha$; re-anchoring on any other $\\alpha$-function changes the pooled rows by at most 0.13 points and the range rows by at most 0.26 points, {stab:tabS_vt_alpha}). VT$_{corr}$ (Rackett-anchored) sets $c$ so that the translated liquid volume matches the Rackett--Yamada--Gunn correlation at $T_r = 0.70$ (no input beyond $T_c$, $p_c$, $\\omega$); VT (density-anchored) sets $c$ so that it matches one reference liquid density at $T_r = 0.70$. Bootstrap 95\\% confidence intervals are given for the pooled rows. The third conceivable constant, matching the reference critical volume, is not a usable model and is discussed in the text; all constants are tabulated per fluid in {stab:tabS_vt}.",
+  "header": [
+   [
+    "",
+    "SRK",
+    "",
+    "",
+    "PR",
+    "",
+    ""
+   ],
+   [
+    "$T_r$ range",
+    "none",
+    "VT$_{corr}$",
+    "VT",
+    "none",
+    "VT$_{corr}$",
+    "VT"
+   ]
+  ],
+  "rows": [
+   [
+    "0.50\u20130.70",
+    "10.52",
+    "3.16",
+    "1.34",
+    "5.99",
+    "3.16",
+    "0.47"
+   ],
+   [
+    "0.70\u20130.90",
+    "12.63",
+    "5.44",
+    "3.90",
+    "5.38",
+    "4.01",
+    "2.21"
+   ],
+   [
+    "0.90\u20130.985",
+    "19.96",
+    "15.30",
+    "14.61",
+    "10.24",
+    "11.72",
+    "10.97"
+   ],
+   [
+    "< 0.90 (pooled)",
+    "11.59 (9.58--13.65)",
+    "4.32 (3.17--5.68)",
+    "2.64 (2.42--2.90)",
+    "5.68 (4.32--7.15)",
+    "3.59 (2.35--5.04)",
+    "1.35 (1.20--1.55)"
+   ],
+   [
+    "All",
+    "13.12 (11.19--15.11)",
+    "6.33 (5.20--7.65)",
+    "4.83 (4.53--5.17)",
+    "6.51 (5.28--7.92)",
+    "5.08 (3.87--6.49)",
+    "3.11 (2.88--3.40)"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_rhov": {
+  "caption": "AAD (\\%) in the saturated-vapor density by reduced-temperature range for the classical, Twu-95 and Twu-c $\\alpha$-functions on both cubics and for the density-anchored translated cubics (SRK-VT, PR-VT; classical $\\alpha$). The remaining combinations lie in the same 1.7--2.7\\% band when pooled ({tab:tab_overall}); per-fluid values are given in {stab:tabS_perfluid_rhov_srk} and {stab:tabS_perfluid_rhov_pr}.",
+  "header": [
+   [
+    "$T_r$ range",
+    "SRK-Soave",
+    "PR-Soave",
+    "SRK-Twu-95",
+    "PR-Twu-95",
+    "SRK-Twu-c",
+    "PR-Twu-c",
+    "SRK-VT",
+    "PR-VT"
+   ]
+  ],
+  "rows": [
+   [
+    "0.50\u20130.70",
+    "3.38",
+    "2.18",
+    "2.41",
+    "2.23",
+    "2.75",
+    "2.58",
+    "3.35",
+    "2.17"
+   ],
+   [
+    "0.70\u20130.90",
+    "1.28",
+    "1.57",
+    "1.72",
+    "1.13",
+    "1.35",
+    "1.69",
+    "1.08",
+    "1.43"
+   ],
+   [
+    "0.90\u20130.985",
+    "3.32",
+    "2.80",
+    "3.71",
+    "2.72",
+    "3.47",
+    "2.88",
+    "2.23",
+    "2.12"
+   ],
+   [
+    "All",
+    "2.50",
+    "2.04",
+    "2.36",
+    "1.87",
+    "2.30",
+    "2.27",
+    "2.21",
+    "1.86"
+   ]
+  ],
+  "notes": ""
+ },
+ "tab_signtests": {
+  "caption": "Paired per-fluid comparisons: number of the 37 fluids for which the first-named model has the lower AAD (wins), with the nominal two-sided $p$-value of the exact binomial sign test (Section 2.5). No ties occurred. The complete set of pairwise comparisons is given in {stab:tabS_signtests_full}. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "Comparison",
+    "Property",
+    "Wins",
+    "$p$"
+   ]
+  ],
+  "rows": [
+   "Cubic form, at fixed $\\alpha$-function",
+   [
+    "PR vs. SRK (Soave)",
+    "$p^{sat}$",
+    "31/37",
+    "4 \u00d7 10\u207b\u2075"
+   ],
+   [
+    "PR vs. SRK (Soave-19)",
+    "$p^{sat}$",
+    "26/37",
+    "0.020"
+   ],
+   [
+    "PR vs. SRK (Twu-95)",
+    "$p^{sat}$",
+    "22/37",
+    "0.32"
+   ],
+   [
+    "PR vs. SRK (Twu-c)",
+    "$p^{sat}$",
+    "32/37",
+    "7 \u00d7 10\u207b\u2076"
+   ],
+   [
+    "PR vs. SRK (Coquelet)",
+    "$p^{sat}$",
+    "37/37",
+    "1 \u00d7 10\u207b\u00b9\u00b9"
+   ],
+   [
+    "PR vs. SRK (MS)",
+    "$p^{sat}$",
+    "36/37",
+    "6 \u00d7 10\u207b\u00b9\u2070"
+   ],
+   [
+    "PR vs. SRK (Twu-fit$^{\\dagger}$)",
+    "$p^{sat}$",
+    "31/37",
+    "4 \u00d7 10\u207b\u2075"
+   ],
+   [
+    "PR vs. SRK (Soave)",
+    "$\\Delta h_{vap}$",
+    "34/37",
+    "1 \u00d7 10\u207b\u2077"
+   ],
+   [
+    "PR vs. SRK (Soave-19)",
+    "$\\Delta h_{vap}$",
+    "35/37",
+    "1 \u00d7 10\u207b\u2078"
+   ],
+   [
+    "PR vs. SRK (Twu-95)",
+    "$\\Delta h_{vap}$",
+    "24/37",
+    "0.099"
+   ],
+   [
+    "PR vs. SRK (Twu-c)",
+    "$\\Delta h_{vap}$",
+    "31/37",
+    "4 \u00d7 10\u207b\u2075"
+   ],
+   [
+    "PR vs. SRK (Coquelet)",
+    "$\\Delta h_{vap}$",
+    "29/37",
+    "8 \u00d7 10\u207b\u2074"
+   ],
+   [
+    "PR vs. SRK (MS)",
+    "$\\Delta h_{vap}$",
+    "34/37",
+    "1 \u00d7 10\u207b\u2077"
+   ],
+   [
+    "PR vs. SRK (Twu-fit$^{\\dagger}$)",
+    "$\\Delta h_{vap}$",
+    "33/37",
+    "1 \u00d7 10\u207b\u2076"
+   ],
+   [
+    "PR vs. SRK (Soave)",
+    "$\\rho'$",
+    "31/37",
+    "4 \u00d7 10\u207b\u2075"
+   ],
+   [
+    "PR-VT vs. SRK-VT",
+    "$\\rho'$",
+    "37/37",
+    "1 \u00d7 10\u207b\u00b9\u00b9"
+   ],
+   [
+    "PR vs. SRK (Soave)",
+    "$\\rho''$",
+    "24/37",
+    "0.099"
+   ],
+   "$\\alpha$-function, at fixed cubic",
+   [
+    "SRK-Soave-19 vs. SRK-Soave",
+    "$p^{sat}$",
+    "13/37",
+    "0.099"
+   ],
+   [
+    "PR-Soave-19 vs. PR-Soave",
+    "$p^{sat}$",
+    "9/37",
+    "0.003"
+   ],
+   [
+    "SRK-Twu-95 vs. SRK-Soave",
+    "$p^{sat}$",
+    "34/37",
+    "1 \u00d7 10\u207b\u2077"
+   ],
+   [
+    "PR-Twu-95 vs. PR-Soave",
+    "$p^{sat}$",
+    "25/37",
+    "0.047"
+   ],
+   [
+    "SRK-Twu-c vs. SRK-Twu-95",
+    "$p^{sat}$",
+    "5/37",
+    "7 \u00d7 10\u207b\u2076"
+   ],
+   [
+    "PR-Twu-c vs. PR-Twu-95",
+    "$p^{sat}$",
+    "24/37",
+    "0.099"
+   ],
+   [
+    "PR-Twu-c vs. PR-Soave",
+    "$p^{sat}$",
+    "17/37",
+    "0.74"
+   ],
+   [
+    "SRK-MS vs. SRK-Twu-95",
+    "$p^{sat}$",
+    "21/37",
+    "0.51"
+   ],
+   [
+    "PR-MS vs. PR-Soave",
+    "$p^{sat}$",
+    "24/37",
+    "0.099"
+   ],
+   [
+    "PR-MS vs. PR-Twu-95",
+    "$p^{sat}$",
+    "28/37",
+    "0.003"
+   ],
+   [
+    "SRK-Coquelet vs. SRK-Soave",
+    "$p^{sat}$",
+    "28/37",
+    "0.003"
+   ],
+   [
+    "SRK-Coquelet vs. SRK-Twu-95",
+    "$p^{sat}$",
+    "9/37",
+    "0.003"
+   ],
+   [
+    "PR-Coquelet vs. PR-Soave",
+    "$p^{sat}$",
+    "16/37",
+    "0.51"
+   ],
+   [
+    "SRK-Twu-fit$^{\\dagger}$ vs. SRK-Twu-95",
+    "$p^{sat}$",
+    "23/37",
+    "0.19"
+   ],
+   [
+    "SRK-Twu-fit$^{\\dagger}$ vs. SRK-MS",
+    "$p^{sat}$",
+    "22/37",
+    "0.32"
+   ],
+   [
+    "PR-Twu-fit$^{\\dagger}$ vs. PR-Soave",
+    "$p^{sat}$",
+    "29/37",
+    "8 \u00d7 10\u207b\u2074"
+   ],
+   [
+    "PR-Twu-fit$^{\\dagger}$ vs. PR-MS",
+    "$p^{sat}$",
+    "21/37",
+    "0.51"
+   ],
+   [
+    "SRK-Twu-95 vs. SRK-Soave",
+    "$\\Delta h_{vap}$",
+    "34/37",
+    "1 \u00d7 10\u207b\u2077"
+   ],
+   [
+    "PR-Twu-95 vs. PR-Soave",
+    "$\\Delta h_{vap}$",
+    "19/37",
+    "1.00"
+   ],
+   "Volume translation",
+   [
+    "PR-VT$_{corr}$ vs. PR",
+    "$\\rho'$",
+    "22/37",
+    "0.32"
+   ],
+   [
+    "SRK-VT$_{corr}$ vs. SRK",
+    "$\\rho'$",
+    "36/37",
+    "6 \u00d7 10\u207b\u00b9\u2070"
+   ],
+   [
+    "PR-VT vs. PR-VT$_{corr}$",
+    "$\\rho'$",
+    "27/37",
+    "0.008"
+   ],
+   [
+    "PR-VT vs. PR",
+    "$\\rho''$",
+    "30/37",
+    "2 \u00d7 10\u207b\u2074"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_signtests_full": {
+  "caption": "Complete set of the 206 exact two-sided binomial sign tests on per-fluid AADs: number of the 37 fluids for which the first-named model has the lower AAD, with the nominal two-sided $p$-value in parentheses, for the four properties (columns). No ties occurred. The translated variants share $p^{sat}$ and $\\Delta h_{vap}$ with the untranslated models, and the comparison of VT with VT$_{corr}$ was computed for the liquid density only. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "Comparison",
+    "$p^{sat}$",
+    "$\\Delta h_{vap}$",
+    "$\\rho'$",
+    "$\\rho''$"
+   ]
+  ],
+  "rows": [
+   "PR vs. SRK at a fixed $\\alpha$-function",
+   [
+    "Soave",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "24/37 (0.099)"
+   ],
+   [
+    "Soave-19",
+    "26/37 (0.020)",
+    "35/37 (1 \u00d7 10\u207b\u2078)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "19/37 (1.00)"
+   ],
+   [
+    "Twu-95",
+    "22/37 (0.32)",
+    "24/37 (0.099)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "28/37 (0.003)"
+   ],
+   [
+    "Twu-c",
+    "32/37 (7 \u00d7 10\u207b\u2076)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "21/37 (0.51)"
+   ],
+   [
+    "Coquelet",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "29/37 (8 \u00d7 10\u207b\u2074)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "29/37 (8 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "MS",
+    "36/37 (6 \u00d7 10\u207b\u00b9\u2070)",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "25/37 (0.047)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "33/37 (1 \u00d7 10\u207b\u2076)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "23/37 (0.19)"
+   ],
+   "$\\alpha$-function pairs, SRK (first-named vs. second-named)",
+   [
+    "Soave-19 vs. Soave",
+    "13/37 (0.099)",
+    "10/37 (0.008)",
+    "27/37 (0.008)",
+    "10/37 (0.008)"
+   ],
+   [
+    "Twu-95 vs. Soave",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "29/37 (8 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "Twu-95 vs. Soave-19",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "33/37 (1 \u00d7 10\u207b\u2076)",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "29/37 (8 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "Twu-c vs. Soave",
+    "36/37 (6 \u00d7 10\u207b\u00b9\u2070)",
+    "35/37 (1 \u00d7 10\u207b\u2078)",
+    "28/37 (0.003)",
+    "34/37 (1 \u00d7 10\u207b\u2077)"
+   ],
+   [
+    "Twu-c vs. Soave-19",
+    "35/37 (1 \u00d7 10\u207b\u2078)",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "27/37 (0.008)",
+    "35/37 (1 \u00d7 10\u207b\u2078)"
+   ],
+   [
+    "Twu-c vs. Twu-95",
+    "5/37 (7 \u00d7 10\u207b\u2076)",
+    "7/37 (2 \u00d7 10\u207b\u2074)",
+    "0/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "20/37 (0.74)"
+   ],
+   [
+    "Coquelet vs. Soave",
+    "28/37 (0.003)",
+    "32/37 (7 \u00d7 10\u207b\u2076)",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "19/37 (1.00)"
+   ],
+   [
+    "Coquelet vs. Soave-19",
+    "28/37 (0.003)",
+    "32/37 (7 \u00d7 10\u207b\u2076)",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "24/37 (0.099)"
+   ],
+   [
+    "Coquelet vs. Twu-95",
+    "9/37 (0.003)",
+    "17/37 (0.74)",
+    "10/37 (0.008)",
+    "11/37 (0.020)"
+   ],
+   [
+    "Coquelet vs. Twu-c",
+    "24/37 (0.099)",
+    "27/37 (0.008)",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "11/37 (0.020)"
+   ],
+   [
+    "MS vs. Soave",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "36/37 (6 \u00d7 10\u207b\u00b9\u2070)",
+    "33/37 (1 \u00d7 10\u207b\u2076)",
+    "31/37 (4 \u00d7 10\u207b\u2075)"
+   ],
+   [
+    "MS vs. Soave-19",
+    "35/37 (1 \u00d7 10\u207b\u2078)",
+    "35/37 (1 \u00d7 10\u207b\u2078)",
+    "30/37 (2 \u00d7 10\u207b\u2074)",
+    "27/37 (0.008)"
+   ],
+   [
+    "MS vs. Twu-95",
+    "21/37 (0.51)",
+    "17/37 (0.74)",
+    "15/37 (0.32)",
+    "12/37 (0.047)"
+   ],
+   [
+    "MS vs. Twu-c",
+    "33/37 (1 \u00d7 10\u207b\u2076)",
+    "32/37 (7 \u00d7 10\u207b\u2076)",
+    "32/37 (7 \u00d7 10\u207b\u2076)",
+    "19/37 (1.00)"
+   ],
+   [
+    "MS vs. Coquelet",
+    "24/37 (0.099)",
+    "15/37 (0.32)",
+    "19/37 (1.00)",
+    "22/37 (0.32)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Soave",
+    "30/37 (2 \u00d7 10\u207b\u2074)",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "28/37 (0.003)",
+    "28/37 (0.003)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Soave-19",
+    "29/37 (8 \u00d7 10\u207b\u2074)",
+    "32/37 (7 \u00d7 10\u207b\u2076)",
+    "27/37 (0.008)",
+    "29/37 (8 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Twu-95",
+    "23/37 (0.19)",
+    "24/37 (0.099)",
+    "13/37 (0.099)",
+    "27/37 (0.008)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Twu-c",
+    "27/37 (0.008)",
+    "30/37 (2 \u00d7 10\u207b\u2074)",
+    "27/37 (0.008)",
+    "25/37 (0.047)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Coquelet",
+    "23/37 (0.19)",
+    "26/37 (0.020)",
+    "13/37 (0.099)",
+    "30/37 (2 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. MS",
+    "22/37 (0.32)",
+    "29/37 (8 \u00d7 10\u207b\u2074)",
+    "20/37 (0.74)",
+    "27/37 (0.008)"
+   ],
+   "$\\alpha$-function pairs, PR (first-named vs. second-named)",
+   [
+    "Soave-19 vs. Soave",
+    "9/37 (0.003)",
+    "6/37 (4 \u00d7 10\u207b\u2075)",
+    "16/37 (0.51)",
+    "5/37 (7 \u00d7 10\u207b\u2076)"
+   ],
+   [
+    "Twu-95 vs. Soave",
+    "25/37 (0.047)",
+    "19/37 (1.00)",
+    "8/37 (8 \u00d7 10\u207b\u2074)",
+    "27/37 (0.008)"
+   ],
+   [
+    "Twu-95 vs. Soave-19",
+    "28/37 (0.003)",
+    "27/37 (0.008)",
+    "16/37 (0.51)",
+    "34/37 (1 \u00d7 10\u207b\u2077)"
+   ],
+   [
+    "Twu-c vs. Soave",
+    "17/37 (0.74)",
+    "14/37 (0.19)",
+    "16/37 (0.51)",
+    "14/37 (0.19)"
+   ],
+   [
+    "Twu-c vs. Soave-19",
+    "33/37 (1 \u00d7 10\u207b\u2076)",
+    "18/37 (1.00)",
+    "18/37 (1.00)",
+    "33/37 (1 \u00d7 10\u207b\u2076)"
+   ],
+   [
+    "Twu-c vs. Twu-95",
+    "24/37 (0.099)",
+    "16/37 (0.51)",
+    "23/37 (0.19)",
+    "5/37 (7 \u00d7 10\u207b\u2076)"
+   ],
+   [
+    "Coquelet vs. Soave",
+    "16/37 (0.51)",
+    "20/37 (0.74)",
+    "13/37 (0.099)",
+    "22/37 (0.32)"
+   ],
+   [
+    "Coquelet vs. Soave-19",
+    "24/37 (0.099)",
+    "27/37 (0.008)",
+    "17/37 (0.74)",
+    "33/37 (1 \u00d7 10\u207b\u2076)"
+   ],
+   [
+    "Coquelet vs. Twu-95",
+    "10/37 (0.008)",
+    "18/37 (1.00)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "8/37 (8 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "Coquelet vs. Twu-c",
+    "14/37 (0.19)",
+    "22/37 (0.32)",
+    "15/37 (0.32)",
+    "28/37 (0.003)"
+   ],
+   [
+    "MS vs. Soave",
+    "24/37 (0.099)",
+    "16/37 (0.51)",
+    "4/37 (1 \u00d7 10\u207b\u2076)",
+    "23/37 (0.19)"
+   ],
+   [
+    "MS vs. Soave-19",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "23/37 (0.19)",
+    "16/37 (0.51)",
+    "34/37 (1 \u00d7 10\u207b\u2077)"
+   ],
+   [
+    "MS vs. Twu-95",
+    "28/37 (0.003)",
+    "22/37 (0.32)",
+    "23/37 (0.19)",
+    "10/37 (0.008)"
+   ],
+   [
+    "MS vs. Twu-c",
+    "21/37 (0.51)",
+    "21/37 (0.51)",
+    "11/37 (0.020)",
+    "32/37 (7 \u00d7 10\u207b\u2076)"
+   ],
+   [
+    "MS vs. Coquelet",
+    "25/37 (0.047)",
+    "17/37 (0.74)",
+    "21/37 (0.51)",
+    "24/37 (0.099)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Soave",
+    "29/37 (8 \u00d7 10\u207b\u2074)",
+    "29/37 (8 \u00d7 10\u207b\u2074)",
+    "15/37 (0.32)",
+    "27/37 (0.008)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Soave-19",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "31/37 (4 \u00d7 10\u207b\u2075)",
+    "23/37 (0.19)",
+    "35/37 (1 \u00d7 10\u207b\u2078)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Twu-95",
+    "24/37 (0.099)",
+    "27/37 (0.008)",
+    "23/37 (0.19)",
+    "21/37 (0.51)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Twu-c",
+    "25/37 (0.047)",
+    "27/37 (0.008)",
+    "19/37 (1.00)",
+    "27/37 (0.008)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. Coquelet",
+    "25/37 (0.047)",
+    "28/37 (0.003)",
+    "23/37 (0.19)",
+    "25/37 (0.047)"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$ vs. MS",
+    "21/37 (0.51)",
+    "26/37 (0.020)",
+    "24/37 (0.099)",
+    "23/37 (0.19)"
+   ],
+   "Volume translation (classical Soave $\\alpha$)",
+   [
+    "PR-VT vs. SRK-VT",
+    "--",
+    "--",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "--"
+   ],
+   [
+    "PR-VT$_{corr}$ vs. SRK-VT$_{corr}$",
+    "--",
+    "--",
+    "37/37 (1 \u00d7 10\u207b\u00b9\u00b9)",
+    "--"
+   ],
+   [
+    "PR-VT$_{corr}$ vs. PR",
+    "--",
+    "--",
+    "22/37 (0.32)",
+    "26/37 (0.020)"
+   ],
+   [
+    "SRK-VT$_{corr}$ vs. SRK",
+    "--",
+    "--",
+    "36/37 (6 \u00d7 10\u207b\u00b9\u2070)",
+    "26/37 (0.020)"
+   ],
+   [
+    "PR-VT vs. PR-VT$_{corr}$",
+    "--",
+    "--",
+    "27/37 (0.008)",
+    "--"
+   ],
+   [
+    "SRK-VT vs. SRK-VT$_{corr}$",
+    "--",
+    "--",
+    "34/37 (1 \u00d7 10\u207b\u2077)",
+    "--"
+   ],
+   [
+    "PR-VT vs. PR",
+    "--",
+    "--",
+    "--",
+    "30/37 (2 \u00d7 10\u207b\u2074)"
+   ],
+   [
+    "SRK-VT vs. SRK",
+    "--",
+    "--",
+    "--",
+    "26/37 (0.020)"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_alpha_constants": {
+  "caption": "Constants of the generalized $\\alpha$-functions. Soave form, Eq. {eq:soave}: $m(\\omega)$ correlations. Twu-95, Eq. {eq:twu95}: universal subcritical constants of $\\alpha^{(0)}$ and $\\alpha^{(1)}$ [cite:twu1995a,twu1995b]. Twu-c, Eq. {eq:twu91}: $N = 2$ and quadratic $L(\\omega)$, $M(\\omega)$ [cite:pina2018,pina2022]. Coquelet, Eq. {eq:coq}, and MS, Eq. {eq:ms}: generalized coefficients as compiled by Xiao and Yang [cite:xiao2025] from [cite:coquelet2004,mahmoodi2017].",
+  "header": [
+   [
+    "$\\alpha$-function",
+    "EoS",
+    "Expression / constants"
+   ]
+  ],
+  "rows": [
+   [
+    "Soave",
+    "SRK",
+    "$m = 0.480 + 1.574\\,\\omega - 0.176\\,\\omega^2$"
+   ],
+   [
+    "Soave",
+    "PR",
+    "$m = 0.37464 + 1.54226\\,\\omega - 0.26992\\,\\omega^2$"
+   ],
+   [
+    "Soave-19",
+    "SRK",
+    "$m = 0.4810 + 1.5963\\,\\omega - 0.2963\\,\\omega^2 + 0.1223\\,\\omega^3$"
+   ],
+   [
+    "Soave-19",
+    "PR",
+    "$m = 0.3919 + 1.4996\\,\\omega - 0.2721\\,\\omega^2 + 0.1063\\,\\omega^3$"
+   ],
+   [
+    "Twu-95",
+    "SRK",
+    "$\\alpha^{(0)}$: $L = 0.141599$, $M = 0.919422$, $N = 2.496441$; $\\alpha^{(1)}$: $L = 0.500315$, $M = 0.799457$, $N = 3.291790$"
+   ],
+   [
+    "Twu-95",
+    "PR",
+    "$\\alpha^{(0)}$: $L = 0.125283$, $M = 0.911807$, $N = 1.948150$; $\\alpha^{(1)}$: $L = 0.511614$, $M = 0.784054$, $N = 2.812520$"
+   ],
+   [
+    "Twu-c",
+    "SRK",
+    "$L = 0.1359 + 0.7535\\,\\omega + 0.0611\\,\\omega^2$; $M = 0.8787 - 0.2063\\,\\omega + 0.1709\\,\\omega^2$; $N = 2$"
+   ],
+   [
+    "Twu-c",
+    "PR",
+    "$L = 0.0544 + 0.7536\\,\\omega + 0.0297\\,\\omega^2$; $M = 0.8678 - 0.1785\\,\\omega + 0.1401\\,\\omega^2$; $N = 2$"
+   ],
+   [
+    "Coquelet",
+    "SRK",
+    "$C_1 = 0.53591 + 1.4492\\,\\omega - 0.13969\\,\\omega^2$; $C_2 = -0.2741 + 0.59006\\,\\omega - 0.54412\\,\\omega^2$; $C_3 = 0.54293 + 0.53258\\,\\omega - 1.4927\\,\\omega^2$"
+   ],
+   [
+    "Coquelet",
+    "PR",
+    "$C_1 = 0.40464 + 1.3361\\,\\omega - 0.07987\\,\\omega^2$; $C_2 = -0.08139 + 0.96493\\,\\omega - 0.85454\\,\\omega^2$; $C_3 = 0.31953 + 0.001007\\,\\omega - 0.88858\\,\\omega^2$"
+   ],
+   [
+    "MS",
+    "SRK",
+    "$C_1 = 0.47941 + 1.673\\,\\omega - 0.23356\\,\\omega^2$; $C_2 = 0.53827 + 2.1529\\,\\omega - 0.7143\\,\\omega^2$; $C_3 = 1.7482\\,\\exp\\{-[(\\omega - 1.456)/1.4542]^4\\}$"
+   ],
+   [
+    "MS",
+    "PR",
+    "$C_1 = 0.36818 + 1.4801\\,\\omega - 0.14407\\,\\omega^2$; $C_2 = 0.19422 + 1.9061\\,\\omega - 0.46577\\,\\omega^2$; $C_3 = 1.514\\,\\exp\\{-[(\\omega - 1.6645)/1.5474]^4\\}$"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_fluids": {
+  "caption": "Fluid set. Critical constants, acentric factors and critical compressibility factors are taken from the reference equations of state via CoolProp; $\\chi$ is the Halm--Stiel polar factor evaluated from the reference vapor pressure at $T_r = 0.6$ (undefined for carbon dioxide, whose triple point lies above $0.6\\,T_c$); $T_{r,\\min}$ is the lower end of the temperature grid.",
+  "header": [
+   [
+    "Fluid",
+    "Subgroup",
+    "$T_c$ (K)",
+    "$p_c$ (MPa)",
+    "$\\omega$",
+    "$Z_c^{ref}$",
+    "$\\chi$",
+    "$T_{r,\\min}$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "",
+    "150.69",
+    "4.863",
+    "-0.0022",
+    "0.2895",
+    "0.005",
+    "0.566"
+   ],
+   [
+    "oxygen",
+    "",
+    "154.60",
+    "5.046",
+    "0.0222",
+    "0.2942",
+    "0.006",
+    "0.500"
+   ],
+   [
+    "nitrogen",
+    "",
+    "126.19",
+    "3.396",
+    "0.0372",
+    "0.2894",
+    "0.004",
+    "0.510"
+   ],
+   [
+    "carbon monoxide",
+    "",
+    "132.86",
+    "3.498",
+    "0.0497",
+    "0.2919",
+    "0.001",
+    "0.523"
+   ],
+   [
+    "hydrogen sulfide",
+    "",
+    "373.10",
+    "8.999",
+    "0.1005",
+    "0.2847",
+    "0.003",
+    "0.513"
+   ],
+   [
+    "carbon dioxide",
+    "",
+    "304.13",
+    "7.377",
+    "0.2239",
+    "0.2746",
+    "--",
+    "0.722"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "",
+    "190.56",
+    "4.599",
+    "0.0114",
+    "0.2863",
+    "0.008",
+    "0.500"
+   ],
+   [
+    "ethane",
+    "",
+    "305.32",
+    "4.872",
+    "0.0990",
+    "0.2799",
+    "0.006",
+    "0.500"
+   ],
+   [
+    "propane",
+    "",
+    "369.89",
+    "4.251",
+    "0.1521",
+    "0.2765",
+    "0.005",
+    "0.500"
+   ],
+   [
+    "isobutane",
+    "",
+    "407.81",
+    "3.629",
+    "0.1835",
+    "0.2759",
+    "0.003",
+    "0.500"
+   ],
+   [
+    "n-butane",
+    "",
+    "425.13",
+    "3.796",
+    "0.2008",
+    "0.2738",
+    "0.007",
+    "0.500"
+   ],
+   [
+    "cyclohexane",
+    "",
+    "553.60",
+    "4.081",
+    "0.2093",
+    "0.2750",
+    "-0.002",
+    "0.515"
+   ],
+   [
+    "n-pentane",
+    "",
+    "469.70",
+    "3.368",
+    "0.2510",
+    "0.2686",
+    "0.005",
+    "0.500"
+   ],
+   [
+    "n-hexane",
+    "",
+    "507.82",
+    "3.044",
+    "0.3003",
+    "0.2665",
+    "0.004",
+    "0.500"
+   ],
+   [
+    "n-heptane",
+    "",
+    "541.23",
+    "2.774",
+    "0.3490",
+    "0.2746",
+    "0.006",
+    "0.500"
+   ],
+   [
+    "n-octane",
+    "",
+    "568.74",
+    "2.484",
+    "0.3975",
+    "0.2586",
+    "0.000",
+    "0.500"
+   ],
+   [
+    "n-decane",
+    "",
+    "617.70",
+    "2.101",
+    "0.4884",
+    "0.2495",
+    "-0.003",
+    "0.500"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "",
+    "562.02",
+    "4.906",
+    "0.2108",
+    "0.2691",
+    "-0.001",
+    "0.506"
+   ],
+   [
+    "toluene",
+    "",
+    "591.75",
+    "4.126",
+    "0.2657",
+    "0.2647",
+    "0.006",
+    "0.500"
+   ],
+   [
+    "ethylbenzene",
+    "",
+    "617.12",
+    "3.622",
+    "0.3040",
+    "0.2576",
+    "0.003",
+    "0.500"
+   ],
+   [
+    "o-xylene",
+    "",
+    "630.26",
+    "3.737",
+    "0.3120",
+    "0.2657",
+    "0.007",
+    "0.500"
+   ],
+   [
+    "p-xylene",
+    "",
+    "616.17",
+    "3.532",
+    "0.3240",
+    "0.2559",
+    "0.010",
+    "0.500"
+   ],
+   [
+    "m-xylene",
+    "",
+    "616.89",
+    "3.535",
+    "0.3260",
+    "0.2586",
+    "0.007",
+    "0.500"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "polar aprotic",
+    "418.63",
+    "6.929",
+    "0.1501",
+    "0.2942",
+    "0.010",
+    "0.559"
+   ],
+   [
+    "dimethyl ether",
+    "polar aprotic",
+    "400.38",
+    "5.337",
+    "0.1960",
+    "0.2699",
+    "0.004",
+    "0.500"
+   ],
+   [
+    "ethylene oxide",
+    "polar aprotic",
+    "468.92",
+    "7.305",
+    "0.2102",
+    "0.2613",
+    "0.012",
+    "0.500"
+   ],
+   [
+    "tetrahydrofuran",
+    "polar aprotic",
+    "540.20",
+    "5.304",
+    "0.2340",
+    "0.2684",
+    "0.009",
+    "0.500"
+   ],
+   [
+    "ammonia",
+    "H-bonding",
+    "405.56",
+    "11.363",
+    "0.2557",
+    "0.2461",
+    "0.012",
+    "0.500"
+   ],
+   [
+    "sulfur dioxide",
+    "polar aprotic",
+    "430.64",
+    "7.887",
+    "0.2561",
+    "0.2727",
+    "0.002",
+    "0.500"
+   ],
+   [
+    "acetone",
+    "polar aprotic",
+    "508.10",
+    "4.692",
+    "0.3071",
+    "0.2363",
+    "0.013",
+    "0.500"
+   ],
+   [
+    "water",
+    "H-bonding",
+    "647.10",
+    "22.064",
+    "0.3443",
+    "0.2294",
+    "0.023",
+    "0.500"
+   ],
+   [
+    "methanol",
+    "H-bonding",
+    "513.38",
+    "8.216",
+    "0.5649",
+    "0.2191",
+    "0.043",
+    "0.500"
+   ],
+   [
+    "ethanol",
+    "H-bonding",
+    "514.71",
+    "6.268",
+    "0.6440",
+    "0.2470",
+    "0.004",
+    "0.500"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "",
+    "367.85",
+    "3.384",
+    "0.2760",
+    "0.2647",
+    "0.005",
+    "0.500"
+   ],
+   [
+    "R-32",
+    "",
+    "351.26",
+    "5.783",
+    "0.2769",
+    "0.2429",
+    "0.015",
+    "0.500"
+   ],
+   [
+    "R-125",
+    "",
+    "339.18",
+    "3.618",
+    "0.3052",
+    "0.2686",
+    "0.000",
+    "0.519"
+   ],
+   [
+    "R-134a",
+    "",
+    "374.21",
+    "4.059",
+    "0.3268",
+    "0.2600",
+    "0.003",
+    "0.500"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_twufit": {
+  "caption": "Component-specific consistent Twu-91 parameters used for the fitted reference (Twu-fit), from the 1800-fluid compilation of Pi\\~na-Martinez et al. [cite:pina2022] (tc-RK and tc-PR parameter sets), reproduced here for the benchmark fluids so that the results can be regenerated without external databases.",
+  "header": [
+   [
+    "",
+    "SRK (tc-RK set)",
+    "",
+    "",
+    "PR (tc-PR set)",
+    "",
+    ""
+   ],
+   [
+    "Fluid",
+    "$L$",
+    "$M$",
+    "$N$",
+    "$L$",
+    "$M$",
+    "$N$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "0.2019",
+    "0.9085",
+    "1.8139",
+    "0.1227",
+    "0.9045",
+    "1.8541"
+   ],
+   [
+    "oxygen",
+    "0.2133",
+    "0.9010",
+    "1.8619",
+    "0.2339",
+    "0.8896",
+    "1.3053"
+   ],
+   [
+    "nitrogen",
+    "0.1902",
+    "0.8900",
+    "2.0106",
+    "0.1243",
+    "0.8898",
+    "2.0129"
+   ],
+   [
+    "carbon monoxide",
+    "0.1623",
+    "0.8778",
+    "2.1566",
+    "0.0997",
+    "0.8782",
+    "2.1509"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.1748",
+    "0.8686",
+    "2.2761",
+    "0.1122",
+    "0.8688",
+    "2.2734"
+   ],
+   [
+    "carbon dioxide",
+    "0.2805",
+    "0.8684",
+    "2.2783",
+    "0.1784",
+    "0.8590",
+    "2.4107"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.2170",
+    "0.9082",
+    "1.8172",
+    "0.1474",
+    "0.9075",
+    "1.8241"
+   ],
+   [
+    "ethane",
+    "0.2970",
+    "0.8811",
+    "1.7243",
+    "0.3053",
+    "0.8693",
+    "1.3297"
+   ],
+   [
+    "propane",
+    "0.5467",
+    "0.8814",
+    "1.1830",
+    "0.7455",
+    "0.9133",
+    "0.7610"
+   ],
+   [
+    "isobutane",
+    "0.6830",
+    "0.8838",
+    "1.0334",
+    "1.0772",
+    "0.9921",
+    "0.5743"
+   ],
+   [
+    "n-butane",
+    "0.3515",
+    "0.8609",
+    "1.8324",
+    "0.4154",
+    "0.8490",
+    "1.3205"
+   ],
+   [
+    "cyclohexane",
+    "0.3148",
+    "0.8334",
+    "1.8719",
+    "0.3729",
+    "0.8119",
+    "1.3526"
+   ],
+   [
+    "n-pentane",
+    "0.2953",
+    "0.8513",
+    "2.2372",
+    "0.2933",
+    "0.8366",
+    "1.8246"
+   ],
+   [
+    "n-hexane",
+    "0.2972",
+    "0.8492",
+    "2.4246",
+    "0.2873",
+    "0.8341",
+    "2.0199"
+   ],
+   [
+    "n-heptane",
+    "0.3530",
+    "0.8368",
+    "2.2643",
+    "0.3630",
+    "0.8202",
+    "1.8366"
+   ],
+   [
+    "n-octane",
+    "0.3598",
+    "0.8321",
+    "2.3836",
+    "0.3570",
+    "0.8172",
+    "2.0000"
+   ],
+   [
+    "n-decane",
+    "0.3777",
+    "0.8257",
+    "2.5802",
+    "0.3770",
+    "0.8108",
+    "2.1781"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.1919",
+    "0.8469",
+    "2.5997",
+    "0.1349",
+    "0.8482",
+    "2.5790"
+   ],
+   [
+    "toluene",
+    "0.3312",
+    "0.8448",
+    "2.0809",
+    "0.3171",
+    "0.8302",
+    "1.7526"
+   ],
+   [
+    "ethylbenzene",
+    "0.3919",
+    "0.8357",
+    "1.9344",
+    "0.4991",
+    "0.8222",
+    "1.3540"
+   ],
+   [
+    "o-xylene",
+    "0.3395",
+    "0.8480",
+    "2.2584",
+    "0.3621",
+    "0.8338",
+    "1.7822"
+   ],
+   [
+    "p-xylene",
+    "0.2989",
+    "0.8512",
+    "2.5294",
+    "0.2249",
+    "0.8493",
+    "2.5599"
+   ],
+   [
+    "m-xylene",
+    "0.4048",
+    "0.8430",
+    "2.0018",
+    "0.4185",
+    "0.8296",
+    "1.6288"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.3046",
+    "0.8592",
+    "1.8088",
+    "0.3115",
+    "0.8461",
+    "1.4331"
+   ],
+   [
+    "dimethyl ether",
+    "0.5120",
+    "0.8494",
+    "1.3201",
+    "0.6103",
+    "0.8498",
+    "0.9663"
+   ],
+   [
+    "ethylene oxide",
+    "0.4890",
+    "0.8541",
+    "1.3818",
+    "0.6214",
+    "0.8595",
+    "0.9597"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.4609",
+    "0.8403",
+    "1.4946",
+    "0.5290",
+    "0.8298",
+    "1.1236"
+   ],
+   [
+    "ammonia",
+    "0.2988",
+    "0.8652",
+    "2.3219",
+    "0.2274",
+    "0.8645",
+    "2.3320"
+   ],
+   [
+    "sulfur dioxide",
+    "0.3840",
+    "0.8366",
+    "1.7943",
+    "0.3947",
+    "0.8240",
+    "1.4649"
+   ],
+   [
+    "acetone",
+    "0.3716",
+    "0.8623",
+    "2.1784",
+    "0.3681",
+    "0.8538",
+    "1.8314"
+   ],
+   [
+    "water",
+    "0.4171",
+    "0.8758",
+    "2.1818",
+    "0.3872",
+    "0.8720",
+    "1.9669"
+   ],
+   [
+    "methanol",
+    "0.7619",
+    "0.9142",
+    "1.7582",
+    "0.6650",
+    "0.9116",
+    "1.7833"
+   ],
+   [
+    "ethanol",
+    "0.8128",
+    "0.9027",
+    "1.7952",
+    "0.8530",
+    "0.9130",
+    "1.5187"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.6474",
+    "0.8900",
+    "1.3462",
+    "1.0262",
+    "0.9999",
+    "0.7571"
+   ],
+   [
+    "R-32",
+    "0.3304",
+    "0.8590",
+    "2.2120",
+    "0.2864",
+    "0.8552",
+    "2.0537"
+   ],
+   [
+    "R-125",
+    "0.2829",
+    "0.8505",
+    "2.5417",
+    "0.2569",
+    "0.8429",
+    "2.2484"
+   ],
+   [
+    "R-134a",
+    "0.2830",
+    "0.8469",
+    "2.5997",
+    "0.2851",
+    "0.8320",
+    "2.1174"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_psat_srk": {
+  "caption": "Per-fluid AAD (\\%) in vapor pressure over the full temperature grid of each fluid, SRK with each $\\alpha$-function. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK"
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "Soave",
+    "Soave-19",
+    "Twu-95",
+    "Twu-c",
+    "Coquelet",
+    "MS",
+    "Twu-fit$^{\\dagger}$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "0.99",
+    "1.02",
+    "0.39",
+    "0.99",
+    "0.65",
+    "0.90",
+    "0.66"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "1.41",
+    "1.52",
+    "0.58",
+    "1.37",
+    "1.16",
+    "1.04",
+    "0.31"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "1.09",
+    "1.20",
+    "0.69",
+    "1.02",
+    "1.23",
+    "0.75",
+    "0.30"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "0.69",
+    "0.80",
+    "0.92",
+    "0.65",
+    "1.41",
+    "0.73",
+    "0.63"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "0.91",
+    "1.06",
+    "0.69",
+    "0.75",
+    "1.19",
+    "0.51",
+    "1.38"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "0.56",
+    "0.49",
+    "0.24",
+    "0.39",
+    "0.25",
+    "0.30",
+    "0.43"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "1.75",
+    "1.84",
+    "0.38",
+    "1.72",
+    "0.89",
+    "1.39",
+    "0.36"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "1.34",
+    "1.50",
+    "0.51",
+    "1.22",
+    "1.05",
+    "0.88",
+    "0.40"
+   ],
+   [
+    "propane",
+    "0.152",
+    "1.20",
+    "1.36",
+    "0.45",
+    "1.01",
+    "0.93",
+    "0.63",
+    "0.99"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "0.92",
+    "1.07",
+    "0.56",
+    "0.70",
+    "0.97",
+    "0.46",
+    "1.25"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "1.49",
+    "1.62",
+    "0.56",
+    "1.26",
+    "0.63",
+    "0.85",
+    "0.56"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "0.74",
+    "0.65",
+    "1.07",
+    "0.80",
+    "1.35",
+    "0.94",
+    "0.70"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "1.37",
+    "1.45",
+    "0.57",
+    "1.09",
+    "0.43",
+    "0.66",
+    "0.39"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "1.41",
+    "1.42",
+    "0.70",
+    "1.07",
+    "0.71",
+    "0.64",
+    "0.65"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "1.63",
+    "1.56",
+    "1.01",
+    "1.18",
+    "1.30",
+    "0.93",
+    "0.82"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "1.41",
+    "1.29",
+    "0.80",
+    "0.96",
+    "1.35",
+    "0.59",
+    "0.56"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "1.59",
+    "1.38",
+    "0.99",
+    "1.02",
+    "2.05",
+    "0.75",
+    "0.82"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "0.84",
+    "0.80",
+    "1.11",
+    "0.81",
+    "1.43",
+    "1.00",
+    "0.53"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "1.63",
+    "1.69",
+    "0.85",
+    "1.33",
+    "0.69",
+    "0.89",
+    "0.79"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "1.55",
+    "1.56",
+    "0.90",
+    "1.23",
+    "0.88",
+    "0.77",
+    "1.22"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "1.92",
+    "1.92",
+    "1.23",
+    "1.56",
+    "1.30",
+    "1.14",
+    "0.64"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "2.56",
+    "2.54",
+    "1.89",
+    "2.20",
+    "2.03",
+    "1.77",
+    "0.60"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "1.95",
+    "1.93",
+    "1.29",
+    "1.59",
+    "1.43",
+    "1.16",
+    "0.77"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "1.00",
+    "1.18",
+    "0.54",
+    "0.82",
+    "0.59",
+    "0.74",
+    "0.88"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "1.12",
+    "1.25",
+    "0.65",
+    "0.88",
+    "1.03",
+    "0.60",
+    "1.47"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "2.18",
+    "2.30",
+    "1.28",
+    "1.94",
+    "0.90",
+    "1.53",
+    "2.78"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "2.16",
+    "2.25",
+    "1.31",
+    "1.89",
+    "1.01",
+    "1.46",
+    "2.68"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "2.35",
+    "2.42",
+    "1.57",
+    "2.07",
+    "1.38",
+    "1.64",
+    "1.08"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "0.91",
+    "0.98",
+    "0.44",
+    "0.62",
+    "0.63",
+    "0.45",
+    "1.37"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "2.64",
+    "2.64",
+    "1.95",
+    "2.29",
+    "2.00",
+    "1.88",
+    "0.63"
+   ],
+   [
+    "water",
+    "0.344",
+    "4.39",
+    "4.34",
+    "3.76",
+    "4.01",
+    "3.99",
+    "3.61",
+    "0.43"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "7.84",
+    "7.65",
+    "7.22",
+    "7.20",
+    "8.43",
+    "7.02",
+    "1.60"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "3.83",
+    "3.73",
+    "3.59",
+    "3.15",
+    "4.58",
+    "3.30",
+    "1.69"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "1.43",
+    "1.48",
+    "0.69",
+    "1.12",
+    "0.57",
+    "0.68",
+    "1.70"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "2.83",
+    "2.88",
+    "2.10",
+    "2.53",
+    "2.00",
+    "2.10",
+    "0.73"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "0.85",
+    "0.85",
+    "0.47",
+    "0.53",
+    "0.45",
+    "0.47",
+    "0.76"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "1.33",
+    "1.30",
+    "0.66",
+    "0.96",
+    "0.81",
+    "0.54",
+    "0.59"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_hvap_srk": {
+  "caption": "Per-fluid AAD (\\%) in the enthalpy of vaporization over the full temperature grid of each fluid, SRK with each $\\alpha$-function. A constant volume translation leaves this property unchanged. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK"
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "Soave",
+    "Soave-19",
+    "Twu-95",
+    "Twu-c",
+    "Coquelet",
+    "MS",
+    "Twu-fit$^{\\dagger}$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "2.67",
+    "2.70",
+    "1.44",
+    "2.61",
+    "1.61",
+    "2.42",
+    "1.61"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "2.51",
+    "2.57",
+    "1.32",
+    "2.52",
+    "1.65",
+    "2.20",
+    "1.45"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "2.33",
+    "2.39",
+    "1.43",
+    "2.29",
+    "1.74",
+    "2.01",
+    "1.51"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "1.99",
+    "2.05",
+    "1.68",
+    "1.91",
+    "2.00",
+    "1.76",
+    "1.60"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "1.80",
+    "1.91",
+    "1.19",
+    "1.69",
+    "1.44",
+    "1.46",
+    "1.13"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "2.19",
+    "2.23",
+    "1.81",
+    "1.99",
+    "1.80",
+    "1.99",
+    "1.53"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "3.01",
+    "3.07",
+    "1.28",
+    "3.05",
+    "1.48",
+    "2.71",
+    "1.63"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "2.43",
+    "2.52",
+    "1.31",
+    "2.33",
+    "1.48",
+    "2.03",
+    "1.62"
+   ],
+   [
+    "propane",
+    "0.152",
+    "2.18",
+    "2.27",
+    "1.34",
+    "2.04",
+    "1.41",
+    "1.73",
+    "2.02"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "1.96",
+    "2.04",
+    "1.31",
+    "1.81",
+    "1.49",
+    "1.61",
+    "2.19"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "2.36",
+    "2.43",
+    "1.73",
+    "2.21",
+    "1.46",
+    "1.89",
+    "1.65"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "1.64",
+    "1.66",
+    "1.43",
+    "1.43",
+    "1.63",
+    "1.60",
+    "1.46"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "2.20",
+    "2.25",
+    "1.71",
+    "2.03",
+    "1.52",
+    "1.71",
+    "1.50"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "2.17",
+    "2.18",
+    "1.80",
+    "1.98",
+    "1.76",
+    "1.72",
+    "1.57"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "1.82",
+    "1.77",
+    "1.90",
+    "1.74",
+    "1.88",
+    "1.79",
+    "1.78"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "2.07",
+    "2.00",
+    "1.84",
+    "1.83",
+    "2.06",
+    "1.68",
+    "1.69"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "1.72",
+    "1.61",
+    "1.65",
+    "1.43",
+    "1.97",
+    "1.52",
+    "1.65"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "1.90",
+    "1.92",
+    "1.59",
+    "1.66",
+    "1.78",
+    "1.81",
+    "1.53"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "2.14",
+    "2.18",
+    "1.87",
+    "2.02",
+    "1.73",
+    "1.84",
+    "1.65"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "2.32",
+    "2.32",
+    "1.95",
+    "2.13",
+    "1.92",
+    "1.89",
+    "1.88"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "2.44",
+    "2.44",
+    "2.48",
+    "2.40",
+    "2.41",
+    "2.38",
+    "2.30"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "2.65",
+    "2.64",
+    "2.42",
+    "2.47",
+    "2.42",
+    "2.30",
+    "1.72"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "2.18",
+    "2.16",
+    "1.85",
+    "1.97",
+    "1.89",
+    "1.73",
+    "1.49"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "3.58",
+    "3.73",
+    "3.26",
+    "3.52",
+    "3.16",
+    "3.40",
+    "3.52"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "2.16",
+    "2.26",
+    "1.66",
+    "2.06",
+    "1.64",
+    "1.84",
+    "2.39"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "3.47",
+    "3.57",
+    "3.11",
+    "3.41",
+    "2.84",
+    "3.17",
+    "2.21"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "2.47",
+    "2.51",
+    "1.86",
+    "2.28",
+    "1.68",
+    "1.94",
+    "2.25"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "4.14",
+    "4.20",
+    "3.95",
+    "4.08",
+    "3.77",
+    "3.90",
+    "2.84"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "2.01",
+    "2.06",
+    "1.66",
+    "1.88",
+    "1.58",
+    "1.71",
+    "1.56"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "4.66",
+    "4.66",
+    "4.55",
+    "4.56",
+    "4.49",
+    "4.45",
+    "3.88"
+   ],
+   [
+    "water",
+    "0.344",
+    "4.48",
+    "4.44",
+    "4.25",
+    "4.29",
+    "4.31",
+    "4.11",
+    "2.36"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "8.81",
+    "8.64",
+    "8.96",
+    "8.45",
+    "9.20",
+    "8.82",
+    "5.78"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "4.03",
+    "3.97",
+    "3.73",
+    "3.64",
+    "4.41",
+    "3.58",
+    "1.52"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "2.26",
+    "2.29",
+    "1.86",
+    "2.08",
+    "1.75",
+    "1.81",
+    "2.29"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "4.32",
+    "4.35",
+    "4.09",
+    "4.22",
+    "3.97",
+    "4.03",
+    "3.14"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "1.94",
+    "1.95",
+    "1.54",
+    "1.73",
+    "1.59",
+    "1.62",
+    "1.61"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "2.36",
+    "2.34",
+    "2.10",
+    "2.18",
+    "2.12",
+    "1.98",
+    "1.78"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_psat_pr": {
+  "caption": "Per-fluid AAD (\\%) in vapor pressure over the full temperature grid of each fluid, PR with each $\\alpha$-function. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR"
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "Soave",
+    "Soave-19",
+    "Twu-95",
+    "Twu-c",
+    "Coquelet",
+    "MS",
+    "Twu-fit$^{\\dagger}$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "0.81",
+    "1.34",
+    "0.38",
+    "0.97",
+    "0.65",
+    "0.49",
+    "0.53"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "0.86",
+    "1.71",
+    "0.56",
+    "1.45",
+    "1.10",
+    "0.56",
+    "0.25"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "0.93",
+    "1.46",
+    "0.68",
+    "1.03",
+    "1.19",
+    "0.37",
+    "0.31"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "1.10",
+    "1.12",
+    "0.91",
+    "0.56",
+    "1.38",
+    "0.67",
+    "0.54"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "0.85",
+    "1.25",
+    "0.69",
+    "0.63",
+    "1.15",
+    "0.43",
+    "1.20"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "0.50",
+    "1.02",
+    "0.19",
+    "0.44",
+    "0.21",
+    "0.22",
+    "0.28"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "0.73",
+    "1.93",
+    "0.35",
+    "1.84",
+    "0.83",
+    "0.89",
+    "0.31"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "0.68",
+    "1.47",
+    "0.51",
+    "1.09",
+    "1.00",
+    "0.57",
+    "0.28"
+   ],
+   [
+    "propane",
+    "0.152",
+    "0.70",
+    "1.28",
+    "0.47",
+    "0.80",
+    "0.88",
+    "0.41",
+    "0.58"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "0.92",
+    "1.04",
+    "0.59",
+    "0.47",
+    "0.93",
+    "0.38",
+    "0.69"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "0.61",
+    "1.28",
+    "0.57",
+    "0.93",
+    "0.60",
+    "0.68",
+    "0.41"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "1.45",
+    "1.20",
+    "1.12",
+    "0.66",
+    "1.32",
+    "0.93",
+    "0.54"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "0.72",
+    "0.99",
+    "0.61",
+    "0.68",
+    "0.40",
+    "0.52",
+    "0.31"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "0.89",
+    "0.88",
+    "0.73",
+    "0.52",
+    "0.63",
+    "0.51",
+    "0.56"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "0.89",
+    "1.08",
+    "0.88",
+    "0.78",
+    "1.15",
+    "0.76",
+    "0.66"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "1.31",
+    "0.88",
+    "0.83",
+    "0.45",
+    "1.17",
+    "0.46",
+    "0.40"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "2.19",
+    "1.10",
+    "0.96",
+    "0.79",
+    "1.77",
+    "0.64",
+    "0.73"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "1.50",
+    "1.24",
+    "1.16",
+    "0.66",
+    "1.40",
+    "0.98",
+    "0.38"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "0.81",
+    "1.02",
+    "0.85",
+    "0.82",
+    "0.65",
+    "0.76",
+    "0.65"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "1.16",
+    "0.91",
+    "0.97",
+    "0.55",
+    "0.82",
+    "0.69",
+    "1.04"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "0.64",
+    "1.04",
+    "1.20",
+    "0.95",
+    "1.20",
+    "1.02",
+    "0.57"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "0.72",
+    "1.48",
+    "1.86",
+    "1.51",
+    "1.92",
+    "1.66",
+    "0.43"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "0.50",
+    "1.01",
+    "1.27",
+    "0.92",
+    "1.32",
+    "1.05",
+    "0.45"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "0.76",
+    "2.06",
+    "0.50",
+    "1.04",
+    "0.59",
+    "0.67",
+    "1.25"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "0.96",
+    "1.02",
+    "0.69",
+    "0.58",
+    "0.99",
+    "0.50",
+    "1.03"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "0.59",
+    "1.75",
+    "1.25",
+    "1.56",
+    "0.89",
+    "1.38",
+    "2.52"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "0.97",
+    "1.53",
+    "1.28",
+    "1.44",
+    "0.98",
+    "1.32",
+    "2.31"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "0.71",
+    "1.79",
+    "1.55",
+    "1.58",
+    "1.33",
+    "1.51",
+    "1.36"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "1.05",
+    "0.97",
+    "0.50",
+    "0.30",
+    "0.60",
+    "0.39",
+    "0.83"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "0.85",
+    "1.74",
+    "1.90",
+    "1.69",
+    "1.90",
+    "1.76",
+    "0.56"
+   ],
+   [
+    "water",
+    "0.344",
+    "2.50",
+    "3.16",
+    "3.71",
+    "3.26",
+    "3.87",
+    "3.50",
+    "0.30"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "5.04",
+    "5.88",
+    "7.14",
+    "5.97",
+    "8.10",
+    "7.00",
+    "0.44"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "2.02",
+    "2.42",
+    "3.55",
+    "2.45",
+    "4.33",
+    "3.54",
+    "1.83"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "0.75",
+    "0.88",
+    "0.73",
+    "0.60",
+    "0.54",
+    "0.56",
+    "1.71"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "1.12",
+    "2.03",
+    "2.07",
+    "1.96",
+    "1.93",
+    "1.98",
+    "0.35"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "1.00",
+    "0.90",
+    "0.57",
+    "0.41",
+    "0.42",
+    "0.44",
+    "1.01"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "0.92",
+    "0.84",
+    "0.69",
+    "0.38",
+    "0.70",
+    "0.41",
+    "0.57"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_hvap_pr": {
+  "caption": "Per-fluid AAD (\\%) in the enthalpy of vaporization over the full temperature grid of each fluid, PR with each $\\alpha$-function. A constant volume translation leaves this property unchanged. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR"
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "Soave",
+    "Soave-19",
+    "Twu-95",
+    "Twu-c",
+    "Coquelet",
+    "MS",
+    "Twu-fit$^{\\dagger}$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "2.02",
+    "2.16",
+    "1.70",
+    "2.98",
+    "1.87",
+    "2.18",
+    "1.82"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "1.73",
+    "1.90",
+    "1.51",
+    "2.84",
+    "1.81",
+    "1.94",
+    "1.47"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "1.93",
+    "1.74",
+    "1.71",
+    "2.56",
+    "2.02",
+    "1.83",
+    "1.43"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "2.33",
+    "1.69",
+    "2.14",
+    "2.17",
+    "2.42",
+    "1.95",
+    "1.80"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "1.32",
+    "1.51",
+    "1.05",
+    "1.56",
+    "1.23",
+    "1.24",
+    "0.92"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "1.68",
+    "2.00",
+    "1.67",
+    "1.69",
+    "1.61",
+    "1.77",
+    "1.60"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "1.74",
+    "2.39",
+    "1.41",
+    "3.41",
+    "1.59",
+    "2.42",
+    "1.41"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "1.64",
+    "1.80",
+    "1.41",
+    "2.34",
+    "1.54",
+    "1.93",
+    "1.52"
+   ],
+   [
+    "propane",
+    "0.152",
+    "1.60",
+    "1.67",
+    "1.41",
+    "1.88",
+    "1.39",
+    "1.67",
+    "1.83"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "1.71",
+    "1.68",
+    "1.34",
+    "1.57",
+    "1.47",
+    "1.54",
+    "1.92"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "1.61",
+    "1.78",
+    "1.75",
+    "1.93",
+    "1.42",
+    "1.83",
+    "1.55"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "1.86",
+    "1.74",
+    "1.45",
+    "1.33",
+    "1.60",
+    "1.54",
+    "1.39"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "1.62",
+    "1.69",
+    "1.74",
+    "1.66",
+    "1.53",
+    "1.68",
+    "1.37"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "1.69",
+    "1.76",
+    "1.76",
+    "1.54",
+    "1.69",
+    "1.62",
+    "1.39"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "1.54",
+    "1.77",
+    "1.35",
+    "1.39",
+    "1.40",
+    "1.26",
+    "1.30"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "1.73",
+    "1.77",
+    "1.74",
+    "1.43",
+    "1.93",
+    "1.53",
+    "1.45"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "1.48",
+    "1.57",
+    "1.37",
+    "1.26",
+    "1.71",
+    "1.22",
+    "1.31"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "2.00",
+    "1.95",
+    "1.55",
+    "1.50",
+    "1.69",
+    "1.70",
+    "1.30"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "1.63",
+    "1.86",
+    "1.58",
+    "1.62",
+    "1.45",
+    "1.52",
+    "1.32"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "1.87",
+    "1.95",
+    "1.91",
+    "1.68",
+    "1.86",
+    "1.78",
+    "1.82"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "1.79",
+    "2.14",
+    "1.92",
+    "2.05",
+    "1.91",
+    "1.84",
+    "1.85"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "1.62",
+    "1.93",
+    "2.20",
+    "2.03",
+    "2.21",
+    "2.06",
+    "1.37"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "1.25",
+    "1.43",
+    "1.80",
+    "1.50",
+    "1.81",
+    "1.63",
+    "1.25"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "2.77",
+    "3.52",
+    "2.69",
+    "3.12",
+    "2.55",
+    "2.85",
+    "3.15"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "1.67",
+    "1.91",
+    "1.46",
+    "1.73",
+    "1.34",
+    "1.57",
+    "2.03"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "2.38",
+    "3.01",
+    "2.77",
+    "3.04",
+    "2.51",
+    "2.82",
+    "1.87"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "1.92",
+    "1.91",
+    "2.06",
+    "1.99",
+    "1.82",
+    "2.03",
+    "2.21"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "3.09",
+    "3.67",
+    "3.54",
+    "3.69",
+    "3.39",
+    "3.50",
+    "2.27"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "1.64",
+    "1.80",
+    "1.45",
+    "1.49",
+    "1.32",
+    "1.44",
+    "1.32"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "3.60",
+    "4.09",
+    "4.13",
+    "4.15",
+    "4.10",
+    "4.03",
+    "3.48"
+   ],
+   [
+    "water",
+    "0.344",
+    "3.26",
+    "3.65",
+    "4.06",
+    "3.80",
+    "4.11",
+    "3.88",
+    "2.01"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "7.08",
+    "7.85",
+    "8.51",
+    "7.96",
+    "8.85",
+    "8.43",
+    "5.28"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "2.53",
+    "2.80",
+    "3.76",
+    "2.85",
+    "4.28",
+    "3.68",
+    "1.38"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "1.68",
+    "1.80",
+    "1.79",
+    "1.67",
+    "1.67",
+    "1.70",
+    "2.08"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "3.23",
+    "3.73",
+    "3.77",
+    "3.81",
+    "3.66",
+    "3.69",
+    "2.72"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "1.69",
+    "1.72",
+    "1.49",
+    "1.36",
+    "1.47",
+    "1.46",
+    "1.51"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "1.84",
+    "1.97",
+    "1.93",
+    "1.72",
+    "1.94",
+    "1.78",
+    "1.55"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_rho": {
+  "caption": "Per-fluid AAD (\\%) in saturated-liquid density for the untranslated cubics (classical Soave $\\alpha$; the $\\alpha$-function changes these values by less than 0.3 points for any fluid) and for the Rackett-anchored (VT$_{corr}$) and density-anchored (VT) translations.",
+  "header": [
+   [
+    "",
+    "",
+    "SRK",
+    "",
+    "",
+    "PR",
+    "",
+    ""
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "none",
+    "VT$_{corr}$",
+    "VT",
+    "none",
+    "VT$_{corr}$",
+    "VT"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "4.61",
+    "4.32",
+    "4.37",
+    "8.99",
+    "2.70",
+    "2.73"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "4.32",
+    "4.08",
+    "4.05",
+    "9.14",
+    "2.37",
+    "2.42"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "4.08",
+    "4.12",
+    "3.96",
+    "9.50",
+    "2.54",
+    "2.38"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "4.05",
+    "3.89",
+    "3.72",
+    "9.27",
+    "2.40",
+    "2.25"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "6.21",
+    "3.55",
+    "3.54",
+    "6.98",
+    "1.93",
+    "2.08"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "12.24",
+    "5.91",
+    "6.19",
+    "3.86",
+    "3.84",
+    "4.08"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "4.75",
+    "4.31",
+    "4.31",
+    "8.82",
+    "2.70",
+    "2.59"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "7.39",
+    "4.34",
+    "4.32",
+    "6.58",
+    "3.09",
+    "2.64"
+   ],
+   [
+    "propane",
+    "0.152",
+    "8.67",
+    "4.33",
+    "4.33",
+    "5.57",
+    "2.87",
+    "2.70"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "9.36",
+    "4.34",
+    "4.34",
+    "5.05",
+    "2.68",
+    "2.73"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "9.94",
+    "4.44",
+    "4.43",
+    "4.72",
+    "2.75",
+    "2.80"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "9.69",
+    "4.29",
+    "4.25",
+    "4.74",
+    "2.57",
+    "2.78"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "11.84",
+    "4.58",
+    "4.58",
+    "3.59",
+    "3.06",
+    "2.94"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "12.66",
+    "4.56",
+    "4.49",
+    "3.02",
+    "2.73",
+    "2.91"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "13.40",
+    "4.64",
+    "4.37",
+    "2.60",
+    "2.84",
+    "2.79"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "16.01",
+    "4.79",
+    "4.70",
+    "5.11",
+    "2.91",
+    "3.11"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "18.11",
+    "5.19",
+    "4.72",
+    "7.53",
+    "3.40",
+    "3.20"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "11.35",
+    "4.61",
+    "4.41",
+    "3.76",
+    "3.86",
+    "2.93"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "13.27",
+    "4.87",
+    "4.67",
+    "2.91",
+    "4.14",
+    "2.97"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "14.40",
+    "4.99",
+    "4.92",
+    "3.28",
+    "4.04",
+    "3.23"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "13.99",
+    "4.55",
+    "4.52",
+    "2.82",
+    "3.29",
+    "2.77"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "15.44",
+    "5.23",
+    "4.88",
+    "4.45",
+    "4.49",
+    "3.11"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "15.70",
+    "5.46",
+    "4.90",
+    "4.75",
+    "4.71",
+    "3.12"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "10.40",
+    "5.62",
+    "4.10",
+    "3.70",
+    "4.53",
+    "2.38"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "11.30",
+    "5.00",
+    "4.42",
+    "3.69",
+    "4.30",
+    "2.78"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "15.85",
+    "9.46",
+    "4.77",
+    "4.91",
+    "8.77",
+    "2.86"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "10.33",
+    "4.69",
+    "4.55",
+    "4.67",
+    "2.91",
+    "3.05"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "22.57",
+    "15.38",
+    "5.82",
+    "12.50",
+    "14.72",
+    "3.69"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "12.69",
+    "4.56",
+    "3.97",
+    "2.40",
+    "3.82",
+    "2.56"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "23.88",
+    "15.24",
+    "6.33",
+    "13.98",
+    "14.57",
+    "4.20"
+   ],
+   [
+    "water",
+    "0.344",
+    "28.83",
+    "19.61",
+    "8.55",
+    "19.59",
+    "18.99",
+    "6.30"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "25.77",
+    "8.00",
+    "7.42",
+    "16.22",
+    "7.18",
+    "5.28"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "18.19",
+    "10.47",
+    "6.03",
+    "7.71",
+    "9.36",
+    "4.04"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "13.38",
+    "4.67",
+    "4.54",
+    "2.78",
+    "3.89",
+    "2.94"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "23.99",
+    "16.29",
+    "6.08",
+    "14.10",
+    "15.63",
+    "3.94"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "11.62",
+    "4.79",
+    "4.42",
+    "3.57",
+    "3.18",
+    "2.89"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "15.25",
+    "4.93",
+    "4.69",
+    "4.24",
+    "4.17",
+    "3.06"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_rhov_srk": {
+  "caption": "Per-fluid AAD (\\%) in saturated-vapor density over the full temperature grid of each fluid, SRK with each $\\alpha$-function and density-anchored translated SRK (classical $\\alpha$, last column). $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK",
+    "SRK-VT"
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "Soave",
+    "Soave-19",
+    "Twu-95",
+    "Twu-c",
+    "Coquelet",
+    "MS",
+    "Twu-fit$^{\\dagger}$",
+    ""
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "1.03",
+    "1.08",
+    "0.63",
+    "0.91",
+    "1.01",
+    "0.78",
+    "0.30",
+    "1.06"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "1.40",
+    "1.54",
+    "0.79",
+    "1.28",
+    "1.48",
+    "0.94",
+    "0.43",
+    "1.44"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "1.16",
+    "1.31",
+    "0.76",
+    "1.01",
+    "1.41",
+    "0.72",
+    "0.39",
+    "1.20"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "0.82",
+    "0.95",
+    "0.91",
+    "0.68",
+    "1.44",
+    "0.62",
+    "0.49",
+    "0.87"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "1.09",
+    "1.41",
+    "1.38",
+    "1.03",
+    "1.94",
+    "0.81",
+    "0.80",
+    "0.99"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "1.09",
+    "1.19",
+    "1.72",
+    "1.32",
+    "1.78",
+    "1.60",
+    "1.38",
+    "0.48"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "1.78",
+    "1.90",
+    "0.58",
+    "1.67",
+    "1.19",
+    "1.32",
+    "0.37",
+    "1.84"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "1.23",
+    "1.46",
+    "0.62",
+    "1.05",
+    "1.27",
+    "0.73",
+    "0.52",
+    "1.31"
+   ],
+   [
+    "propane",
+    "0.152",
+    "1.12",
+    "1.38",
+    "0.70",
+    "0.97",
+    "1.22",
+    "0.70",
+    "0.70",
+    "1.16"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "0.84",
+    "1.09",
+    "0.83",
+    "0.75",
+    "1.29",
+    "0.65",
+    "0.81",
+    "0.87"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "1.37",
+    "1.58",
+    "0.93",
+    "1.23",
+    "0.86",
+    "1.05",
+    "0.71",
+    "1.38"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "0.67",
+    "0.72",
+    "1.45",
+    "0.81",
+    "1.79",
+    "1.22",
+    "0.45",
+    "0.61"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "1.26",
+    "1.39",
+    "0.97",
+    "1.12",
+    "0.79",
+    "1.04",
+    "0.97",
+    "1.26"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "1.41",
+    "1.43",
+    "1.24",
+    "1.22",
+    "1.21",
+    "1.27",
+    "1.51",
+    "1.23"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "3.03",
+    "2.92",
+    "2.92",
+    "2.71",
+    "3.08",
+    "2.93",
+    "2.89",
+    "2.61"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "1.61",
+    "1.37",
+    "1.57",
+    "1.14",
+    "1.92",
+    "1.56",
+    "1.72",
+    "1.15"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "2.19",
+    "1.75",
+    "2.28",
+    "1.43",
+    "2.92",
+    "2.21",
+    "2.67",
+    "1.64"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "0.88",
+    "0.98",
+    "1.56",
+    "0.97",
+    "1.92",
+    "1.40",
+    "0.78",
+    "0.77"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "2.37",
+    "2.48",
+    "2.14",
+    "2.25",
+    "1.99",
+    "2.20",
+    "1.71",
+    "1.92"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "1.36",
+    "1.37",
+    "1.10",
+    "1.07",
+    "1.09",
+    "1.15",
+    "0.59",
+    "1.30"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "3.29",
+    "3.28",
+    "3.13",
+    "3.07",
+    "3.15",
+    "3.16",
+    "3.08",
+    "2.82"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "3.04",
+    "3.00",
+    "2.91",
+    "2.80",
+    "2.98",
+    "2.94",
+    "2.21",
+    "2.57"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "2.14",
+    "2.10",
+    "2.01",
+    "1.89",
+    "2.09",
+    "2.04",
+    "1.50",
+    "1.84"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "4.42",
+    "4.67",
+    "4.40",
+    "4.41",
+    "4.28",
+    "4.40",
+    "4.59",
+    "4.00"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "2.02",
+    "2.28",
+    "1.85",
+    "1.99",
+    "2.19",
+    "1.86",
+    "1.98",
+    "1.63"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "3.92",
+    "4.16",
+    "3.62",
+    "3.88",
+    "3.30",
+    "3.73",
+    "1.89",
+    "3.32"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "2.19",
+    "2.29",
+    "1.30",
+    "1.90",
+    "1.01",
+    "1.48",
+    "2.70",
+    "2.34"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "5.19",
+    "5.33",
+    "4.97",
+    "5.10",
+    "4.79",
+    "5.03",
+    "3.86",
+    "4.34"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "1.93",
+    "2.08",
+    "1.74",
+    "1.83",
+    "1.93",
+    "1.90",
+    "1.19",
+    "1.49"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "5.72",
+    "5.73",
+    "5.56",
+    "5.52",
+    "5.57",
+    "5.60",
+    "4.96",
+    "4.87"
+   ],
+   [
+    "water",
+    "0.344",
+    "5.56",
+    "5.47",
+    "5.47",
+    "5.27",
+    "5.60",
+    "5.50",
+    "3.38",
+    "4.50"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "11.30",
+    "10.89",
+    "11.56",
+    "10.50",
+    "12.13",
+    "11.43",
+    "6.43",
+    "10.56"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "4.29",
+    "4.00",
+    "4.58",
+    "3.31",
+    "5.39",
+    "4.22",
+    "2.49",
+    "4.48"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "1.57",
+    "1.67",
+    "1.37",
+    "1.44",
+    "1.25",
+    "1.42",
+    "2.81",
+    "1.20"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "5.11",
+    "5.20",
+    "4.92",
+    "4.98",
+    "4.82",
+    "4.98",
+    "3.59",
+    "4.21"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "1.01",
+    "1.02",
+    "0.97",
+    "0.82",
+    "1.02",
+    "1.17",
+    "1.79",
+    "0.75"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "2.14",
+    "2.09",
+    "2.00",
+    "1.88",
+    "2.08",
+    "2.02",
+    "2.22",
+    "1.63"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_perfluid_rhov_pr": {
+  "caption": "Per-fluid AAD (\\%) in saturated-vapor density over the full temperature grid of each fluid, PR with each $\\alpha$-function and density-anchored translated PR (classical $\\alpha$, last column). $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR",
+    "PR-VT"
+   ],
+   [
+    "Fluid",
+    "$\\omega$",
+    "Soave",
+    "Soave-19",
+    "Twu-95",
+    "Twu-c",
+    "Coquelet",
+    "MS",
+    "Twu-fit$^{\\dagger}$",
+    ""
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "-0.002",
+    "2.04",
+    "2.31",
+    "1.38",
+    "2.41",
+    "1.46",
+    "1.82",
+    "1.67",
+    "1.30"
+   ],
+   [
+    "oxygen",
+    "0.022",
+    "1.82",
+    "2.46",
+    "1.38",
+    "2.59",
+    "1.80",
+    "1.64",
+    "1.18",
+    "1.23"
+   ],
+   [
+    "nitrogen",
+    "0.037",
+    "1.99",
+    "2.30",
+    "1.63",
+    "2.30",
+    "2.01",
+    "1.54",
+    "1.24",
+    "1.37"
+   ],
+   [
+    "carbon monoxide",
+    "0.050",
+    "2.38",
+    "1.97",
+    "2.08",
+    "1.97",
+    "2.41",
+    "1.98",
+    "1.81",
+    "1.76"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.101",
+    "1.14",
+    "1.80",
+    "0.92",
+    "1.21",
+    "1.31",
+    "0.81",
+    "1.29",
+    "0.95"
+   ],
+   [
+    "carbon dioxide",
+    "0.224",
+    "1.12",
+    "1.60",
+    "0.84",
+    "1.07",
+    "0.86",
+    "0.92",
+    "0.64",
+    "1.03"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.011",
+    "1.59",
+    "2.84",
+    "1.16",
+    "3.02",
+    "1.51",
+    "2.00",
+    "1.13",
+    "1.02"
+   ],
+   [
+    "ethane",
+    "0.099",
+    "1.26",
+    "2.17",
+    "1.03",
+    "1.90",
+    "1.48",
+    "1.35",
+    "1.02",
+    "0.95"
+   ],
+   [
+    "propane",
+    "0.152",
+    "1.20",
+    "1.88",
+    "0.83",
+    "1.47",
+    "1.20",
+    "1.06",
+    "1.22",
+    "1.00"
+   ],
+   [
+    "isobutane",
+    "0.184",
+    "1.40",
+    "1.61",
+    "0.93",
+    "1.13",
+    "1.26",
+    "0.92",
+    "1.21",
+    "1.25"
+   ],
+   [
+    "n-butane",
+    "0.201",
+    "1.05",
+    "1.87",
+    "0.92",
+    "1.49",
+    "0.75",
+    "1.16",
+    "0.82",
+    "0.92"
+   ],
+   [
+    "cyclohexane",
+    "0.209",
+    "1.72",
+    "1.53",
+    "1.34",
+    "1.00",
+    "1.56",
+    "1.24",
+    "0.89",
+    "1.59"
+   ],
+   [
+    "n-pentane",
+    "0.251",
+    "1.11",
+    "1.53",
+    "0.83",
+    "1.18",
+    "0.64",
+    "0.93",
+    "0.76",
+    "1.05"
+   ],
+   [
+    "n-hexane",
+    "0.300",
+    "1.18",
+    "1.38",
+    "0.76",
+    "0.96",
+    "0.81",
+    "0.76",
+    "0.85",
+    "1.15"
+   ],
+   [
+    "n-heptane",
+    "0.349",
+    "2.10",
+    "2.51",
+    "1.75",
+    "2.13",
+    "2.05",
+    "1.79",
+    "1.92",
+    "2.13"
+   ],
+   [
+    "n-octane",
+    "0.398",
+    "1.43",
+    "1.37",
+    "0.59",
+    "0.82",
+    "1.15",
+    "0.52",
+    "0.83",
+    "1.42"
+   ],
+   [
+    "n-decane",
+    "0.488",
+    "2.44",
+    "2.08",
+    "1.13",
+    "1.66",
+    "1.98",
+    "1.17",
+    "1.89",
+    "2.29"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.211",
+    "1.75",
+    "1.64",
+    "1.20",
+    "0.99",
+    "1.47",
+    "1.17",
+    "0.71",
+    "1.71"
+   ],
+   [
+    "toluene",
+    "0.266",
+    "1.50",
+    "2.12",
+    "0.94",
+    "1.61",
+    "0.89",
+    "1.05",
+    "0.88",
+    "1.54"
+   ],
+   [
+    "ethylbenzene",
+    "0.304",
+    "1.25",
+    "1.33",
+    "0.72",
+    "0.84",
+    "0.78",
+    "0.70",
+    "0.61",
+    "1.25"
+   ],
+   [
+    "o-xylene",
+    "0.312",
+    "2.02",
+    "2.82",
+    "1.95",
+    "2.48",
+    "2.10",
+    "2.03",
+    "2.20",
+    "2.02"
+   ],
+   [
+    "p-xylene",
+    "0.324",
+    "1.37",
+    "2.52",
+    "1.77",
+    "2.21",
+    "1.95",
+    "1.79",
+    "1.61",
+    "1.32"
+   ],
+   [
+    "m-xylene",
+    "0.326",
+    "0.76",
+    "1.60",
+    "1.11",
+    "1.29",
+    "1.27",
+    "1.04",
+    "0.53",
+    "0.70"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.150",
+    "3.20",
+    "4.69",
+    "2.99",
+    "3.55",
+    "2.91",
+    "3.10",
+    "3.78",
+    "3.40"
+   ],
+   [
+    "dimethyl ether",
+    "0.196",
+    "1.44",
+    "2.04",
+    "0.65",
+    "1.27",
+    "0.98",
+    "0.76",
+    "1.42",
+    "1.57"
+   ],
+   [
+    "ethylene oxide",
+    "0.210",
+    "2.33",
+    "3.86",
+    "2.40",
+    "3.19",
+    "2.17",
+    "2.57",
+    "1.27",
+    "2.24"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.234",
+    "1.58",
+    "2.06",
+    "1.99",
+    "2.08",
+    "1.67",
+    "2.03",
+    "3.15",
+    "1.45"
+   ],
+   [
+    "ammonia",
+    "0.256",
+    "3.65",
+    "4.98",
+    "3.79",
+    "4.47",
+    "3.72",
+    "3.91",
+    "3.52",
+    "3.26"
+   ],
+   [
+    "sulfur dioxide",
+    "0.256",
+    "1.65",
+    "1.93",
+    "0.56",
+    "1.17",
+    "0.79",
+    "0.77",
+    "0.66",
+    "1.70"
+   ],
+   [
+    "acetone",
+    "0.307",
+    "4.10",
+    "5.29",
+    "4.41",
+    "4.94",
+    "4.54",
+    "4.49",
+    "4.17",
+    "3.70"
+   ],
+   [
+    "water",
+    "0.344",
+    "3.89",
+    "5.00",
+    "4.30",
+    "4.73",
+    "4.58",
+    "4.37",
+    "2.71",
+    "3.27"
+   ],
+   [
+    "methanol",
+    "0.565",
+    "8.16",
+    "10.04",
+    "10.46",
+    "10.00",
+    "11.30",
+    "10.57",
+    "5.70",
+    "7.77"
+   ],
+   [
+    "ethanol",
+    "0.644",
+    "2.29",
+    "3.41",
+    "4.43",
+    "3.28",
+    "5.60",
+    "4.52",
+    "2.59",
+    "2.37"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.276",
+    "1.06",
+    "1.45",
+    "0.67",
+    "1.04",
+    "0.61",
+    "0.73",
+    "2.26",
+    "1.05"
+   ],
+   [
+    "R-32",
+    "0.277",
+    "3.56",
+    "4.82",
+    "3.74",
+    "4.37",
+    "3.75",
+    "3.85",
+    "2.88",
+    "3.12"
+   ],
+   [
+    "R-125",
+    "0.305",
+    "1.40",
+    "1.47",
+    "0.62",
+    "0.92",
+    "0.68",
+    "0.77",
+    "1.45",
+    "1.35"
+   ],
+   [
+    "R-134a",
+    "0.327",
+    "1.56",
+    "1.81",
+    "0.81",
+    "1.27",
+    "1.02",
+    "0.86",
+    "1.31",
+    "1.51"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_vt": {
+  "caption": "Per-fluid constants of the translated models: reference critical compressibility factor, anchoring reduced temperature and, in cm$^3$ mol$^{-1}$, the density-anchored constant $c_{fit}$, the Rackett-anchored constant $c_{corr}$ and the critical-matched constant $c_{Z_c} = (Z_c^{EoS} - Z_c^{ref})RT_c/p_c$ (diagnostic only) for SRK and PR (classical Soave $\\alpha$), and, for comparison, the tc-PR translation constant of Pi\\~na-Martinez et al. [cite:pina2022], $c_{lit}$, which is anchored to the saturated-liquid volume at $T_r = 0.8$.",
+  "header": [
+   [
+    "",
+    "",
+    "",
+    "SRK (cm$^3$ mol$^{-1}$)",
+    "",
+    "",
+    "PR (cm$^3$ mol$^{-1}$)",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Fluid",
+    "$Z_c^{ref}$",
+    "$T_{r,anchor}$",
+    "$c_{fit}$",
+    "$c_{corr}$",
+    "$c_{Z_c}$",
+    "$c_{fit}$",
+    "$c_{corr}$",
+    "$c_{Z_c}$",
+    "$c_{lit}$"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "0.2895",
+    "0.700",
+    "0.28",
+    "0.39",
+    "11.29",
+    "-3.40",
+    "-3.29",
+    "4.61",
+    "-3.29"
+   ],
+   [
+    "oxygen",
+    "0.2942",
+    "0.700",
+    "0.45",
+    "0.58",
+    "9.96",
+    "-3.17",
+    "-3.04",
+    "3.35",
+    "-2.76"
+   ],
+   [
+    "nitrogen",
+    "0.2894",
+    "0.700",
+    "0.35",
+    "0.86",
+    "13.58",
+    "-4.03",
+    "-3.52",
+    "5.56",
+    "-3.64"
+   ],
+   [
+    "carbon monoxide",
+    "0.2919",
+    "0.700",
+    "0.43",
+    "1.01",
+    "13.10",
+    "-4.03",
+    "-3.46",
+    "4.91",
+    "-3.68"
+   ],
+   [
+    "hydrogen sulfide",
+    "0.2847",
+    "0.700",
+    "1.56",
+    "1.70",
+    "16.75",
+    "-3.27",
+    "-3.13",
+    "7.81",
+    "-2.51"
+   ],
+   [
+    "carbon dioxide",
+    "0.2746",
+    "0.722",
+    "3.25",
+    "3.41",
+    "20.14",
+    "-1.56",
+    "-1.40",
+    "11.25",
+    "-1.14"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "0.2863",
+    "0.700",
+    "0.79",
+    "0.67",
+    "16.21",
+    "-4.11",
+    "-4.24",
+    "7.27",
+    "-3.56"
+   ],
+   [
+    "ethane",
+    "0.2799",
+    "0.700",
+    "2.88",
+    "2.54",
+    "27.84",
+    "-4.42",
+    "-4.75",
+    "14.33",
+    "-3.67"
+   ],
+   [
+    "propane",
+    "0.2765",
+    "0.700",
+    "5.08",
+    "4.90",
+    "41.14",
+    "-4.94",
+    "-5.12",
+    "22.38",
+    "-3.73"
+   ],
+   [
+    "isobutane",
+    "0.2759",
+    "0.700",
+    "7.29",
+    "7.41",
+    "53.70",
+    "-5.57",
+    "-5.45",
+    "29.47",
+    "-3.80"
+   ],
+   [
+    "n-butane",
+    "0.2738",
+    "0.700",
+    "7.87",
+    "7.99",
+    "55.46",
+    "-4.91",
+    "-4.78",
+    "31.32",
+    "-3.44"
+   ],
+   [
+    "cyclohexane",
+    "0.2750",
+    "0.700",
+    "9.09",
+    "10.04",
+    "65.83",
+    "-6.35",
+    "-5.41",
+    "36.58",
+    "-4.23"
+   ],
+   [
+    "n-pentane",
+    "0.2686",
+    "0.700",
+    "12.35",
+    "12.16",
+    "75.04",
+    "-3.39",
+    "-3.58",
+    "44.96",
+    "-1.60"
+   ],
+   [
+    "n-hexane",
+    "0.2665",
+    "0.700",
+    "16.12",
+    "17.20",
+    "92.76",
+    "-2.53",
+    "-1.45",
+    "56.79",
+    "0.82"
+   ],
+   [
+    "n-heptane",
+    "0.2746",
+    "0.700",
+    "20.45",
+    "23.23",
+    "95.23",
+    "-1.14",
+    "1.64",
+    "53.16",
+    "3.11"
+   ],
+   [
+    "n-octane",
+    "0.2586",
+    "0.700",
+    "29.38",
+    "30.96",
+    "142.30",
+    "4.29",
+    "5.87",
+    "92.93",
+    "6.43"
+   ],
+   [
+    "n-decane",
+    "0.2495",
+    "0.700",
+    "43.38",
+    "48.75",
+    "204.94",
+    "11.75",
+    "17.11",
+    "141.56",
+    "12.83"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "0.2691",
+    "0.700",
+    "9.62",
+    "8.53",
+    "61.20",
+    "-3.42",
+    "-4.51",
+    "36.50",
+    "-1.44"
+   ],
+   [
+    "toluene",
+    "0.2647",
+    "0.700",
+    "14.85",
+    "13.18",
+    "81.89",
+    "-1.30",
+    "-2.96",
+    "50.97",
+    "1.24"
+   ],
+   [
+    "ethylbenzene",
+    "0.2576",
+    "0.700",
+    "19.13",
+    "17.77",
+    "107.32",
+    "0.10",
+    "-1.26",
+    "70.59",
+    "2.70"
+   ],
+   [
+    "o-xylene",
+    "0.2657",
+    "0.700",
+    "18.93",
+    "18.03",
+    "94.86",
+    "0.12",
+    "-0.77",
+    "58.49",
+    "1.48"
+   ],
+   [
+    "p-xylene",
+    "0.2559",
+    "0.700",
+    "21.66",
+    "19.34",
+    "112.35",
+    "2.25",
+    "-0.07",
+    "74.73",
+    "4.29"
+   ],
+   [
+    "m-xylene",
+    "0.2586",
+    "0.700",
+    "22.14",
+    "19.46",
+    "108.46",
+    "2.74",
+    "0.05",
+    "70.83",
+    "4.13"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "0.2942",
+    "0.700",
+    "4.75",
+    "3.37",
+    "19.68",
+    "-2.21",
+    "-3.59",
+    "6.65",
+    "0.50"
+   ],
+   [
+    "dimethyl ether",
+    "0.2699",
+    "0.700",
+    "6.40",
+    "5.24",
+    "39.58",
+    "-2.16",
+    "-3.33",
+    "23.40",
+    "-2.20"
+   ],
+   [
+    "ethylene oxide",
+    "0.2613",
+    "0.700",
+    "8.62",
+    "4.77",
+    "38.45",
+    "1.31",
+    "-2.54",
+    "24.61",
+    "4.13"
+   ],
+   [
+    "tetrahydrofuran",
+    "0.2684",
+    "0.700",
+    "7.28",
+    "8.33",
+    "54.97",
+    "-4.26",
+    "-3.21",
+    "33.01",
+    "-0.60"
+   ],
+   [
+    "ammonia",
+    "0.2461",
+    "0.700",
+    "7.15",
+    "3.17",
+    "25.90",
+    "3.13",
+    "-0.86",
+    "18.20",
+    "4.03"
+   ],
+   [
+    "sulfur dioxide",
+    "0.2727",
+    "0.700",
+    "5.52",
+    "4.85",
+    "27.55",
+    "-0.64",
+    "-1.31",
+    "15.77",
+    "-0.05"
+   ],
+   [
+    "acetone",
+    "0.2363",
+    "0.700",
+    "22.58",
+    "11.40",
+    "87.33",
+    "10.50",
+    "-0.68",
+    "63.98",
+    "12.01"
+   ],
+   [
+    "water",
+    "0.2294",
+    "0.700",
+    "7.59",
+    "3.45",
+    "25.33",
+    "4.35",
+    "0.20",
+    "19.01",
+    "5.27"
+   ],
+   [
+    "methanol",
+    "0.2191",
+    "0.700",
+    "13.51",
+    "11.99",
+    "59.35",
+    "6.89",
+    "5.37",
+    "45.88",
+    "9.18"
+   ],
+   [
+    "ethanol",
+    "0.2470",
+    "0.700",
+    "11.75",
+    "17.98",
+    "58.97",
+    "3.17",
+    "9.41",
+    "41.27",
+    "5.96"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "0.2647",
+    "0.700",
+    "11.37",
+    "10.35",
+    "62.00",
+    "-0.84",
+    "-1.86",
+    "38.56",
+    "0.46"
+   ],
+   [
+    "R-32",
+    "0.2429",
+    "0.700",
+    "12.91",
+    "5.80",
+    "45.65",
+    "6.08",
+    "-1.02",
+    "32.55",
+    "7.25"
+   ],
+   [
+    "R-125",
+    "0.2686",
+    "0.700",
+    "7.98",
+    "9.81",
+    "50.48",
+    "-2.48",
+    "-0.65",
+    "30.27",
+    "-1.54"
+   ],
+   [
+    "R-134a",
+    "0.2600",
+    "0.700",
+    "11.28",
+    "10.30",
+    "56.19",
+    "1.03",
+    "0.06",
+    "36.31",
+    "2.27"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_vt_alpha": {
+  "caption": "Sensitivity of the saturated-liquid-density AAD (\\%, all fluids and temperatures) to the $\\alpha$-function, for the untranslated cubics and for both translation constants re-anchored on each $\\alpha$-variant. $^{\\dagger}$Component-specific parameters.",
+  "header": [
+   [
+    "",
+    "SRK",
+    "",
+    "",
+    "PR",
+    "",
+    ""
+   ],
+   [
+    "$\\alpha$-function",
+    "none",
+    "VT$_{corr}$",
+    "VT",
+    "none",
+    "VT$_{corr}$",
+    "VT"
+   ]
+  ],
+  "rows": [
+   [
+    "Soave",
+    "13.12",
+    "6.33",
+    "4.83",
+    "6.51",
+    "5.08",
+    "3.11"
+   ],
+   [
+    "Soave-19",
+    "13.12",
+    "6.33",
+    "4.83",
+    "6.54",
+    "5.06",
+    "3.10"
+   ],
+   [
+    "Twu-95",
+    "13.05",
+    "6.22",
+    "4.71",
+    "6.54",
+    "5.09",
+    "3.13"
+   ],
+   [
+    "Twu-c",
+    "13.11",
+    "6.30",
+    "4.80",
+    "6.52",
+    "5.09",
+    "3.12"
+   ],
+   [
+    "Coquelet",
+    "13.05",
+    "6.22",
+    "4.70",
+    "6.53",
+    "5.08",
+    "3.13"
+   ],
+   [
+    "MS",
+    "13.08",
+    "6.27",
+    "4.75",
+    "6.54",
+    "5.11",
+    "3.15"
+   ],
+   [
+    "Twu-fit$^{\\dagger}$",
+    "13.09",
+    "6.25",
+    "4.71",
+    "6.52",
+    "5.07",
+    "3.09"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_nearcrit": {
+  "caption": "The near-critical range split in two: AAD (\\%) for $0.90 \\le T_r < 0.95$ and $0.95 \\le T_r \\le 0.985$. PR-VT is the density-anchored translated PR (classical $\\alpha$); it shares the vapor pressure and enthalpy of vaporization of PR-Soave.",
+  "header": [
+   [
+    "Property / range",
+    "SRK-Soave",
+    "PR-Soave",
+    "SRK-Twu-95",
+    "PR-Twu-95",
+    "SRK-Twu-c",
+    "PR-Twu-c",
+    "PR-VT"
+   ]
+  ],
+  "rows": [
+   "Vapor pressure",
+   [
+    "0.90\u20130.95",
+    "1.54",
+    "0.74",
+    "1.02",
+    "0.93",
+    "1.39",
+    "0.80",
+    "as PR-Soave"
+   ],
+   [
+    "0.95\u20130.985",
+    "0.91",
+    "0.54",
+    "0.67",
+    "0.61",
+    "0.84",
+    "0.56",
+    "as PR-Soave"
+   ],
+   "Enthalpy of vaporization",
+   [
+    "0.90\u20130.95",
+    "2.40",
+    "2.34",
+    "1.94",
+    "2.36",
+    "2.31",
+    "2.51",
+    "as PR-Soave"
+   ],
+   [
+    "0.95\u20130.985",
+    "7.83",
+    "7.30",
+    "6.44",
+    "7.63",
+    "7.44",
+    "7.46",
+    "as PR-Soave"
+   ],
+   "Saturated-liquid density",
+   [
+    "0.90\u20130.95",
+    "18.18",
+    "7.96",
+    "17.95",
+    "8.07",
+    "18.12",
+    "7.96",
+    "8.65"
+   ],
+   [
+    "0.95\u20130.985",
+    "22.34",
+    "13.30",
+    "22.13",
+    "13.36",
+    "22.28",
+    "13.32",
+    "14.07"
+   ],
+   "Saturated-vapor density",
+   [
+    "0.90\u20130.95",
+    "2.27",
+    "2.35",
+    "2.67",
+    "2.27",
+    "2.43",
+    "2.45",
+    "1.79"
+   ],
+   [
+    "0.95\u20130.985",
+    "4.73",
+    "3.40",
+    "5.10",
+    "3.32",
+    "4.86",
+    "3.46",
+    "2.56"
+   ]
+  ],
+  "notes": ""
+ },
+ "tabS_twufit_src": {
+  "caption": "Critical-constant confound of the fitted reference. Relative difference (\\%) between the critical temperature and pressure listed in the source compilation [cite:pina2022] and those of the reference equations of state, and per-fluid AAD (\\%) in vapor pressure and enthalpy of vaporization of SRK-Twu-fit and PR-Twu-fit evaluated with the reference-EoS constants (ref, as in the main text) and with the constants of the source compilation (src), at the same temperatures and against the same reference values. The pooled rows are point-weighted means.",
+  "header": [
+   [
+    "",
+    "",
+    "",
+    "$p^{sat}$, SRK",
+    "",
+    "$p^{sat}$, PR",
+    "",
+    "$\\Delta h_{vap}$, SRK",
+    "",
+    "$\\Delta h_{vap}$, PR",
+    ""
+   ],
+   [
+    "Fluid",
+    "$\\Delta T_c$",
+    "$\\Delta p_c$",
+    "ref",
+    "src",
+    "ref",
+    "src",
+    "ref",
+    "src",
+    "ref",
+    "src"
+   ]
+  ],
+  "rows": [
+   "Inorganic gases",
+   [
+    "argon",
+    "+0.11",
+    "+0.72",
+    "0.66",
+    "0.56",
+    "0.53",
+    "0.43",
+    "1.61",
+    "1.42",
+    "1.82",
+    "1.40"
+   ],
+   [
+    "oxygen",
+    "-0.01",
+    "-0.07",
+    "0.31",
+    "0.31",
+    "0.25",
+    "0.25",
+    "1.45",
+    "1.47",
+    "1.47",
+    "1.50"
+   ],
+   [
+    "nitrogen",
+    "+0.01",
+    "+0.12",
+    "0.30",
+    "0.34",
+    "0.31",
+    "0.31",
+    "1.51",
+    "1.51",
+    "1.43",
+    "1.41"
+   ],
+   [
+    "carbon monoxide",
+    "+0.05",
+    "+0.02",
+    "0.63",
+    "0.30",
+    "0.54",
+    "0.24",
+    "1.60",
+    "1.54",
+    "1.80",
+    "1.63"
+   ],
+   [
+    "hydrogen sulfide",
+    "+0.12",
+    "-0.40",
+    "1.38",
+    "0.10",
+    "1.20",
+    "0.42",
+    "1.13",
+    "1.07",
+    "0.92",
+    "0.76"
+   ],
+   [
+    "carbon dioxide",
+    "+0.03",
+    "+0.08",
+    "0.43",
+    "0.30",
+    "0.28",
+    "0.26",
+    "1.53",
+    "1.48",
+    "1.60",
+    "1.50"
+   ],
+   "Alkanes",
+   [
+    "methane",
+    "-0.00",
+    "-0.00",
+    "0.36",
+    "0.37",
+    "0.31",
+    "0.31",
+    "1.63",
+    "1.63",
+    "1.41",
+    "1.42"
+   ],
+   [
+    "ethane",
+    "-0.00",
+    "-0.00",
+    "0.40",
+    "0.40",
+    "0.28",
+    "0.28",
+    "1.62",
+    "1.62",
+    "1.52",
+    "1.53"
+   ],
+   [
+    "propane",
+    "-0.02",
+    "-0.07",
+    "0.99",
+    "0.99",
+    "0.58",
+    "0.57",
+    "2.02",
+    "2.04",
+    "1.83",
+    "1.85"
+   ],
+   [
+    "isobutane",
+    "-0.00",
+    "+0.30",
+    "1.25",
+    "1.44",
+    "0.69",
+    "0.93",
+    "2.19",
+    "2.19",
+    "1.92",
+    "1.92"
+   ],
+   [
+    "n-butane",
+    "-0.00",
+    "-0.00",
+    "0.56",
+    "0.57",
+    "0.41",
+    "0.41",
+    "1.65",
+    "1.66",
+    "1.55",
+    "1.55"
+   ],
+   [
+    "cyclohexane",
+    "+0.04",
+    "-0.01",
+    "0.70",
+    "0.45",
+    "0.54",
+    "0.33",
+    "1.46",
+    "1.42",
+    "1.39",
+    "1.33"
+   ],
+   [
+    "n-pentane",
+    "+0.00",
+    "+0.07",
+    "0.39",
+    "0.42",
+    "0.31",
+    "0.33",
+    "1.50",
+    "1.50",
+    "1.37",
+    "1.37"
+   ],
+   [
+    "n-hexane",
+    "-0.04",
+    "-0.63",
+    "0.65",
+    "0.59",
+    "0.56",
+    "0.53",
+    "1.57",
+    "1.60",
+    "1.39",
+    "1.44"
+   ],
+   [
+    "n-heptane",
+    "-0.19",
+    "-1.22",
+    "0.82",
+    "0.53",
+    "0.66",
+    "0.42",
+    "1.78",
+    "1.38",
+    "1.30",
+    "1.06"
+   ],
+   [
+    "n-octane",
+    "-0.01",
+    "+0.26",
+    "0.56",
+    "0.58",
+    "0.40",
+    "0.43",
+    "1.69",
+    "1.69",
+    "1.45",
+    "1.45"
+   ],
+   [
+    "n-decane",
+    "+0.00",
+    "+0.41",
+    "0.82",
+    "0.76",
+    "0.73",
+    "0.61",
+    "1.65",
+    "1.65",
+    "1.31",
+    "1.31"
+   ],
+   "Aromatics",
+   [
+    "benzene",
+    "+0.01",
+    "-0.23",
+    "0.53",
+    "0.45",
+    "0.38",
+    "0.34",
+    "1.53",
+    "1.53",
+    "1.30",
+    "1.29"
+   ],
+   [
+    "toluene",
+    "+0.00",
+    "-0.44",
+    "0.79",
+    "0.54",
+    "0.65",
+    "0.34",
+    "1.65",
+    "1.65",
+    "1.32",
+    "1.32"
+   ],
+   [
+    "ethylbenzene",
+    "+0.00",
+    "-0.37",
+    "1.22",
+    "0.80",
+    "1.04",
+    "0.67",
+    "1.88",
+    "1.88",
+    "1.82",
+    "1.82"
+   ],
+   [
+    "o-xylene",
+    "+0.01",
+    "+0.68",
+    "0.64",
+    "0.74",
+    "0.57",
+    "0.58",
+    "2.30",
+    "2.33",
+    "1.85",
+    "1.87"
+   ],
+   [
+    "p-xylene",
+    "+0.01",
+    "-0.01",
+    "0.60",
+    "0.58",
+    "0.43",
+    "0.41",
+    "1.72",
+    "1.73",
+    "1.37",
+    "1.37"
+   ],
+   [
+    "m-xylene",
+    "+0.02",
+    "+0.18",
+    "0.77",
+    "0.80",
+    "0.45",
+    "0.49",
+    "1.49",
+    "1.49",
+    "1.25",
+    "1.25"
+   ],
+   "Polar/associating",
+   [
+    "methyl chloride",
+    "-0.57",
+    "-3.59",
+    "0.88",
+    "0.31",
+    "1.25",
+    "0.33",
+    "3.52",
+    "3.13",
+    "3.15",
+    "2.87"
+   ],
+   [
+    "dimethyl ether",
+    "-0.07",
+    "+0.62",
+    "1.47",
+    "1.92",
+    "1.03",
+    "1.32",
+    "2.39",
+    "2.41",
+    "2.03",
+    "2.06"
+   ],
+   [
+    "ethylene oxide",
+    "+0.05",
+    "-1.57",
+    "2.78",
+    "0.99",
+    "2.52",
+    "0.68",
+    "2.21",
+    "2.22",
+    "1.87",
+    "1.86"
+   ],
+   [
+    "tetrahydrofuran",
+    "-0.01",
+    "-2.16",
+    "2.68",
+    "0.89",
+    "2.31",
+    "0.46",
+    "2.25",
+    "2.27",
+    "2.21",
+    "2.23"
+   ],
+   [
+    "ammonia",
+    "+0.02",
+    "-0.73",
+    "1.08",
+    "0.41",
+    "1.36",
+    "1.21",
+    "2.84",
+    "2.89",
+    "2.27",
+    "2.30"
+   ],
+   [
+    "sulfur dioxide",
+    "+0.03",
+    "-0.03",
+    "1.37",
+    "1.08",
+    "0.83",
+    "0.54",
+    "1.56",
+    "1.56",
+    "1.32",
+    "1.31"
+   ],
+   [
+    "acetone",
+    "-0.00",
+    "+0.16",
+    "0.63",
+    "0.65",
+    "0.56",
+    "0.55",
+    "3.88",
+    "3.88",
+    "3.48",
+    "3.48"
+   ],
+   [
+    "water",
+    "+0.00",
+    "+0.00",
+    "0.43",
+    "0.43",
+    "0.30",
+    "0.30",
+    "2.36",
+    "2.36",
+    "2.01",
+    "2.02"
+   ],
+   [
+    "methanol",
+    "-0.17",
+    "-1.60",
+    "1.60",
+    "1.45",
+    "0.44",
+    "0.79",
+    "5.78",
+    "5.34",
+    "5.28",
+    "4.75"
+   ],
+   [
+    "ethanol",
+    "-0.14",
+    "-2.09",
+    "1.69",
+    "2.16",
+    "1.83",
+    "2.32",
+    "1.52",
+    "1.71",
+    "1.38",
+    "1.57"
+   ],
+   "Refrigerants",
+   [
+    "R-1234yf",
+    "+0.00",
+    "-0.07",
+    "1.70",
+    "1.71",
+    "1.71",
+    "1.74",
+    "2.29",
+    "2.29",
+    "2.08",
+    "2.08"
+   ],
+   [
+    "R-32",
+    "+0.00",
+    "+0.02",
+    "0.73",
+    "0.73",
+    "0.35",
+    "0.36",
+    "3.14",
+    "3.15",
+    "2.72",
+    "2.72"
+   ],
+   [
+    "R-125",
+    "-0.00",
+    "+0.05",
+    "0.76",
+    "0.77",
+    "1.01",
+    "1.01",
+    "1.61",
+    "1.61",
+    "1.51",
+    "1.51"
+   ],
+   [
+    "R-134a",
+    "-0.01",
+    "-0.08",
+    "0.59",
+    "0.60",
+    "0.57",
+    "0.58",
+    "1.78",
+    "1.78",
+    "1.55",
+    "1.55"
+   ],
+   null,
+   [
+    "All fluids (pooled)",
+    "",
+    "",
+    "0.92",
+    "0.73",
+    "0.76",
+    "0.60",
+    "2.04",
+    "2.00",
+    "1.82",
+    "1.77"
+   ],
+   [
+    "H-bonding (pooled)",
+    "",
+    "",
+    "1.20",
+    "1.11",
+    "0.98",
+    "1.15",
+    "3.13",
+    "3.08",
+    "2.74",
+    "2.66"
+   ],
+   [
+    "Polar aprotic (pooled)",
+    "",
+    "",
+    "1.63",
+    "0.97",
+    "1.42",
+    "0.65",
+    "2.64",
+    "2.58",
+    "2.34",
+    "2.30"
+   ]
+  ],
+  "notes": ""
+ }
+}

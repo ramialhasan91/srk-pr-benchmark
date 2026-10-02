@@ -1,0 +1,104 @@
+{
+  "python": "3.11.15",
+  "coolprop": "8.0.0",
+  "numpy": "2.4.4",
+  "pandas": "3.0.2",
+  "n_fluids": 37,
+  "n_T_per_fluid": 40,
+  "n_points": 1480,
+  "Tr_max": 0.985,
+  "models": [
+    "srk_s",
+    "srk_s19",
+    "srk_t95",
+    "srk_tc",
+    "srk_coq",
+    "srk_ms",
+    "srk_tf",
+    "pr_s",
+    "pr_s19",
+    "pr_t95",
+    "pr_tc",
+    "pr_coq",
+    "pr_ms",
+    "pr_tf"
+  ],
+  "alpha_labels": {
+    "s": "Soave",
+    "s19": "Soave-19",
+    "t95": "Twu-95",
+    "tc": "Twu-c",
+    "coq": "Coquelet",
+    "ms": "MS",
+    "tf": "Twu-fit"
+  },
+  "psat_solver": "successive substitution on fugacity ratio, Wilson start",
+  "psat_tol_fugacity_ratio": 1e-11,
+  "psat_tol_fallback_near_Tc": 1e-07,
+  "failed_psat_solves": {
+    "srk_s": 0,
+    "srk_s19": 0,
+    "srk_t95": 0,
+    "srk_tc": 0,
+    "srk_coq": 0,
+    "srk_ms": 0,
+    "srk_tf": 0,
+    "pr_s": 0,
+    "pr_s19": 0,
+    "pr_t95": 0,
+    "pr_tc": 0,
+    "pr_coq": 0,
+    "pr_ms": 0,
+    "pr_tf": 0
+  },
+  "vt_nonphysical_points_zc_constant": 29,
+  "clapeyron_check": {
+    "relative_step": 0.0001,
+    "n_checks": 20720,
+    "n_skipped": 0,
+    "max_rel_diff": 5.971265637505496e-07,
+    "median_rel_diff": 4.970748512800327e-08,
+    "per_model_max": {
+      "srk_s": 5.873069057749092e-07,
+      "srk_s19": 5.856692300021393e-07,
+      "srk_t95": 5.938063034616192e-07,
+      "srk_tc": 5.776967739734573e-07,
+      "srk_coq": 5.904013771207417e-07,
+      "srk_ms": 5.871298227599908e-07,
+      "srk_tf": 4.903379053899926e-07,
+      "pr_s": 5.407461729500795e-07,
+      "pr_s19": 5.557307147796564e-07,
+      "pr_t95": 5.971265637505496e-07,
+      "pr_tc": 5.618787661809677e-07,
+      "pr_coq": 5.925675468088087e-07,
+      "pr_ms": 5.914063274659043e-07,
+      "pr_tf": 4.952837970861879e-07
+    }
+  },
+  "vt_invariance_checks": 444,
+  "vt_invariance_max_abs_residual_lnphi": 1.1703311930677529e-14,
+  "anchor_sweep": {
+    "PR": {
+      "aad_min": 3.0406600293135067,
+      "Tr_at_min": 0.7487179487179487,
+      "aad_at_070": 3.1163421320180826,
+      "flat_window_Tr": [
+        0.5,
+        0.786025641025641
+      ],
+      "first_Tr_worse_than_untranslated": 0.897948717948718,
+      "aad_at_top": 44.44125871820339
+    },
+    "SRK": {
+      "aad_min": 4.827604147762377,
+      "Tr_at_min": 0.698974358974359,
+      "aad_at_070": 4.827604147762377,
+      "flat_window_Tr": [
+        0.5870512820512821,
+        0.7487179487179487
+      ],
+      "first_Tr_worse_than_untranslated": 0.9103846153846153,
+      "aad_at_top": 69.90226608891896
+    }
+  }
+}

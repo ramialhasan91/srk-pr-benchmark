@@ -1,0 +1,54 @@
+\begin{table}[H]
+\centering
+\caption{Fluid set. Critical constants, acentric factors and critical compressibility factors are taken from the reference equations of state via CoolProp; $\chi$ is the Halm--Stiel polar factor evaluated from the reference vapor pressure at $T_r = 0.6$ (undefined for carbon dioxide, whose triple point lies above $0.6\,T_c$); $T_{r,\min}$ is the lower end of the temperature grid.}
+\label{tab:tabS_fluids}
+\small
+\begin{tabular}{llcccccc}
+\toprule
+Fluid & Subgroup & $T_c$ (K) & $p_c$ (MPa) & $\omega$ & $Z_c^{ref}$ & $\chi$ & $T_{r,\min}$ \\
+\midrule
+\multicolumn{15}{l}{\emph{Inorganic gases}} \\
+argon &  & 150.69 & 4.863 & -0.0022 & 0.2895 & 0.005 & 0.566 \\
+oxygen &  & 154.60 & 5.046 & 0.0222 & 0.2942 & 0.006 & 0.500 \\
+nitrogen &  & 126.19 & 3.396 & 0.0372 & 0.2894 & 0.004 & 0.510 \\
+carbon monoxide &  & 132.86 & 3.498 & 0.0497 & 0.2919 & 0.001 & 0.523 \\
+hydrogen sulfide &  & 373.10 & 8.999 & 0.1005 & 0.2847 & 0.003 & 0.513 \\
+carbon dioxide &  & 304.13 & 7.377 & 0.2239 & 0.2746 & -- & 0.722 \\
+\multicolumn{15}{l}{\emph{Alkanes}} \\
+methane &  & 190.56 & 4.599 & 0.0114 & 0.2863 & 0.008 & 0.500 \\
+ethane &  & 305.32 & 4.872 & 0.0990 & 0.2799 & 0.006 & 0.500 \\
+propane &  & 369.89 & 4.251 & 0.1521 & 0.2765 & 0.005 & 0.500 \\
+isobutane &  & 407.81 & 3.629 & 0.1835 & 0.2759 & 0.003 & 0.500 \\
+n-butane &  & 425.13 & 3.796 & 0.2008 & 0.2738 & 0.007 & 0.500 \\
+cyclohexane &  & 553.60 & 4.081 & 0.2093 & 0.2750 & -0.002 & 0.515 \\
+n-pentane &  & 469.70 & 3.368 & 0.2510 & 0.2686 & 0.005 & 0.500 \\
+n-hexane &  & 507.82 & 3.044 & 0.3003 & 0.2665 & 0.004 & 0.500 \\
+n-heptane &  & 541.23 & 2.774 & 0.3490 & 0.2746 & 0.006 & 0.500 \\
+n-octane &  & 568.74 & 2.484 & 0.3975 & 0.2586 & 0.000 & 0.500 \\
+n-decane &  & 617.70 & 2.101 & 0.4884 & 0.2495 & -0.003 & 0.500 \\
+\multicolumn{15}{l}{\emph{Aromatics}} \\
+benzene &  & 562.02 & 4.906 & 0.2108 & 0.2691 & -0.001 & 0.506 \\
+toluene &  & 591.75 & 4.126 & 0.2657 & 0.2647 & 0.006 & 0.500 \\
+ethylbenzene &  & 617.12 & 3.622 & 0.3040 & 0.2576 & 0.003 & 0.500 \\
+o-xylene &  & 630.26 & 3.737 & 0.3120 & 0.2657 & 0.007 & 0.500 \\
+p-xylene &  & 616.17 & 3.532 & 0.3240 & 0.2559 & 0.010 & 0.500 \\
+m-xylene &  & 616.89 & 3.535 & 0.3260 & 0.2586 & 0.007 & 0.500 \\
+\multicolumn{15}{l}{\emph{Polar/associating}} \\
+methyl chloride & polar aprotic & 418.63 & 6.929 & 0.1501 & 0.2942 & 0.010 & 0.559 \\
+dimethyl ether & polar aprotic & 400.38 & 5.337 & 0.1960 & 0.2699 & 0.004 & 0.500 \\
+ethylene oxide & polar aprotic & 468.92 & 7.305 & 0.2102 & 0.2613 & 0.012 & 0.500 \\
+tetrahydrofuran & polar aprotic & 540.20 & 5.304 & 0.2340 & 0.2684 & 0.009 & 0.500 \\
+ammonia & H-bonding & 405.56 & 11.363 & 0.2557 & 0.2461 & 0.012 & 0.500 \\
+sulfur dioxide & polar aprotic & 430.64 & 7.887 & 0.2561 & 0.2727 & 0.002 & 0.500 \\
+acetone & polar aprotic & 508.10 & 4.692 & 0.3071 & 0.2363 & 0.013 & 0.500 \\
+water & H-bonding & 647.10 & 22.064 & 0.3443 & 0.2294 & 0.023 & 0.500 \\
+methanol & H-bonding & 513.38 & 8.216 & 0.5649 & 0.2191 & 0.043 & 0.500 \\
+ethanol & H-bonding & 514.71 & 6.268 & 0.6440 & 0.2470 & 0.004 & 0.500 \\
+\multicolumn{15}{l}{\emph{Refrigerants}} \\
+R-1234yf &  & 367.85 & 3.384 & 0.2760 & 0.2647 & 0.005 & 0.500 \\
+R-32 &  & 351.26 & 5.783 & 0.2769 & 0.2429 & 0.015 & 0.500 \\
+R-125 &  & 339.18 & 3.618 & 0.3052 & 0.2686 & 0.000 & 0.519 \\
+R-134a &  & 374.21 & 4.059 & 0.3268 & 0.2600 & 0.003 & 0.500 \\
+\bottomrule
+\end{tabular}
+\end{table}
