@@ -103,7 +103,7 @@ tc (Twu-c), coq (Coquelet), ms (MS), tf (Twu-fit)}; translated variants carry th
 > R. Alhasan, "An Error Budget for the SRK and PR Equations of State: α-Function Parameterization and
 > Volume Translation in a Reproducible Pure-Fluid Saturation-Property Benchmark," *Thermo* (submitted, 2026).
 
-Software archive: https://doi.org/10.5281/zenodo.21370716 (concept DOI; version 2.0).
+Software archive: https://doi.org/10.5281/zenodo.23105349 (DOI; version 2.0).
 
 ## License
 
