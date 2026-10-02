@@ -1,0 +1,20 @@
+{
+	  "title": "Code and data for: An Error Budget for the SRK and PR Equations of State",
+	    "upload_type": "software",
+	      "description": "Reproducible benchmark of the Soave–Redlich–Kwong and Peng–Robinson cubic equations of state against CoolProp reference equations for 37 pure fluids (1480 saturation states): seven alpha-functions, a volume-translation ladder, and fluid-level cluster-bootstrap statistics. Includes all scripts, tabulated results and a manuscript-number verification suite.",
+	        "version": "2.0.0",
+		  "publication_date": "2026-10-02",
+		    "creators": [
+			        {
+					      "name": "Alhasan, Rami",
+					            "affiliation": "American University of the Middle East, Kuwait",
+						          "orcid": "0000-0002-8215-3793"
+							      }
+							        ],
+								  "keywords": [
+									      "cubic equation of state", "Soave-Redlich-Kwong", "Peng-Robinson",
+									          "alpha function", "volume translation", "vapor pressure", "reproducibility"
+										    ],
+										      "license": "MIT",
+										        "access_right": "open"
+}
