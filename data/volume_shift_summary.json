@@ -1,0 +1,133 @@
+{
+ "s_fit_srk": {
+  "min": 0.012443873416369104,
+  "fluid_min": "argon",
+  "max": 0.3594482362651592,
+  "fluid_max": "water",
+  "mean": 0.14023859995067314,
+  "median": 0.13411986903368903,
+  "n_negative": 0,
+  "by_family": {
+   "Inorganic gases": 0.0371639727070022,
+   "Alkanes": 0.11250779630660625,
+   "Aromatics": 0.15338921737836214,
+   "Polar/associating": 0.2079698358276559,
+   "Refrigerants": 0.1820562350033731
+  }
+ },
+ "s_corr_srk": {
+  "min": 0.017397343565949602,
+  "fluid_min": "argon",
+  "max": 0.3040004383656747,
+  "fluid_max": "ethanol",
+  "mean": 0.12154572383584897,
+  "median": 0.12311024478899327,
+  "n_negative": 0,
+  "by_family": {
+   "Inorganic gases": 0.04740863805465976,
+   "Alkanes": 0.11796627293582657,
+   "Aromatics": 0.138794664162593,
+   "Polar/associating": 0.15171165962534566,
+   "Refrigerants": 0.14130659251883648
+  }
+ },
+ "s_zc_srk": {
+  "min": 0.4511234467324363,
+  "fluid_min": "oxygen",
+  "max": 1.3185549417334925,
+  "fluid_max": "methanol",
+  "mean": 0.7711280762885856,
+  "median": 0.7475838060481804,
+  "n_negative": 0,
+  "by_family": {
+   "Inorganic gases": 0.5303167772539087,
+   "Alkanes": 0.7152067159017312,
+   "Aromatics": 0.8243960042218799,
+   "Polar/associating": 0.9107313812278404,
+   "Refrigerants": 0.8572186116563725
+  }
+ },
+ "s_lit_srk": {
+  "min": 0.039155009665945345,
+  "fluid_min": "argon",
+  "max": 0.4244339102349605,
+  "fluid_max": "water",
+  "mean": 0.18585400859751375,
+  "median": 0.1829827637137083,
+  "n_negative": 0,
+  "by_family": {
+   "Inorganic gases": 0.0738468590538696,
+   "Alkanes": 0.1532366079182601,
+   "Aromatics": 0.19269389625905034,
+   "Polar/associating": 0.2702983963841708,
+   "Refrigerants": 0.22219178382197996
+  }
+ },
+ "s_fit_pr": {
+  "min": -0.16966472635812926,
+  "fluid_min": "argon",
+  "max": 0.22905052541778878,
+  "fluid_max": "water",
+  "mean": -0.018666566276607184,
+  "median": -0.023416232531173833,
+  "n_negative": 23,
+  "by_family": {
+   "Inorganic gases": -0.140347249520276,
+   "Alkanes": -0.049668622058486454,
+   "Aromatics": -0.0023137856249810466,
+   "Polar/associating": 0.05923749325549649,
+   "Refrigerants": 0.02982079218136564
+  }
+ },
+ "s_corr_pr": {
+  "min": -0.16414841975453473,
+  "fluid_min": "argon",
+  "max": 0.17706162401165282,
+  "fluid_max": "ethanol",
+  "mean": -0.03948341443326999,
+  "median": -0.03725622130547155,
+  "n_negative": 29,
+  "by_family": {
+   "Inorganic gases": -0.12893853736447844,
+   "Alkanes": -0.04358992777628015,
+   "Aromatics": -0.01856664026012549,
+   "Polar/associating": -0.0034130001399811337,
+   "Refrigerants": -0.015559015336118316
+  }
+ },
+ "s_zc_pr": {
+  "min": 0.16904887007152924,
+  "fluid_min": "oxygen",
+  "max": 1.135041989954453,
+  "fluid_max": "methanol",
+  "mean": 0.5254139228317448,
+  "median": 0.4991944424509132,
+  "n_negative": 0,
+  "by_family": {
+   "Inorganic gases": 0.2572405173257755,
+   "Alkanes": 0.46313851584052285,
+   "Aromatics": 0.5847344019595161,
+   "Polar/associating": 0.6808796084350487,
+   "Refrigerants": 0.6212864676166426
+  }
+ },
+ "s_lit_pr": {
+  "min": -0.1642882411826893,
+  "fluid_min": "argon",
+  "max": 0.27783999836462925,
+  "fluid_max": "water",
+  "mean": 0.007477723885215229,
+  "median": 0.006599510877985458,
+  "n_negative": 18,
+  "by_family": {
+   "Inorganic gases": -0.12350537846216136,
+   "Alkanes": -0.0284092301374959,
+   "Aromatics": 0.017776611553584044,
+   "Polar/associating": 0.10197013587175556,
+   "Refrigerants": 0.05096213949983167
+  }
+ },
+ "corr_s_fit_srk_vs_pr": 0.9994097457767459,
+ "corr_s_fit_pr_vs_lit_pr": 0.9891604151408125,
+ "mean_abs_diff_s_fit_pr_minus_lit_pr": 0.026182387931629893
+}

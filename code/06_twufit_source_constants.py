@@ -1,27 +1,15 @@
-"""
-Critical-constant confound of the fitted (Twu-fit) reference.
+"""Critical-constant confound of the fitted reference (Twu-fit). The component-specific Twu-91 parameters
+of Pina-Martinez et al. (2022) were regressed with the DIPPR-based critical constants of that
+compilation, which differ from those of the reference EoS used here by up to 0.6% in Tc and 3.6% in pc
+(data/twu_fit_source_critical_constants.csv). A two-parameter cubic gives psat/pc as a function of Tr
+and omega alone, so a pc mismatch enters the vapor-pressure deviation one-to-one and a Tc mismatch
+through Tr. The Twu-fit variants of SRK and PR are therefore re-evaluated with the compilation
+constants, at the same temperatures and against the same reference values as the main run. Only the
+fitted reference is affected; the generalized alphas keep the reference-EoS constants throughout.
 
-The component-specific Twu-91 parameters of the 1800-fluid compilation of
-Pina-Martinez et al. (2022) were regressed with the critical constants of
-that compilation (DIPPR-based), which differ from the critical constants of
-the reference equations of state used everywhere else in this benchmark (by
-up to 0.6% in Tc and 3.6% in pc for the 37 fluids; see
-data/twu_fit_source_critical_constants.csv). Because a cubic EoS reproduces
-psat(Tc) = pc exactly, a mismatch in pc propagates almost one-to-one into the
-vapor-pressure deviation at every temperature. This script re-evaluates the
-Twu-fit variants of SRK and PR with the critical constants of the source
-compilation, at the same absolute temperatures and against the same reference
-values as the main run, so that the effect of the constants can be separated
-from the quality of the fitted alpha-function parameters.
-
-Only the fitted reference is affected: the generalized alpha-functions are
-evaluated with the reference-EoS constants throughout, which is the
-consistent choice for a benchmark of predictive models.
-
-Reads  ../data/deviations_full.csv, fluids.csv, twu_fit_params.csv,
-       twu_fit_source_critical_constants.csv
-Writes ../data/twufit_source_constants.csv  (per-fluid AADs, both constant sets)
-       ../data/twufit_source_constants.json (pooled numbers quoted in the SI)
+Reads  ../data/deviations_full.csv, fluids.csv, twu_fit_params.csv, twu_fit_source_critical_constants.csv
+Writes ../data/twufit_source_constants.csv (per-fluid AADs, both constant sets),
+       twufit_source_constants.json (pooled numbers quoted in the SI)
 """
 
 import json

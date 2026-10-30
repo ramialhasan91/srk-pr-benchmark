@@ -1,0 +1,14 @@
+# Conda environment equivalent to requirements.txt (the pipeline itself needs only the pip section).
+name: srk-pr-benchmark
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      - CoolProp==8.0.0
+      - numpy==2.5.3
+      - pandas==3.0.5
+      - scipy==1.18.1
+      - matplotlib==3.11.2
+      - python-docx==1.2.0

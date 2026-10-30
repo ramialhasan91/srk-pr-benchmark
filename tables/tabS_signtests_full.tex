@@ -1,73 +1,268 @@
 \begin{table}[H]
 \centering
-\caption{Complete set of the 206 exact two-sided binomial sign tests on per-fluid AADs: number of the 37 fluids for which the first-named model has the lower AAD, with the nominal two-sided $p$-value in parentheses, for the four properties (columns). No ties occurred. The translated variants share $p^{sat}$ and $\Delta h_{vap}$ with the untranslated models, and the comparison of VT with VT$_{corr}$ was computed for the liquid density only. $^{\dagger}$Component-specific parameters.}
+\caption{Complete set of the 242 paired per-fluid comparisons: pooled difference in AAD (percentage points; negative = first-named model more accurate) with its paired fluid-level bootstrap 95\% confidence interval, number of the 37 fluids for which the first-named model has the lower AAD, nominal two-sided $p$-value of the exact binomial sign test, family (F1, F2, F3; -- = exploratory), Holm-adjusted $p$ within the family, and Benjamini--Yekutieli adjusted $q$ over all 242 comparisons (valid under arbitrary dependence). No ties occurred. The translated variants share $p^{sat}$ and $\Delta h_{vap}$ with the untranslated models. $^{\dagger}$Component-specific parameters; $^{\ddagger}$in-sample fit; 'unconstrained' = Twu-91 fitted without the consistency constraints (diagnostic only).}
 \label{tab:tabS_signtests_full}
 \small
-\begin{tabular}{lcccc}
+\begin{tabular}{llccccccc}
 \toprule
-Comparison & $p^{sat}$ & $\Delta h_{vap}$ & $\rho'$ & $\rho''$ \\
+Comparison & Property & $\Delta$AAD & 95\% CI & Wins & $p$ & Family & $p_{Holm}$ & $q_{BY}$ \\
 \midrule
-\multicolumn{39}{l}{\emph{PR vs. SRK at a fixed $\alpha$-function}} \\
-Soave & 31/37 (4 × 10⁻⁵) & 34/37 (1 × 10⁻⁷) & 31/37 (4 × 10⁻⁵) & 24/37 (0.099) \\
-Soave-19 & 26/37 (0.020) & 35/37 (1 × 10⁻⁸) & 31/37 (4 × 10⁻⁵) & 19/37 (1.00) \\
-Twu-95 & 22/37 (0.32) & 24/37 (0.099) & 31/37 (4 × 10⁻⁵) & 28/37 (0.003) \\
-Twu-c & 32/37 (7 × 10⁻⁶) & 31/37 (4 × 10⁻⁵) & 31/37 (4 × 10⁻⁵) & 21/37 (0.51) \\
-Coquelet & 37/37 (1 × 10⁻¹¹) & 29/37 (8 × 10⁻⁴) & 31/37 (4 × 10⁻⁵) & 29/37 (8 × 10⁻⁴) \\
-MS & 36/37 (6 × 10⁻¹⁰) & 34/37 (1 × 10⁻⁷) & 31/37 (4 × 10⁻⁵) & 25/37 (0.047) \\
-Twu-fit$^{\dagger}$ & 31/37 (4 × 10⁻⁵) & 33/37 (1 × 10⁻⁶) & 31/37 (4 × 10⁻⁵) & 23/37 (0.19) \\
-\multicolumn{39}{l}{\emph{$\alpha$-function pairs, SRK (first-named vs. second-named)}} \\
-Soave-19 vs. Soave & 13/37 (0.099) & 10/37 (0.008) & 27/37 (0.008) & 10/37 (0.008) \\
-Twu-95 vs. Soave & 34/37 (1 × 10⁻⁷) & 34/37 (1 × 10⁻⁷) & 37/37 (1 × 10⁻¹¹) & 29/37 (8 × 10⁻⁴) \\
-Twu-95 vs. Soave-19 & 34/37 (1 × 10⁻⁷) & 33/37 (1 × 10⁻⁶) & 37/37 (1 × 10⁻¹¹) & 29/37 (8 × 10⁻⁴) \\
-Twu-c vs. Soave & 36/37 (6 × 10⁻¹⁰) & 35/37 (1 × 10⁻⁸) & 28/37 (0.003) & 34/37 (1 × 10⁻⁷) \\
-Twu-c vs. Soave-19 & 35/37 (1 × 10⁻⁸) & 37/37 (1 × 10⁻¹¹) & 27/37 (0.008) & 35/37 (1 × 10⁻⁸) \\
-Twu-c vs. Twu-95 & 5/37 (7 × 10⁻⁶) & 7/37 (2 × 10⁻⁴) & 0/37 (1 × 10⁻¹¹) & 20/37 (0.74) \\
-Coquelet vs. Soave & 28/37 (0.003) & 32/37 (7 × 10⁻⁶) & 37/37 (1 × 10⁻¹¹) & 19/37 (1.00) \\
-Coquelet vs. Soave-19 & 28/37 (0.003) & 32/37 (7 × 10⁻⁶) & 37/37 (1 × 10⁻¹¹) & 24/37 (0.099) \\
-Coquelet vs. Twu-95 & 9/37 (0.003) & 17/37 (0.74) & 10/37 (0.008) & 11/37 (0.020) \\
-Coquelet vs. Twu-c & 24/37 (0.099) & 27/37 (0.008) & 37/37 (1 × 10⁻¹¹) & 11/37 (0.020) \\
-MS vs. Soave & 34/37 (1 × 10⁻⁷) & 36/37 (6 × 10⁻¹⁰) & 33/37 (1 × 10⁻⁶) & 31/37 (4 × 10⁻⁵) \\
-MS vs. Soave-19 & 35/37 (1 × 10⁻⁸) & 35/37 (1 × 10⁻⁸) & 30/37 (2 × 10⁻⁴) & 27/37 (0.008) \\
-MS vs. Twu-95 & 21/37 (0.51) & 17/37 (0.74) & 15/37 (0.32) & 12/37 (0.047) \\
-MS vs. Twu-c & 33/37 (1 × 10⁻⁶) & 32/37 (7 × 10⁻⁶) & 32/37 (7 × 10⁻⁶) & 19/37 (1.00) \\
-MS vs. Coquelet & 24/37 (0.099) & 15/37 (0.32) & 19/37 (1.00) & 22/37 (0.32) \\
-Twu-fit$^{\dagger}$ vs. Soave & 30/37 (2 × 10⁻⁴) & 34/37 (1 × 10⁻⁷) & 28/37 (0.003) & 28/37 (0.003) \\
-Twu-fit$^{\dagger}$ vs. Soave-19 & 29/37 (8 × 10⁻⁴) & 32/37 (7 × 10⁻⁶) & 27/37 (0.008) & 29/37 (8 × 10⁻⁴) \\
-Twu-fit$^{\dagger}$ vs. Twu-95 & 23/37 (0.19) & 24/37 (0.099) & 13/37 (0.099) & 27/37 (0.008) \\
-Twu-fit$^{\dagger}$ vs. Twu-c & 27/37 (0.008) & 30/37 (2 × 10⁻⁴) & 27/37 (0.008) & 25/37 (0.047) \\
-Twu-fit$^{\dagger}$ vs. Coquelet & 23/37 (0.19) & 26/37 (0.020) & 13/37 (0.099) & 30/37 (2 × 10⁻⁴) \\
-Twu-fit$^{\dagger}$ vs. MS & 22/37 (0.32) & 29/37 (8 × 10⁻⁴) & 20/37 (0.74) & 27/37 (0.008) \\
-\multicolumn{39}{l}{\emph{$\alpha$-function pairs, PR (first-named vs. second-named)}} \\
-Soave-19 vs. Soave & 9/37 (0.003) & 6/37 (4 × 10⁻⁵) & 16/37 (0.51) & 5/37 (7 × 10⁻⁶) \\
-Twu-95 vs. Soave & 25/37 (0.047) & 19/37 (1.00) & 8/37 (8 × 10⁻⁴) & 27/37 (0.008) \\
-Twu-95 vs. Soave-19 & 28/37 (0.003) & 27/37 (0.008) & 16/37 (0.51) & 34/37 (1 × 10⁻⁷) \\
-Twu-c vs. Soave & 17/37 (0.74) & 14/37 (0.19) & 16/37 (0.51) & 14/37 (0.19) \\
-Twu-c vs. Soave-19 & 33/37 (1 × 10⁻⁶) & 18/37 (1.00) & 18/37 (1.00) & 33/37 (1 × 10⁻⁶) \\
-Twu-c vs. Twu-95 & 24/37 (0.099) & 16/37 (0.51) & 23/37 (0.19) & 5/37 (7 × 10⁻⁶) \\
-Coquelet vs. Soave & 16/37 (0.51) & 20/37 (0.74) & 13/37 (0.099) & 22/37 (0.32) \\
-Coquelet vs. Soave-19 & 24/37 (0.099) & 27/37 (0.008) & 17/37 (0.74) & 33/37 (1 × 10⁻⁶) \\
-Coquelet vs. Twu-95 & 10/37 (0.008) & 18/37 (1.00) & 31/37 (4 × 10⁻⁵) & 8/37 (8 × 10⁻⁴) \\
-Coquelet vs. Twu-c & 14/37 (0.19) & 22/37 (0.32) & 15/37 (0.32) & 28/37 (0.003) \\
-MS vs. Soave & 24/37 (0.099) & 16/37 (0.51) & 4/37 (1 × 10⁻⁶) & 23/37 (0.19) \\
-MS vs. Soave-19 & 31/37 (4 × 10⁻⁵) & 23/37 (0.19) & 16/37 (0.51) & 34/37 (1 × 10⁻⁷) \\
-MS vs. Twu-95 & 28/37 (0.003) & 22/37 (0.32) & 23/37 (0.19) & 10/37 (0.008) \\
-MS vs. Twu-c & 21/37 (0.51) & 21/37 (0.51) & 11/37 (0.020) & 32/37 (7 × 10⁻⁶) \\
-MS vs. Coquelet & 25/37 (0.047) & 17/37 (0.74) & 21/37 (0.51) & 24/37 (0.099) \\
-Twu-fit$^{\dagger}$ vs. Soave & 29/37 (8 × 10⁻⁴) & 29/37 (8 × 10⁻⁴) & 15/37 (0.32) & 27/37 (0.008) \\
-Twu-fit$^{\dagger}$ vs. Soave-19 & 31/37 (4 × 10⁻⁵) & 31/37 (4 × 10⁻⁵) & 23/37 (0.19) & 35/37 (1 × 10⁻⁸) \\
-Twu-fit$^{\dagger}$ vs. Twu-95 & 24/37 (0.099) & 27/37 (0.008) & 23/37 (0.19) & 21/37 (0.51) \\
-Twu-fit$^{\dagger}$ vs. Twu-c & 25/37 (0.047) & 27/37 (0.008) & 19/37 (1.00) & 27/37 (0.008) \\
-Twu-fit$^{\dagger}$ vs. Coquelet & 25/37 (0.047) & 28/37 (0.003) & 23/37 (0.19) & 25/37 (0.047) \\
-Twu-fit$^{\dagger}$ vs. MS & 21/37 (0.51) & 26/37 (0.020) & 24/37 (0.099) & 23/37 (0.19) \\
-\multicolumn{39}{l}{\emph{Volume translation (classical Soave $\alpha$)}} \\
-PR-VT vs. SRK-VT & -- & -- & 37/37 (1 × 10⁻¹¹) & -- \\
-PR-VT$_{corr}$ vs. SRK-VT$_{corr}$ & -- & -- & 37/37 (1 × 10⁻¹¹) & -- \\
-PR-VT$_{corr}$ vs. PR & -- & -- & 22/37 (0.32) & 26/37 (0.020) \\
-SRK-VT$_{corr}$ vs. SRK & -- & -- & 36/37 (6 × 10⁻¹⁰) & 26/37 (0.020) \\
-PR-VT vs. PR-VT$_{corr}$ & -- & -- & 27/37 (0.008) & -- \\
-SRK-VT vs. SRK-VT$_{corr}$ & -- & -- & 34/37 (1 × 10⁻⁷) & -- \\
-PR-VT vs. PR & -- & -- & -- & 30/37 (2 × 10⁻⁴) \\
-SRK-VT vs. SRK & -- & -- & -- & 26/37 (0.020) \\
+\multicolumn{9}{l}{\emph{$p^{sat}$: PR vs. SRK at fixed $\alpha$-function}} \\
+PR-Soave vs. SRK-Soave & $p^{sat}$ & -0.68 & -0.95 to -0.42 & 31/37 & 4 × 10⁻⁵ & F1 & 4 × 10⁻⁴ & 7 × 10⁻⁴ \\
+PR-Soave-19 vs. SRK-Soave-19 & $p^{sat}$ & -0.33 & -0.52 to -0.14 & 26/37 & 0.020 & F1 & 0.060 & 0.19 \\
+PR-Twu-95 vs. SRK-Twu-95 & $p^{sat}$ & -0.00 & -0.02 to +0.01 & 22/37 & 0.32 & F1 & 0.32 & 1.00 \\
+PR-Twu-c vs. SRK-Twu-c & $p^{sat}$ & -0.36 & -0.45 to -0.26 & 32/37 & 7 × 10⁻⁶ & F1 & 8 × 10⁻⁵ & 2 × 10⁻⁴ \\
+PR-Coquelet vs. SRK-Coquelet & $p^{sat}$ & -0.08 & -0.10 to -0.05 & 37/37 & 1 × 10⁻¹¹ & F1 & 3 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+PR-MS vs. SRK-MS & $p^{sat}$ & -0.14 & -0.18 to -0.10 & 36/37 & 6 × 10⁻¹⁰ & F1 & 1 × 10⁻⁸ & 3 × 10⁻⁸ \\
+PR-Twu-fit$^{\dagger}$ vs. SRK-Twu-fit$^{\dagger}$ & $p^{sat}$ & -0.16 & -0.25 to -0.08 & 31/37 & 4 × 10⁻⁵ & F1 & 4 × 10⁻⁴ & 7 × 10⁻⁴ \\
+\multicolumn{9}{l}{\emph{$p^{sat}$: $\alpha$-function pairs, SRK}} \\
+SRK-Soave-19 vs. SRK-Soave & $p^{sat}$ & +0.03 & -0.00 to +0.06 & 13/37 & 0.099 & F2 & 0.99 & 0.80 \\
+SRK-Twu-95 vs. SRK-Soave & $p^{sat}$ & -0.57 & -0.68 to -0.46 & 34/37 & 1 × 10⁻⁷ & F2 & 3 × 10⁻⁶ & 4 × 10⁻⁶ \\
+SRK-Twu-95 vs. SRK-Soave-19 & $p^{sat}$ & -0.60 & -0.72 to -0.48 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+SRK-Twu-c vs. SRK-Soave & $p^{sat}$ & -0.27 & -0.32 to -0.21 & 36/37 & 6 × 10⁻¹⁰ & -- & -- & 3 × 10⁻⁸ \\
+SRK-Twu-c vs. SRK-Soave-19 & $p^{sat}$ & -0.30 & -0.34 to -0.25 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+SRK-Twu-c vs. SRK-Twu-95 & $p^{sat}$ & +0.31 & +0.20 to +0.42 & 5/37 & 7 × 10⁻⁶ & F2 & 1 × 10⁻⁴ & 2 × 10⁻⁴ \\
+SRK-Coquelet vs. SRK-Soave & $p^{sat}$ & -0.33 & -0.50 to -0.15 & 28/37 & 0.003 & F2 & 0.038 & 0.031 \\
+SRK-Coquelet vs. SRK-Soave-19 & $p^{sat}$ & -0.36 & -0.54 to -0.17 & 28/37 & 0.003 & -- & -- & 0.031 \\
+SRK-Coquelet vs. SRK-Twu-95 & $p^{sat}$ & +0.25 & +0.13 to +0.36 & 9/37 & 0.003 & F2 & 0.038 & 0.031 \\
+SRK-Coquelet vs. SRK-Twu-c & $p^{sat}$ & -0.06 & -0.24 to +0.13 & 24/37 & 0.099 & -- & -- & 0.80 \\
+SRK-MS vs. SRK-Soave & $p^{sat}$ & -0.54 & -0.63 to -0.45 & 34/37 & 1 × 10⁻⁷ & F2 & 3 × 10⁻⁶ & 4 × 10⁻⁶ \\
+SRK-MS vs. SRK-Soave-19 & $p^{sat}$ & -0.58 & -0.66 to -0.48 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+SRK-MS vs. SRK-Twu-95 & $p^{sat}$ & +0.03 & -0.04 to +0.12 & 21/37 & 0.51 & F2 & 1.00 & 1.00 \\
+SRK-MS vs. SRK-Twu-c & $p^{sat}$ & -0.28 & -0.33 to -0.21 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+SRK-MS vs. SRK-Coquelet & $p^{sat}$ & -0.22 & -0.37 to -0.07 & 24/37 & 0.099 & -- & -- & 0.80 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave & $p^{sat}$ & -0.86 & -1.31 to -0.48 & 30/37 & 2 × 10⁻⁴ & F2 & 0.003 & 0.003 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave-19 & $p^{sat}$ & -0.89 & -1.32 to -0.52 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-95 & $p^{sat}$ & -0.28 & -0.72 to +0.08 & 23/37 & 0.19 & F2 & 1.00 & 1.00 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-c & $p^{sat}$ & -0.59 & -1.01 to -0.23 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Coquelet & $p^{sat}$ & -0.53 & -1.04 to -0.10 & 23/37 & 0.19 & -- & -- & 1.00 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-MS & $p^{sat}$ & -0.31 & -0.73 to +0.04 & 22/37 & 0.32 & F2 & 1.00 & 1.00 \\
+\multicolumn{9}{l}{\emph{$p^{sat}$: $\alpha$-function pairs, PR}} \\
+PR-Soave-19 vs. PR-Soave & $p^{sat}$ & +0.38 & +0.22 to +0.54 & 9/37 & 0.003 & F2 & 0.038 & 0.031 \\
+PR-Twu-95 vs. PR-Soave & $p^{sat}$ & +0.10 & -0.11 to +0.33 & 25/37 & 0.047 & F2 & 0.52 & 0.42 \\
+PR-Twu-95 vs. PR-Soave-19 & $p^{sat}$ & -0.28 & -0.47 to -0.09 & 28/37 & 0.003 & -- & -- & 0.031 \\
+PR-Twu-c vs. PR-Soave & $p^{sat}$ & +0.05 & -0.14 to +0.25 & 17/37 & 0.74 & F2 & 1.00 & 1.00 \\
+PR-Twu-c vs. PR-Soave-19 & $p^{sat}$ & -0.32 & -0.40 to -0.25 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+PR-Twu-c vs. PR-Twu-95 & $p^{sat}$ & -0.05 & -0.20 to +0.11 & 24/37 & 0.099 & F2 & 0.99 & 0.80 \\
+PR-Coquelet vs. PR-Soave & $p^{sat}$ & +0.27 & +0.06 to +0.53 & 16/37 & 0.51 & F2 & 1.00 & 1.00 \\
+PR-Coquelet vs. PR-Soave-19 & $p^{sat}$ & -0.10 & -0.32 to +0.13 & 24/37 & 0.099 & -- & -- & 0.80 \\
+PR-Coquelet vs. PR-Twu-95 & $p^{sat}$ & +0.17 & +0.07 to +0.28 & 10/37 & 0.008 & -- & -- & 0.078 \\
+PR-Coquelet vs. PR-Twu-c & $p^{sat}$ & +0.22 & +0.03 to +0.42 & 14/37 & 0.19 & -- & -- & 1.00 \\
+PR-MS vs. PR-Soave & $p^{sat}$ & -0.00 & -0.22 to +0.23 & 24/37 & 0.099 & F2 & 0.99 & 0.80 \\
+PR-MS vs. PR-Soave-19 & $p^{sat}$ & -0.38 & -0.54 to -0.20 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-MS vs. PR-Twu-95 & $p^{sat}$ & -0.10 & -0.15 to -0.04 & 28/37 & 0.003 & F2 & 0.038 & 0.031 \\
+PR-MS vs. PR-Twu-c & $p^{sat}$ & -0.06 & -0.18 to +0.07 & 21/37 & 0.51 & -- & -- & 1.00 \\
+PR-MS vs. PR-Coquelet & $p^{sat}$ & -0.28 & -0.40 to -0.16 & 25/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave & $p^{sat}$ & -0.34 & -0.68 to -0.04 & 29/37 & 8 × 10⁻⁴ & F2 & 0.012 & 0.010 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave-19 & $p^{sat}$ & -0.72 & -1.08 to -0.42 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-95 & $p^{sat}$ & -0.44 & -0.92 to -0.06 & 24/37 & 0.099 & -- & -- & 0.80 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-c & $p^{sat}$ & -0.39 & -0.79 to -0.06 & 25/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Coquelet & $p^{sat}$ & -0.61 & -1.15 to -0.18 & 25/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-MS & $p^{sat}$ & -0.34 & -0.81 to +0.03 & 21/37 & 0.51 & F2 & 1.00 & 1.00 \\
+\multicolumn{9}{l}{\emph{$\Delta h_{vap}$: PR vs. SRK at fixed $\alpha$-function}} \\
+PR-Soave vs. SRK-Soave & $\Delta h_{vap}$ & -0.64 & -0.78 to -0.50 & 34/37 & 1 × 10⁻⁷ & F1 & 2 × 10⁻⁶ & 4 × 10⁻⁶ \\
+PR-Soave-19 vs. SRK-Soave-19 & $\Delta h_{vap}$ & -0.46 & -0.54 to -0.37 & 35/37 & 1 × 10⁻⁸ & F1 & 2 × 10⁻⁷ & 4 × 10⁻⁷ \\
+PR-Twu-95 vs. SRK-Twu-95 & $\Delta h_{vap}$ & -0.11 & -0.19 to -0.03 & 24/37 & 0.099 & F1 & 0.20 & 0.80 \\
+PR-Twu-c vs. SRK-Twu-c & $\Delta h_{vap}$ & -0.26 & -0.34 to -0.17 & 31/37 & 4 × 10⁻⁵ & F1 & 4 × 10⁻⁴ & 7 × 10⁻⁴ \\
+PR-Coquelet vs. SRK-Coquelet & $\Delta h_{vap}$ & -0.13 & -0.20 to -0.06 & 29/37 & 8 × 10⁻⁴ & F1 & 0.003 & 0.010 \\
+PR-MS vs. SRK-MS & $\Delta h_{vap}$ & -0.20 & -0.26 to -0.15 & 34/37 & 1 × 10⁻⁷ & F1 & 2 × 10⁻⁶ & 4 × 10⁻⁶ \\
+PR-Twu-fit$^{\dagger}$ vs. SRK-Twu-fit$^{\dagger}$ & $\Delta h_{vap}$ & -0.22 & -0.27 to -0.16 & 33/37 & 1 × 10⁻⁶ & F1 & 1 × 10⁻⁵ & 3 × 10⁻⁵ \\
+\multicolumn{9}{l}{\emph{$\Delta h_{vap}$: $\alpha$-function pairs, SRK}} \\
+SRK-Soave-19 vs. SRK-Soave & $\Delta h_{vap}$ & +0.03 & +0.00 to +0.05 & 10/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-95 vs. SRK-Soave & $\Delta h_{vap}$ & -0.44 & -0.58 to -0.33 & 34/37 & 1 × 10⁻⁷ & F2 & 3 × 10⁻⁶ & 4 × 10⁻⁶ \\
+SRK-Twu-95 vs. SRK-Soave-19 & $\Delta h_{vap}$ & -0.47 & -0.61 to -0.34 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+SRK-Twu-c vs. SRK-Soave & $\Delta h_{vap}$ & -0.15 & -0.18 to -0.12 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+SRK-Twu-c vs. SRK-Soave-19 & $\Delta h_{vap}$ & -0.17 & -0.19 to -0.15 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Twu-c vs. SRK-Twu-95 & $\Delta h_{vap}$ & +0.30 & +0.17 to +0.45 & 7/37 & 2 × 10⁻⁴ & -- & -- & 0.003 \\
+SRK-Coquelet vs. SRK-Soave & $\Delta h_{vap}$ & -0.39 & -0.52 to -0.26 & 32/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+SRK-Coquelet vs. SRK-Soave-19 & $\Delta h_{vap}$ & -0.41 & -0.55 to -0.27 & 32/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+SRK-Coquelet vs. SRK-Twu-95 & $\Delta h_{vap}$ & +0.06 & -0.00 to +0.12 & 17/37 & 0.74 & -- & -- & 1.00 \\
+SRK-Coquelet vs. SRK-Twu-c & $\Delta h_{vap}$ & -0.24 & -0.39 to -0.10 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-MS vs. SRK-Soave & $\Delta h_{vap}$ & -0.30 & -0.34 to -0.26 & 36/37 & 6 × 10⁻¹⁰ & -- & -- & 3 × 10⁻⁸ \\
+SRK-MS vs. SRK-Soave-19 & $\Delta h_{vap}$ & -0.33 & -0.38 to -0.27 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+SRK-MS vs. SRK-Twu-95 & $\Delta h_{vap}$ & +0.14 & +0.04 to +0.27 & 17/37 & 0.74 & -- & -- & 1.00 \\
+SRK-MS vs. SRK-Twu-c & $\Delta h_{vap}$ & -0.16 & -0.20 to -0.10 & 32/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+SRK-MS vs. SRK-Coquelet & $\Delta h_{vap}$ & +0.08 & -0.03 to +0.20 & 15/37 & 0.32 & -- & -- & 1.00 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave & $\Delta h_{vap}$ & -0.70 & -0.94 to -0.49 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave-19 & $\Delta h_{vap}$ & -0.73 & -0.95 to -0.52 & 32/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-95 & $\Delta h_{vap}$ & -0.26 & -0.53 to -0.02 & 24/37 & 0.099 & -- & -- & 0.80 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-c & $\Delta h_{vap}$ & -0.56 & -0.78 to -0.35 & 30/37 & 2 × 10⁻⁴ & -- & -- & 0.003 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Coquelet & $\Delta h_{vap}$ & -0.32 & -0.61 to -0.07 & 26/37 & 0.020 & -- & -- & 0.19 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-MS & $\Delta h_{vap}$ & -0.40 & -0.64 to -0.18 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+\multicolumn{9}{l}{\emph{$\Delta h_{vap}$: $\alpha$-function pairs, PR}} \\
+PR-Soave-19 vs. PR-Soave & $\Delta h_{vap}$ & +0.20 & +0.12 to +0.29 & 6/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-95 vs. PR-Soave & $\Delta h_{vap}$ & +0.08 & -0.05 to +0.23 & 19/37 & 1.00 & F2 & 1.00 & 1.00 \\
+PR-Twu-95 vs. PR-Soave-19 & $\Delta h_{vap}$ & -0.12 & -0.24 to +0.00 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Twu-c vs. PR-Soave & $\Delta h_{vap}$ & +0.23 & +0.09 to +0.39 & 14/37 & 0.19 & -- & -- & 1.00 \\
+PR-Twu-c vs. PR-Soave-19 & $\Delta h_{vap}$ & +0.03 & -0.09 to +0.16 & 18/37 & 1.00 & -- & -- & 1.00 \\
+PR-Twu-c vs. PR-Twu-95 & $\Delta h_{vap}$ & +0.15 & -0.02 to +0.33 & 16/37 & 0.51 & -- & -- & 1.00 \\
+PR-Coquelet vs. PR-Soave & $\Delta h_{vap}$ & +0.12 & -0.02 to +0.29 & 20/37 & 0.74 & -- & -- & 1.00 \\
+PR-Coquelet vs. PR-Soave-19 & $\Delta h_{vap}$ & -0.08 & -0.22 to +0.07 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Coquelet vs. PR-Twu-95 & $\Delta h_{vap}$ & +0.04 & -0.03 to +0.10 & 18/37 & 1.00 & -- & -- & 1.00 \\
+PR-Coquelet vs. PR-Twu-c & $\Delta h_{vap}$ & -0.11 & -0.30 to +0.07 & 22/37 & 0.32 & -- & -- & 1.00 \\
+PR-MS vs. PR-Soave & $\Delta h_{vap}$ & +0.13 & +0.01 to +0.26 & 16/37 & 0.51 & -- & -- & 1.00 \\
+PR-MS vs. PR-Soave-19 & $\Delta h_{vap}$ & -0.07 & -0.16 to +0.02 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-MS vs. PR-Twu-95 & $\Delta h_{vap}$ & +0.05 & -0.02 to +0.13 & 22/37 & 0.32 & -- & -- & 1.00 \\
+PR-MS vs. PR-Twu-c & $\Delta h_{vap}$ & -0.10 & -0.21 to +0.01 & 21/37 & 0.51 & -- & -- & 1.00 \\
+PR-MS vs. PR-Coquelet & $\Delta h_{vap}$ & +0.01 & -0.08 to +0.10 & 17/37 & 0.74 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave & $\Delta h_{vap}$ & -0.28 & -0.43 to -0.14 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave-19 & $\Delta h_{vap}$ & -0.49 & -0.68 to -0.32 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-95 & $\Delta h_{vap}$ & -0.37 & -0.64 to -0.14 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-c & $\Delta h_{vap}$ & -0.52 & -0.75 to -0.29 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Coquelet & $\Delta h_{vap}$ & -0.40 & -0.70 to -0.15 & 28/37 & 0.003 & -- & -- & 0.031 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-MS & $\Delta h_{vap}$ & -0.41 & -0.67 to -0.20 & 26/37 & 0.020 & -- & -- & 0.19 \\
+\multicolumn{9}{l}{\emph{$\rho'$: PR vs. SRK at fixed $\alpha$-function}} \\
+PR-Soave vs. SRK-Soave & $\rho'$ & -6.61 & -8.24 to -4.75 & 31/37 & 4 × 10⁻⁵ & F1 & 4 × 10⁻⁴ & 7 × 10⁻⁴ \\
+PR-Soave-19 vs. SRK-Soave-19 & $\rho'$ & -6.58 & -8.24 to -4.68 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-95 vs. SRK-Twu-95 & $\rho'$ & -6.51 & -8.14 to -4.64 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-c vs. SRK-Twu-c & $\rho'$ & -6.60 & -8.23 to -4.73 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Coquelet vs. SRK-Coquelet & $\rho'$ & -6.52 & -8.15 to -4.64 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-MS vs. SRK-MS & $\rho'$ & -6.54 & -8.16 to -4.69 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-fit$^{\dagger}$ vs. SRK-Twu-fit$^{\dagger}$ & $\rho'$ & -6.57 & -8.20 to -4.70 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+\multicolumn{9}{l}{\emph{$\rho'$: $\alpha$-function pairs, SRK}} \\
+SRK-Soave-19 vs. SRK-Soave & $\rho'$ & -0.01 & -0.01 to -0.00 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-95 vs. SRK-Soave & $\rho'$ & -0.07 & -0.09 to -0.06 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Twu-95 vs. SRK-Soave-19 & $\rho'$ & -0.06 & -0.08 to -0.05 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Twu-c vs. SRK-Soave & $\rho'$ & -0.01 & -0.01 to -0.00 & 28/37 & 0.003 & -- & -- & 0.031 \\
+SRK-Twu-c vs. SRK-Soave-19 & $\rho'$ & -0.00 & -0.01 to +0.00 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-c vs. SRK-Twu-95 & $\rho'$ & +0.06 & +0.05 to +0.08 & 0/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Coquelet vs. SRK-Soave & $\rho'$ & -0.07 & -0.09 to -0.05 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Coquelet vs. SRK-Soave-19 & $\rho'$ & -0.06 & -0.08 to -0.05 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Coquelet vs. SRK-Twu-95 & $\rho'$ & +0.00 & -0.00 to +0.01 & 10/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Coquelet vs. SRK-Twu-c & $\rho'$ & -0.06 & -0.08 to -0.04 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-MS vs. SRK-Soave & $\rho'$ & -0.04 & -0.05 to -0.03 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+SRK-MS vs. SRK-Soave-19 & $\rho'$ & -0.03 & -0.04 to -0.02 & 30/37 & 2 × 10⁻⁴ & -- & -- & 0.003 \\
+SRK-MS vs. SRK-Twu-95 & $\rho'$ & +0.03 & +0.01 to +0.05 & 15/37 & 0.32 & -- & -- & 1.00 \\
+SRK-MS vs. SRK-Twu-c & $\rho'$ & -0.03 & -0.04 to -0.02 & 32/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+SRK-MS vs. SRK-Coquelet & $\rho'$ & +0.03 & +0.01 to +0.06 & 19/37 & 1.00 & -- & -- & 1.00 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave & $\rho'$ & -0.03 & -0.06 to -0.01 & 28/37 & 0.003 & -- & -- & 0.031 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave-19 & $\rho'$ & -0.03 & -0.05 to +0.00 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-95 & $\rho'$ & +0.04 & +0.01 to +0.06 & 13/37 & 0.099 & -- & -- & 0.80 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-c & $\rho'$ & -0.03 & -0.05 to +0.00 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Coquelet & $\rho'$ & +0.03 & +0.01 to +0.06 & 13/37 & 0.099 & -- & -- & 0.80 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-MS & $\rho'$ & +0.01 & -0.02 to +0.03 & 20/37 & 0.74 & -- & -- & 1.00 \\
+\multicolumn{9}{l}{\emph{$\rho'$: $\alpha$-function pairs, PR}} \\
+PR-Soave-19 vs. PR-Soave & $\rho'$ & +0.03 & -0.01 to +0.06 & 16/37 & 0.51 & -- & -- & 1.00 \\
+PR-Twu-95 vs. PR-Soave & $\rho'$ & +0.03 & +0.02 to +0.04 & 8/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+PR-Twu-95 vs. PR-Soave-19 & $\rho'$ & +0.00 & -0.03 to +0.04 & 16/37 & 0.51 & -- & -- & 1.00 \\
+PR-Twu-c vs. PR-Soave & $\rho'$ & +0.00 & -0.01 to +0.01 & 16/37 & 0.51 & -- & -- & 1.00 \\
+PR-Twu-c vs. PR-Soave-19 & $\rho'$ & -0.02 & -0.05 to +0.00 & 18/37 & 1.00 & -- & -- & 1.00 \\
+PR-Twu-c vs. PR-Twu-95 & $\rho'$ & -0.03 & -0.04 to -0.01 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-Coquelet vs. PR-Soave & $\rho'$ & +0.02 & +0.01 to +0.03 & 13/37 & 0.099 & -- & -- & 0.80 \\
+PR-Coquelet vs. PR-Soave-19 & $\rho'$ & -0.01 & -0.04 to +0.03 & 17/37 & 0.74 & -- & -- & 1.00 \\
+PR-Coquelet vs. PR-Twu-95 & $\rho'$ & -0.01 & -0.01 to -0.01 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Coquelet vs. PR-Twu-c & $\rho'$ & +0.02 & +0.00 to +0.03 & 15/37 & 0.32 & -- & -- & 1.00 \\
+PR-MS vs. PR-Soave & $\rho'$ & +0.02 & +0.01 to +0.03 & 4/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+PR-MS vs. PR-Soave-19 & $\rho'$ & -0.00 & -0.04 to +0.03 & 16/37 & 0.51 & -- & -- & 1.00 \\
+PR-MS vs. PR-Twu-95 & $\rho'$ & -0.01 & -0.01 to +0.00 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-MS vs. PR-Twu-c & $\rho'$ & +0.02 & +0.01 to +0.03 & 11/37 & 0.020 & -- & -- & 0.19 \\
+PR-MS vs. PR-Coquelet & $\rho'$ & +0.00 & -0.00 to +0.01 & 21/37 & 0.51 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave & $\rho'$ & +0.00 & -0.03 to +0.03 & 15/37 & 0.32 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave-19 & $\rho'$ & -0.02 & -0.06 to +0.01 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-95 & $\rho'$ & -0.03 & -0.05 to -0.00 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-c & $\rho'$ & -0.00 & -0.02 to +0.02 & 19/37 & 1.00 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Coquelet & $\rho'$ & -0.02 & -0.04 to +0.01 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-MS & $\rho'$ & -0.02 & -0.04 to +0.00 & 24/37 & 0.099 & -- & -- & 0.80 \\
+\multicolumn{9}{l}{\emph{$\rho''$: PR vs. SRK at fixed $\alpha$-function}} \\
+PR-Soave vs. SRK-Soave & $\rho''$ & -0.46 & -0.78 to -0.14 & 24/37 & 0.099 & -- & -- & 0.80 \\
+PR-Soave-19 vs. SRK-Soave-19 & $\rho''$ & +0.10 & -0.08 to +0.27 & 19/37 & 1.00 & -- & -- & 1.00 \\
+PR-Twu-95 vs. SRK-Twu-95 & $\rho''$ & -0.50 & -0.73 to -0.26 & 28/37 & 0.003 & -- & -- & 0.031 \\
+PR-Twu-c vs. SRK-Twu-c & $\rho''$ & -0.03 & -0.24 to +0.20 & 21/37 & 0.51 & -- & -- & 1.00 \\
+PR-Coquelet vs. SRK-Coquelet & $\rho''$ & -0.49 & -0.68 to -0.29 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+PR-MS vs. SRK-MS & $\rho''$ & -0.41 & -0.65 to -0.15 & 25/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-fit$^{\dagger}$ vs. SRK-Twu-fit$^{\dagger}$ & $\rho''$ & -0.19 & -0.40 to +0.03 & 23/37 & 0.19 & -- & -- & 1.00 \\
+\multicolumn{9}{l}{\emph{$\rho''$: $\alpha$-function pairs, SRK}} \\
+SRK-Soave-19 vs. SRK-Soave & $\rho''$ & +0.05 & -0.01 to +0.11 & 10/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-95 vs. SRK-Soave & $\rho''$ & -0.14 & -0.26 to -0.01 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+SRK-Twu-95 vs. SRK-Soave-19 & $\rho''$ & -0.19 & -0.34 to -0.04 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+SRK-Twu-c vs. SRK-Soave & $\rho''$ & -0.20 & -0.28 to -0.13 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+SRK-Twu-c vs. SRK-Soave-19 & $\rho''$ & -0.25 & -0.30 to -0.21 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+SRK-Twu-c vs. SRK-Twu-95 & $\rho''$ & -0.06 & -0.21 to +0.08 & 20/37 & 0.74 & -- & -- & 1.00 \\
+SRK-Coquelet vs. SRK-Soave & $\rho''$ & +0.07 & -0.09 to +0.24 & 19/37 & 1.00 & -- & -- & 1.00 \\
+SRK-Coquelet vs. SRK-Soave-19 & $\rho''$ & +0.02 & -0.17 to +0.21 & 24/37 & 0.099 & -- & -- & 0.80 \\
+SRK-Coquelet vs. SRK-Twu-95 & $\rho''$ & +0.21 & +0.11 to +0.31 & 11/37 & 0.020 & -- & -- & 0.19 \\
+SRK-Coquelet vs. SRK-Twu-c & $\rho''$ & +0.27 & +0.08 to +0.47 & 11/37 & 0.020 & -- & -- & 0.19 \\
+SRK-MS vs. SRK-Soave & $\rho''$ & -0.13 & -0.21 to -0.04 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+SRK-MS vs. SRK-Soave-19 & $\rho''$ & -0.18 & -0.29 to -0.06 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-MS vs. SRK-Twu-95 & $\rho''$ & +0.01 & -0.05 to +0.07 & 12/37 & 0.047 & -- & -- & 0.42 \\
+SRK-MS vs. SRK-Twu-c & $\rho''$ & +0.07 & -0.03 to +0.18 & 19/37 & 1.00 & -- & -- & 1.00 \\
+SRK-MS vs. SRK-Coquelet & $\rho''$ & -0.20 & -0.34 to -0.07 & 22/37 & 0.32 & -- & -- & 1.00 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave & $\rho''$ & -0.59 & -0.94 to -0.28 & 28/37 & 0.003 & -- & -- & 0.031 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Soave-19 & $\rho''$ & -0.64 & -0.97 to -0.34 & 29/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-95 & $\rho''$ & -0.45 & -0.82 to -0.12 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Twu-c & $\rho''$ & -0.39 & -0.71 to -0.09 & 25/37 & 0.047 & -- & -- & 0.42 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-Coquelet & $\rho''$ & -0.66 & -1.06 to -0.30 & 30/37 & 2 × 10⁻⁴ & -- & -- & 0.003 \\
+SRK-Twu-fit$^{\dagger}$ vs. SRK-MS & $\rho''$ & -0.46 & -0.82 to -0.15 & 27/37 & 0.008 & -- & -- & 0.078 \\
+\multicolumn{9}{l}{\emph{$\rho''$: $\alpha$-function pairs, PR}} \\
+PR-Soave-19 vs. PR-Soave & $\rho''$ & +0.61 & +0.44 to +0.79 & 5/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+PR-Twu-95 vs. PR-Soave & $\rho''$ & -0.17 & -0.38 to +0.07 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Twu-95 vs. PR-Soave-19 & $\rho''$ & -0.79 & -0.95 to -0.61 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+PR-Twu-c vs. PR-Soave & $\rho''$ & +0.23 & +0.04 to +0.43 & 14/37 & 0.19 & -- & -- & 1.00 \\
+PR-Twu-c vs. PR-Soave-19 & $\rho''$ & -0.38 & -0.47 to -0.29 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+PR-Twu-c vs. PR-Twu-95 & $\rho''$ & +0.40 & +0.25 to +0.56 & 5/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+PR-Coquelet vs. PR-Soave & $\rho''$ & +0.04 & -0.20 to +0.34 & 22/37 & 0.32 & -- & -- & 1.00 \\
+PR-Coquelet vs. PR-Soave-19 & $\rho''$ & -0.57 & -0.78 to -0.32 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+PR-Coquelet vs. PR-Twu-95 & $\rho''$ & +0.22 & +0.12 to +0.32 & 8/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+PR-Coquelet vs. PR-Twu-c & $\rho''$ & -0.19 & -0.39 to +0.03 & 28/37 & 0.003 & -- & -- & 0.031 \\
+PR-MS vs. PR-Soave & $\rho''$ & -0.08 & -0.29 to +0.17 & 23/37 & 0.19 & -- & -- & 1.00 \\
+PR-MS vs. PR-Soave-19 & $\rho''$ & -0.69 & -0.83 to -0.52 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+PR-MS vs. PR-Twu-95 & $\rho''$ & +0.10 & +0.05 to +0.16 & 10/37 & 0.008 & -- & -- & 0.078 \\
+PR-MS vs. PR-Twu-c & $\rho''$ & -0.31 & -0.42 to -0.17 & 32/37 & 7 × 10⁻⁶ & -- & -- & 2 × 10⁻⁴ \\
+PR-MS vs. PR-Coquelet & $\rho''$ & -0.12 & -0.23 to -0.00 & 24/37 & 0.099 & -- & -- & 0.80 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave & $\rho''$ & -0.32 & -0.53 to -0.10 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Soave-19 & $\rho''$ & -0.93 & -1.22 to -0.66 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-95 & $\rho''$ & -0.14 & -0.50 to +0.16 & 21/37 & 0.51 & -- & -- & 1.00 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Twu-c & $\rho''$ & -0.55 & -0.86 to -0.26 & 27/37 & 0.008 & -- & -- & 0.078 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-Coquelet & $\rho''$ & -0.36 & -0.77 to -0.01 & 25/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-fit$^{\dagger}$ vs. PR-MS & $\rho''$ & -0.24 & -0.60 to +0.06 & 23/37 & 0.19 & -- & -- & 1.00 \\
+\multicolumn{9}{l}{\emph{Volume translation (classical Soave $\alpha$)}} \\
+PR-VT vs. SRK-VT & $\rho'$ & -1.71 & -1.79 to -1.65 & 37/37 & 1 × 10⁻¹¹ & F1 & 3 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+PR-VT$_{corr}$ vs. SRK-VT$_{corr}$ & $\rho'$ & -1.25 & -1.40 to -1.10 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+PR-VT$_{corr}$ vs. PR-Soave & $\rho'$ & -1.44 & -2.46 to -0.49 & 22/37 & 0.32 & F3 & 0.32 & 1.00 \\
+SRK-VT$_{corr}$ vs. SRK-Soave & $\rho'$ & -6.80 & -8.00 to -5.59 & 36/37 & 6 × 10⁻¹⁰ & F3 & 2 × 10⁻⁹ & 3 × 10⁻⁸ \\
+PR-VT vs. PR-VT$_{corr}$ & $\rho'$ & -1.97 & -3.16 to -0.93 & 27/37 & 0.008 & F3 & 0.015 & 0.078 \\
+SRK-VT vs. SRK-VT$_{corr}$ & $\rho'$ & -1.50 & -2.54 to -0.59 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+PR-VT vs. PR-Soave & $\rho''$ & -0.18 & -0.26 to -0.11 & 30/37 & 2 × 10⁻⁴ & F3 & 6 × 10⁻⁴ & 0.003 \\
+SRK-VT vs. SRK-Soave & $\rho''$ & -0.30 & -0.40 to -0.19 & 26/37 & 0.020 & -- & -- & 0.19 \\
+PR-VT$_{corr}$ vs. PR-Soave & $\rho''$ & -0.10 & -0.18 to -0.02 & 26/37 & 0.020 & -- & -- & 0.19 \\
+SRK-VT$_{corr}$ vs. SRK-Soave & $\rho''$ & -0.22 & -0.30 to -0.14 & 26/37 & 0.020 & -- & -- & 0.19 \\
+\multicolumn{9}{l}{\emph{In-sample fits (Section 2.5; $^{\ddagger}$)}} \\
+PR-Soave-is$^{\ddagger}$ vs. SRK-Soave-is$^{\ddagger}$ & $p^{sat}$ & -0.58 & -0.78 to -0.39 & 31/37 & 4 × 10⁻⁵ & F1 & 4 × 10⁻⁴ & 7 × 10⁻⁴ \\
+PR-Twu-is$^{\ddagger}$ vs. SRK-Twu-is$^{\ddagger}$ & $p^{sat}$ & -0.15 & -0.22 to -0.09 & 36/37 & 6 × 10⁻¹⁰ & F1 & 1 × 10⁻⁸ & 3 × 10⁻⁸ \\
+PR-Soave-is$^{\ddagger}$ vs. SRK-Soave-is$^{\ddagger}$ & $\Delta h_{vap}$ & -0.35 & -0.45 to -0.25 & 32/37 & 7 × 10⁻⁶ & F1 & 8 × 10⁻⁵ & 2 × 10⁻⁴ \\
+PR-Twu-is$^{\ddagger}$ vs. SRK-Twu-is$^{\ddagger}$ & $\Delta h_{vap}$ & -0.19 & -0.24 to -0.15 & 34/37 & 1 × 10⁻⁷ & F1 & 2 × 10⁻⁶ & 4 × 10⁻⁶ \\
+PR-Soave-is$^{\ddagger}$ vs. SRK-Soave-is$^{\ddagger}$ & $\rho'$ & -6.66 & -8.30 to -4.78 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-is$^{\ddagger}$ vs. SRK-Twu-is$^{\ddagger}$ & $\rho'$ & -6.54 & -8.18 to -4.67 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Soave-is$^{\ddagger}$ vs. SRK-Soave-is$^{\ddagger}$ & $\rho''$ & +0.21 & +0.04 to +0.37 & 12/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-is$^{\ddagger}$ vs. SRK-Twu-is$^{\ddagger}$ & $\rho''$ & -0.38 & -0.58 to -0.17 & 27/37 & 0.008 & -- & -- & 0.078 \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-Soave-is$^{\ddagger}$ & $p^{sat}$ & -1.02 & -1.34 to -0.76 & 37/37 & 1 × 10⁻¹¹ & F2 & 4 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-Twu-fit$^{\dagger}$ & $p^{sat}$ & -0.53 & -0.71 to -0.37 & 37/37 & 1 × 10⁻¹¹ & F2 & 4 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+SRK-Soave-is$^{\ddagger}$ vs. SRK-Soave & $p^{sat}$ & -0.37 & -0.46 to -0.29 & 37/37 & 1 × 10⁻¹¹ & F2 & 4 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-Twu-95 & $p^{sat}$ & -0.81 & -1.20 to -0.50 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Soave-is$^{\ddagger}$ vs. SRK-Twu-95 & $p^{sat}$ & +0.21 & +0.09 to +0.32 & 8/37 & 8 × 10⁻⁴ & -- & -- & 0.010 \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-MS & $p^{sat}$ & -0.84 & -1.21 to -0.55 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+SRK-Twu-is (unconstrained) vs. SRK-Twu-is$^{\ddagger}$ & $p^{sat}$ & -0.16 & -0.23 to -0.11 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+PR-Twu-is$^{\ddagger}$ vs. PR-Soave-is$^{\ddagger}$ & $p^{sat}$ & -0.58 & -0.83 to -0.41 & 37/37 & 1 × 10⁻¹¹ & F2 & 4 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+PR-Twu-is$^{\ddagger}$ vs. PR-Twu-fit$^{\dagger}$ & $p^{sat}$ & -0.52 & -0.69 to -0.37 & 37/37 & 1 × 10⁻¹¹ & F2 & 4 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+PR-Soave-is$^{\ddagger}$ vs. PR-Soave & $p^{sat}$ & -0.27 & -0.35 to -0.20 & 37/37 & 1 × 10⁻¹¹ & F2 & 4 × 10⁻¹⁰ & 1 × 10⁻⁹ \\
+PR-Twu-is$^{\ddagger}$ vs. PR-Soave & $p^{sat}$ & -0.86 & -1.14 to -0.65 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+PR-Twu-is$^{\ddagger}$ vs. PR-MS & $p^{sat}$ & -0.85 & -1.29 to -0.54 & 37/37 & 1 × 10⁻¹¹ & -- & -- & 1 × 10⁻⁹ \\
+PR-Twu-is (unconstrained) vs. PR-Twu-is$^{\ddagger}$ & $p^{sat}$ & -0.03 & -0.04 to -0.01 & 23/37 & 0.19 & -- & -- & 1.00 \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-Soave-is$^{\ddagger}$ & $\Delta h_{vap}$ & -0.40 & -0.53 to -0.28 & 33/37 & 1 × 10⁻⁶ & -- & -- & 3 × 10⁻⁵ \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-Twu-fit$^{\dagger}$ & $\Delta h_{vap}$ & -0.09 & -0.18 to -0.01 & 26/37 & 0.020 & -- & -- & 0.19 \\
+SRK-Soave-is$^{\ddagger}$ vs. SRK-Soave & $\Delta h_{vap}$ & -0.40 & -0.55 to -0.28 & 34/37 & 1 × 10⁻⁷ & -- & -- & 4 × 10⁻⁶ \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-Twu-95 & $\Delta h_{vap}$ & -0.35 & -0.59 to -0.16 & 26/37 & 0.020 & -- & -- & 0.19 \\
+SRK-Soave-is$^{\ddagger}$ vs. SRK-Twu-95 & $\Delta h_{vap}$ & +0.05 & -0.18 to +0.26 & 15/37 & 0.32 & -- & -- & 1.00 \\
+SRK-Twu-is$^{\ddagger}$ vs. SRK-MS & $\Delta h_{vap}$ & -0.49 & -0.71 to -0.32 & 36/37 & 6 × 10⁻¹⁰ & -- & -- & 3 × 10⁻⁸ \\
+SRK-Twu-is (unconstrained) vs. SRK-Twu-is$^{\ddagger}$ & $\Delta h_{vap}$ & -0.07 & -0.13 to -0.02 & 25/37 & 0.047 & -- & -- & 0.42 \\
+PR-Twu-is$^{\ddagger}$ vs. PR-Soave-is$^{\ddagger}$ & $\Delta h_{vap}$ & -0.24 & -0.31 to -0.18 & 31/37 & 4 × 10⁻⁵ & -- & -- & 7 × 10⁻⁴ \\
+PR-Twu-is$^{\ddagger}$ vs. PR-Twu-fit$^{\dagger}$ & $\Delta h_{vap}$ & -0.07 & -0.16 to +0.02 & 20/37 & 0.74 & -- & -- & 1.00 \\
+PR-Soave-is$^{\ddagger}$ vs. PR-Soave & $\Delta h_{vap}$ & -0.11 & -0.20 to -0.04 & 20/37 & 0.74 & -- & -- & 1.00 \\
+PR-Twu-is$^{\ddagger}$ vs. PR-Soave & $\Delta h_{vap}$ & -0.35 & -0.47 to -0.26 & 36/37 & 6 × 10⁻¹⁰ & -- & -- & 3 × 10⁻⁸ \\
+PR-Twu-is$^{\ddagger}$ vs. PR-MS & $\Delta h_{vap}$ & -0.48 & -0.70 to -0.31 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+PR-Twu-is (unconstrained) vs. PR-Twu-is$^{\ddagger}$ & $\Delta h_{vap}$ & -0.03 & -0.06 to -0.01 & 22/37 & 0.32 & -- & -- & 1.00 \\
+PR-Twu-is (unconstrained) vs. SRK-Twu-is (unconstrained) & $p^{sat}$ & -0.02 & -0.03 to +0.01 & 35/37 & 1 × 10⁻⁸ & -- & -- & 4 × 10⁻⁷ \\
+PR-Twu-is (unconstrained) vs. SRK-Twu-is (unconstrained) & $\Delta h_{vap}$ & -0.16 & -0.24 to -0.08 & 26/37 & 0.020 & -- & -- & 0.19 \\
 \bottomrule
 \end{tabular}
 \end{table}

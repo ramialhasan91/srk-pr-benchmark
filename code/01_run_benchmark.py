@@ -1,68 +1,37 @@
-"""
-Benchmark of the SRK and PR cubic equations of state, each combined with seven
-alpha functions and with a constant volume translation, against reference
-multiparameter (Helmholtz-energy) equations of state as implemented in
-CoolProp, for saturation pressure, saturated-liquid density, saturated-vapor
-density, and enthalpy of vaporization.
+"""Benchmark of SRK and PR, each with seven alpha functions and a constant volume translation, against the
+reference Helmholtz-energy equations of state in CoolProp: saturation pressure, saturated-liquid and
+saturated-vapor density, enthalpy of vaporization.
 
-Models (tag = <cubic>_<alpha>)
-------------------------------
-Cubics : srk, pr
-Alphas : s    classical Soave form, original m(omega) (Soave 1972 / PR 1976)
-         s19  Soave form, updated generalized m(omega) (Pina-Martinez et al. 2019)
-         t95  generalized Twu alpha function (Twu et al. 1995)
-         tc   generalized consistent Twu-91 (N = 2; PR: Pina-Martinez et al.
-              2022, SRK: Pina-Martinez et al. 2018)
-         coq  exponential alpha function of Coquelet et al. 2004, generalized
-              coefficients as compiled by Xiao & Yang 2025
-         ms   consistent generalized alpha function of Mahmoodi & Sedigh 2017,
-              coefficients as compiled by Xiao & Yang 2025
-         tf   component-specific consistent Twu-91 parameters from the
-              1800-fluid compilation of Pina-Martinez et al. 2022
-              (data/twu_fit_params.csv, verified against its SI Table S3).
-              NOT predictive: fitted reference.
-The first six alphas require nothing beyond (Tc, pc, omega).
+Models (tag = <cubic>_<alpha>): cubics srk, pr; alphas
+  s    Soave form, original m(omega) (Soave 1972; Peng-Robinson 1976)
+  s19  Soave form, updated m(omega) (Pina-Martinez et al. 2019)
+  t95  generalized Twu function (Twu et al. 1995)
+  tc   generalized consistent Twu-91, N = 2 (PR: Pina-Martinez et al. 2022; SRK: Pina-Martinez et al. 2018)
+  coq  Coquelet et al. 2004, generalized coefficients of Xiao & Yang 2025
+  ms   consistent function of Mahmoodi & Sedigh 2017, coefficients of Xiao & Yang 2025
+  tf   component-specific consistent Twu-91 parameters of Pina-Martinez et al. 2022
+       (data/twu_fit_params.csv; fitted reference, not predictive)
+The first six need nothing beyond (Tc, pc, omega).
 
-Volume translation (density only), v_t = v - c, "translation ladder":
-  c_corr  zero-data: translated liquid volume matches the Rackett prediction
-          at Tr = 0.70 with Z_RA = 0.29056 - 0.08775 omega (Yamada-Gunn), i.e.
-          the Peneloux (1982) construction;
-  c_fit   one datum: matches the REFERENCE liquid volume at Tr = 0.70 (or at
-          the lowest gridded Tr if the triple point lies above 0.70 Tc);
-  c_zc    critical datum: matches the reference critical volume,
-          c = (Zc_model - Zc_ref) R Tc / pc (diagnostic only).
-The ladder is evaluated for every (cubic, alpha) combination; the paper
-reports it for the classical-alpha variants (VT_ALPHA) and quotes the alpha
-sensitivity. Translated saturated-vapor densities are recorded for the
-density-anchored and the Rackett-anchored constants.
+Volume translation (densities only), v_t = v - c, with three constants per (cubic, alpha):
+  c_corr  no data: matches the Rackett volume at Tr = 0.70 with Z_RA = 0.29056 - 0.08775 omega (Peneloux 1982)
+  c_fit   one datum: matches the reference liquid volume at Tr = 0.70 (or at the lowest grid Tr)
+  c_zc    diagnostic: matches the reference critical volume, c = (Zc_model - Zc_ref) R Tc / pc
+The untranslated cubic, c_corr and c_fit form the translation ladder of the paper; the paper reports the
+constants of the classical-alpha variants (VT_ALPHA) and quotes the alpha sensitivity.
 
-Validation
-----------
-* Volume-translation invariance: ln(phi_translated) = ln(phi) - c p/(RT)
-  checked by quadrature of the exact departure integral (both phases, all
-  fluids, three temperatures, both cubics).
-* Clapeyron self-consistency: the departure-function enthalpy of vaporization
-  is checked against T (v'' - v') dpsat/dT (central differences of the solved
-  saturation pressure) at EVERY state point for all 14 combinations.
-* Anchor sensitivity: the pooled translated liquid-density AAD is recomputed
-  with the anchoring temperature swept over the whole grid (both cubics).
+Checks: translation invariance ln(phi_t) = ln(phi) - c p/(RT) by quadrature of the departure integral
+(both cubics, both phases, every fluid, three temperatures); Clapeyron consistency of the departure-function
+enthalpy of vaporization against T (v'' - v') dpsat/dT at every point; anchor-temperature sweep of the
+translated liquid-density AAD.
 
-Protocol
---------
-For each fluid: 40 reduced temperatures, Tr in [max(0.50, Tt/Tc + 0.01), 0.985].
-Critical constants (Tc, pc) and acentric factor omega are taken from the
-reference EoS itself (via CoolProp), so deviations reflect model form only.
-The Halm-Stiel polar factor chi = log10[psat_ref(0.6 Tc)/pc] + 1.70 omega + 1.552
-is evaluated from the reference EoS as a descriptor of each fluid's departure
-from two-parameter corresponding states (undefined when 0.6 Tc < Tt).
+Protocol: per fluid 40 reduced temperatures in [max(0.50, Tt/Tc + 0.01), 0.985]; Tc, pc and omega from
+the reference EoS (CoolProp), so that deviations measure model form only; Halm-Stiel polar factor
+chi = log10[psat_ref(0.6 Tc)/pc] + 1.70 omega + 1.552 from the reference EoS (NaN if 0.6 Tc < Tt).
 
-Outputs (../data/):
-  deviations_full.csv   per-point results and % deviations
-  fluids.csv            fluid metadata, polar factor, translation constants
-  anchor_sweep.csv      pooled translated liquid-density AAD vs anchoring Tr
-  key_numbers.json      headline statistics quoted in the manuscript
-  run_metadata.json     library versions, solver settings, convergence record,
-                        and the two validation checks
+Outputs (../data/): deviations_full.csv (per-point results and % deviations), fluids.csv (metadata, polar
+factor, translation constants), anchor_sweep.csv, key_numbers.json (numbers quoted in the paper),
+run_metadata.json (library versions, solver settings, convergence record, the two checks).
 """
 
 import json
@@ -263,10 +232,7 @@ print(f"Clapeyron check: {clap_stats['n_checks']} points, "
       f"median = {clap_stats['median_rel_diff']:.2e}")
 assert clap_stats["max_rel_diff"] < 1e-3, "Clapeyron consistency check failed"
 
-# --------------------------------------------------------------------- #
-# Numerical verification that a constant volume translation leaves the
-# fugacity-equality condition (hence psat and Delta h_vap) unchanged, for
-# both cubics (classical Soave alpha, VT_ALPHA), every fluid, three temperatures, both phases.
+# Check that a constant translation leaves the fugacity equality (hence psat and Delta h_vap) unchanged:\n# both cubics (classical alpha), every fluid, three temperatures, both phases.
 vt_residuals = []
 for cp_name, (disp, family, subgroup) in FLUIDS.items():
     row = fl[fl.fluid == disp].iloc[0]
@@ -289,10 +255,7 @@ print(f"VT invariance identity: {len(vt_residuals)} checks, "
       f"max |residual| in ln(phi) = {vt_max_residual:.2e}")
 assert vt_max_residual < 1e-8, "volume-translation invariance check failed"
 
-# --------------------------------------------------------------------- #
-# Anchor-sensitivity sweep (both cubics, classical alpha): pooled translated
-# liquid-density AAD as a function of the anchoring reduced temperature (per
-# fluid, the anchor is the grid point nearest max(Tr_a, Tr_min)).
+# Anchor sweep (both cubics, classical alpha): pooled translated liquid-density AAD against the anchoring Tr\n# (per fluid the anchor is the grid point nearest max(Tr_a, Tr_min)).
 ANCHORS = np.linspace(0.50, TR_MAX, N_T)
 sweep = []
 for cubic in CUBICS:
@@ -444,8 +407,7 @@ key["spot_values"] = {
     "methane_rho_AAD": {t: key["per_fluid"]["methane"][f"rho_{t}"] for t in TAGS},
 }
 
-# Alpha sensitivity of the translated liquid density (max over alphas of the
-# difference in pooled AAD relative to the classical-alpha ladder)
+# Alpha sensitivity of the translated liquid density: largest change of the pooled AAD when the ladder is re-anchored on another alpha
 key["vt_alpha_sensitivity"] = {}
 for cubic in CUBICS:
     cl = cubic.lower()

@@ -1,8 +1,8 @@
 {
-  "python": "3.11.15",
+  "python": "3.13.16",
   "coolprop": "8.0.0",
-  "numpy": "2.4.4",
-  "pandas": "3.0.2",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
   "n_fluids": 37,
   "n_T_per_fluid": 40,
   "n_points": 1480,

@@ -1,19 +1,9 @@
-"""
-Optional helper (not part of the run order): extracts the component-specific
-consistent Twu-91 parameters (L, M, N) and the fitted volume-translation
-constants of the tc-PR and tc-RK equations of state for the benchmark fluids
-from the 1800-fluid compilation of
-
-    Pina-Martinez, A.; Privat, R.; Jaubert, J.-N. Use of 300,000
-    pseudo-experimental data over 1800 pure fluids to assess the performance of
-    four cubic equations of state: SRK, PR, tc-RK, and tc-PR. AIChE J. 2022,
-    68, e17518 (Supporting Information),
-
-as redistributed, keyed by CAS number, in the open-source `thermo` library
-(C. I. Bell, https://github.com/CalebBell/thermo; tables PRTwu_PinaMartinez,
-SRKTwu_PinaMartinez). The extracted subset is written to
-../data/twu_fit_params.csv, which is committed to the repository so that the
-benchmark itself (01_run_benchmark.py) does not depend on `thermo`.
+"""Optional helper, not part of the run order: extracts the component-specific consistent Twu-91
+parameters (L, M, N) and the fitted translation constants of tc-PR and tc-RK for the benchmark fluids
+from the 1800-fluid compilation of Pina-Martinez, Privat and Jaubert (AIChE J. 2022, 68, e17518,
+Supporting Information), as redistributed by CAS number in the `thermo` library (C. I. Bell,
+https://github.com/CalebBell/thermo; tables PRTwu_PinaMartinez, SRKTwu_PinaMartinez).
+Writes ../data/twu_fit_params.csv, which is committed so that the benchmark does not depend on `thermo`.
 
 Usage:  pip install thermo && python code/00_extract_twu_fit_params.py
 """

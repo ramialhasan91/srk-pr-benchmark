@@ -1,0 +1,47 @@
+\begin{table}[H]
+\centering
+\caption{Physical diagnostics behind the interpretation in Sections 3 and 4 of the main text. Sensitivities are central differences ($\pm 0.01\%$ in $\Omega_a$, which scales $a$ at fixed $T$ and $b$) at $T_r$ = 0.5, 0.7 and 0.9 exactly, for the fluids whose grid includes that temperature (28, 36 and 37 fluids). Effective exponents are least-squares slopes of $\ln(\rho' - \rho'')$ and $\ln \Delta h_{vap}$ against $\ln(1 - T_r)$ over the grid points with $T_r \ge 0.93$; for the cubics the width is normalized by their own critical density, for the reference equations by the reference critical density. The $Z_c$ regression excludes carbon dioxide, which has no grid point below $T_r = 0.70$; the reducing-point $Z_c$ is $p/(\rho R T)$ of the reference equation at its reducing temperature and density, which differs from the critical-point value of Table S2 for methyl chloride (0.269 against 0.294) and n-heptane (0.263 against 0.275), whose reference equations place the critical point 2.3 K and 1.1 K above the reducing temperature. The Clapeyron split writes $\ln(\Delta h_{vap}^{EoS}/\Delta h_{vap}^{ref}) = \ln(\Delta Z_{vap}^{EoS}/\Delta Z_{vap}^{ref}) + \ln(s^{EoS}/s^{ref})$ with $\Delta Z_{vap} = Z'' - Z'$ and $s = d\ln p^{sat}/dT$, each model at its own saturation state; the first term is the volumetric part, the second, the difference of the two rows, follows the $\alpha$-function.}
+\label{tab:tabS_physics}
+\small
+\begin{tabular}{p{6.2cm}ccc}
+\toprule
+Diagnostic & SRK & PR & Reference \\
+\midrule
+\multicolumn{4}{l}{\emph{Sensitivity to the attraction parameter at fixed $T$ and $b$ (classical $\alpha$; median, range over the fluids)}} \\
+$\partial \ln p^{sat}/\partial \ln a$, $T_r$ = 0.5 & -9.83 (-12.63 to -7.89) & -9.94 (-12.60 to -8.00) & -- \\
+$\partial \ln p^{sat}/\partial \ln a$, $T_r$ = 0.7 & -5.43 (-6.39 to -4.82) & -5.63 (-6.55 to -5.01) & -- \\
+$\partial \ln p^{sat}/\partial \ln a$, $T_r$ = 0.9 & -3.58 (-3.76 to -3.46) & -3.84 (-4.00 to -3.72) & -- \\
+$\partial \ln \rho'/\partial \ln a$, $T_r$ = 0.5 & 0.17 (0.13 to 0.23) & 0.17 (0.12 to 0.23) & -- \\
+$\partial \ln \rho'/\partial \ln a$, $T_r$ = 0.7 & 0.42 (0.31 to 0.53) & 0.42 (0.32 to 0.55) & -- \\
+$\partial \ln \rho'/\partial \ln a$, $T_r$ = 0.9 & 1.36 (1.10 to 1.64) & 1.48 (1.19 to 1.81) & -- \\
+\multicolumn{4}{l}{\emph{Exchange of the generalized $\alpha$-functions (five functions against the classical one, every grid point)}} \\
+largest relative difference in $\alpha$ (\%) & 1.44 & 1.89 & -- \\
+largest change of the $p^{sat}$ deviation (points) & 11.21 & 19.44 & -- \\
+largest change of the $\rho'$ deviation (points) & 0.57 & 0.40 & -- \\
+\multicolumn{4}{l}{\emph{Closure of the coexistence curve, $0.93 \le T_r \le 0.985$ (classical $\alpha$; median, range over the fluids)}} \\
+effective exponent of $\rho' - \rho''$ & 0.480 (0.471 to 0.486) & 0.476 (0.466 to 0.484) & 0.355 (0.320 to 0.417) \\
+effective exponent of $\Delta h_{vap}$ & 0.481 (0.480 to 0.483) & 0.478 (0.475 to 0.480) & 0.398 (0.369 to 0.478) \\
+fluids for which $(\rho' - \rho_c)/\rho_c$ at $T_r = 0.985$ is smaller for the cubic, with its own $\rho_c$, than for the reference & 37/37 & 36/37 & -- \\
+mean signed deviation of $\rho'$ at $T_r = 0.985$ (\%; untranslated) & -24.0 & -15.7 & -- \\
+mean signed deviation of $\rho''$ at $T_r = 0.985$ (\%) & -6.3 & -1.3 & -- \\
+\multicolumn{4}{l}{\emph{Mean signed $\rho'$ deviation below $T_r = 0.70$ against the reference $Z_c$ (untranslated, classical $\alpha$; 36 fluids)}} \\
+correlation coefficient $r$ & 0.95 & 0.95 & -- \\
+slope (points per 0.01 in $Z_c$) & 3.6 & 4.1 & -- \\
+$Z_c$ at zero mean deviation & 0.295 & 0.263 & -- \\
+$r$ with the reducing-point $Z_c$ of methyl chloride and n-heptane & 0.97 & 0.97 & -- \\
+\multicolumn{4}{l}{\emph{Enthalpy of vaporization split by the Clapeyron equation (mean logarithmic deviation, \%; range over the seven $\alpha$-functions, in-sample Twu-91 in brackets)}} \\
+$0.50 \le T_r < 0.70$: $\Delta h_{vap}$ & 0.73 to 2.17 [0.71] & 0.05 to 1.62 [0.67] & -- \\
+$0.50 \le T_r < 0.70$: $\Delta Z_{vap}$ part & 0.71 to 0.74 [0.71] & 0.64 to 0.70 [0.65] & -- \\
+$0.70 \le T_r < 0.90$: $\Delta h_{vap}$ & 2.00 to 2.27 [2.14] & 1.32 to 2.27 [1.46] & -- \\
+$0.70 \le T_r < 0.90$: $\Delta Z_{vap}$ part & 1.47 to 1.65 [1.68] & 1.01 to 1.29 [1.15] & -- \\
+$0.70 \le T_r < 0.90$: $Z''$ & 2.11 to 2.23 [2.26] & 1.08 to 1.29 [1.18] & -- \\
+$0.90 \le T_r \le 0.985$: $\Delta h_{vap}$ & -4.20 to -2.68 [-2.42] & -4.41 to -2.91 [-3.26] & -- \\
+$0.90 \le T_r \le 0.985$: $\Delta Z_{vap}$ part & -2.23 to -1.62 [-1.52] & -3.35 to -2.81 [-2.89] & -- \\
+\multicolumn{4}{l}{\emph{Heavy-alkane example: n-decane at $T_r = 0.50$ (Twu-95 and MS against the classical $\alpha$)}} \\
+change of $\alpha$ (\%), Twu-95 / MS & +0.04 / -0.16 & +1.19 / +0.99 & -- \\
+$\partial \ln p^{sat}/\partial \ln a$ & -11.44 & -11.49 & -- \\
+resulting change of $p^{sat}$ (\%), Twu-95 / MS & -0.41 / +1.84 & -12.80 / -10.72 & -- \\
+$p^{sat}$ deviation (\%): classical; Twu-95 / MS & -2.51; -2.91 / -0.72 & +11.19; -3.04 / -0.73 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}

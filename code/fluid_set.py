@@ -1,12 +1,6 @@
-"""
-Fluid set of the benchmark: 37 fluids in five chemical families.
-
-CoolProp names on the left; (display name, family, subgroup) on the right.
-The polar/associating family is subdivided into hydrogen-bonding
-(self-associating) fluids and polar aprotic fluids for the dedicated
-analysis of Section 3.3 of the paper. Hydrogen and helium are excluded
-(quantum fluids for which classical corresponding-states cubics are not
-intended).
+"""The 37 benchmark fluids in five families: CoolProp name -> (display name, family, subgroup). The
+polar/associating family is split into hydrogen-bonding and polar aprotic fluids (Section 3.3 of the
+paper). Hydrogen and helium are excluded as quantum fluids.
 """
 
 FLUIDS = {

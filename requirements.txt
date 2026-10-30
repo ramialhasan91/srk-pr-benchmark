@@ -1,7 +1,7 @@
-# Versions used to generate the published numbers (also recorded in data/run_metadata.json)
+# Exact versions used to generate the committed data, tables and figures of v2.1.0 (Python 3.13.16);
+# they are recorded in data/run_metadata.json, data/insample_fit_meta.json and data/physical_diagnostics.json.
 CoolProp==8.0.0
-numpy==2.4.4
-pandas==3.0.2
-matplotlib>=3.10
-# Word build only:
-python-docx>=1.1
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+matplotlib==3.11.2

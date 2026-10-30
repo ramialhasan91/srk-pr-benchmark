@@ -1,19 +1,20 @@
 \begin{table}[H]
 \centering
-\caption{The $\alpha$-functions compared. The first six are generalized (input: $T_c$, $p_c$, $\omega$ only); the seventh uses component-specific parameters and serves only as a fitted reference.}
+\caption{The $\alpha$-functions compared, with their functional form, parameterization, fitting database and source. The first six are generalized (input: $T_c$, $p_c$, $\omega$ only); the seventh uses component-specific parameters and serves only as an out-of-sample fitted reference; the last row denotes the in-sample fits of Section 2.5, which are not models but the per-fluid optimum of each form on this benchmark. The constants of all generalized functions are listed in {stab:tabS_alpha_constants}.}
 \label{tab:tab_models}
 \small
-\begin{tabular}{llp{4.6cm}p{4.2cm}l}
+\begin{tabular}{p{2.2cm}p{4.2cm}p{4.6cm}p{3.0cm}p{1.4cm}}
 \toprule
-Label & Form & Parameterization & Fitted to & Ref. \\
+Label & Form, $\alpha(T_r)$ & Parameterization & Fitted to & Ref. \\
 \midrule
-Soave & Soave, Eq. {eq:soave} & original $m(\omega)$ of each cubic (SRK 1972; PR 1976) & hydrocarbon $p^{sat}$ (SRK: at $T_r = 0.7$; PR: normal boiling point to $T_c$) & [cite:soave1972,peng1976] \\
+Soave & Soave, Eq. {eq:soave}: $[1 + m(1 - \sqrt{T_r})]^2$ & original $m(\omega)$ of each cubic (SRK 1972; PR 1976, i.e., PR76; the 1978 modification PR78 is reported in {stab:tabS_pr78}) & hydrocarbon $p^{sat}$ (SRK: at $T_r = 0.7$; PR: normal boiling point to $T_c$) & [cite:soave1972,peng1976] \\
 Soave-19 & Soave, Eq. {eq:soave} & updated third-degree polynomial $m(\omega)$ for RK and PR & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ of 1721 compounds, triple point to $T_c$ & [cite:pina2019] \\
-Twu-95 & Twu, Eq. {eq:twu95} & universal $\alpha^{(0)}$, $\alpha^{(1)}$, linear in $\omega$ & hydrocarbon $p^{sat}$, triple point to $T_c$ & [cite:twu1995a,twu1995b] \\
-Twu-c & Twu-91, Eq. {eq:twu91} & consistent, $N=2$, $L(\omega)$, $M(\omega)$ quadratic & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ (PR: 1800 fluids; RK: 2018 set) & [cite:pina2022,pina2018] \\
+Twu-95 & Twu, Eq. {eq:twu95}: $\alpha^{(0)} + \omega(\alpha^{(1)} - \alpha^{(0)})$ & universal $\alpha^{(0)}$, $\alpha^{(1)}$, linear in $\omega$ & hydrocarbon $p^{sat}$, triple point to $T_c$ & [cite:twu1995a,twu1995b] \\
+Twu-c & Twu-91, Eq. {eq:twu91}: $T_r^{N(M-1)} \exp[L(1 - T_r^{NM})]$ & consistent, $N=2$, $L(\omega)$, $M(\omega)$ quadratic & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ (PR: 1800 fluids; RK: 2018 set) & [cite:pina2022,pina2018] \\
 Coquelet & exponential, Eq. {eq:coq} & $C_1$--$C_3$ quadratic in $\omega$ (correlations of Mahmoodi and Sedigh for PR and SRK, as compiled by Xiao and Yang) & $p^{sat}$ of pure compounds & [cite:coquelet2004,mahmoodi2017,xiao2025] \\
 MS & exponential, consistent, Eq. {eq:ms} & $C_1$, $C_2$ quadratic in $\omega$, $C_3$ Gaussian in $\omega$ (as compiled by Xiao and Yang) & $p^{sat}$ of pure compounds with consistency constraints & [cite:mahmoodi2017,xiao2025] \\
 Twu-fit & Twu-91, Eq. {eq:twu91} & component-specific consistent $(L, M, N)$ per fluid & same database as Twu-c, per fluid & [cite:pina2022] \\
+Soave-is$^{\ddagger}$ / Twu-is$^{\ddagger}$ & Eqs. {eq:soave} / {eq:twu91} & $m$, or consistent $(L, M, N)$, fitted per fluid and cubic to the reference $p^{sat}$ of this benchmark (Section 2.5) & in-sample; the paper's own 40-point grid & this work \\
 \bottomrule
 \end{tabular}
 \end{table}

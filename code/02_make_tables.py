@@ -1,11 +1,11 @@
-"""
-Generate every table of the manuscript and of the Supporting Information from
-the benchmark data (data/*.csv, key_numbers.json, stats.json).
+"""Every table of the manuscript and of the Supplementary Materials, from data/*.csv, key_numbers.json,
+stats.json and the outputs of scripts 06-11. Part A builds the tables of the original benchmark; Part B
+adds the tables of the revision (tab_compare, tabS_signed_*, tabS_insample*, tabS_floorloss, tabS_pr78,
+tabS_srcconst, tabS_sens, tabS_physics) and extends tab_models, tab_overall, tab_psat, tab_hvap,
+tab_signtests, tabS_signtests_full, tabS_vt and tabS_nearcrit.
 
-Two outputs per table:
-  tables/<name>.tex   booktabs LaTeX (for the LaTeX sources)
-  tables/tables.json  the same content as structured data (header rows, body
-                      rows, caption), consumed by make_word.py
+Outputs: tables/<name>.tex (booktabs LaTeX) and tables/tables.json (the same content as structured
+data, read by manuscript/make_word.py).
 """
 
 import json
@@ -80,17 +80,23 @@ tables = {}
 
 
 def emit(name, caption, header, rows, colspec=None, notes=None, label_tex=None):
-    """Store a table (structured) and write its LaTeX version."""
-    tables[name] = dict(caption=caption, header=header, rows=rows, notes=notes or "")
-    ncol = len(rows[0]) if rows else len(header[-1])
-    colspec = colspec or ("l" + "c" * (ncol - 1))
-    lines = ["\\begin{table}[H]", "\\centering", f"\\caption{{{caption}}}",
-             f"\\label{{tab:{label_tex or name}}}", "\\small",
-             f"\\begin{{tabular}}{{{colspec}}}", "\\toprule"]
-    for h in header:
+    """Store a table (structured); the LaTeX files are written at the end from the final content."""
+    ncol = len(rows[0]) if rows and isinstance(rows[0], list) else len(header[-1])
+    tables[name] = dict(caption=caption, header=header, rows=rows, notes=notes or "",
+                        colspec=colspec or ("l" + "c" * (ncol - 1)), label_tex=label_tex or name)
+    print("built", name)
+
+
+def write_tex(name, t):
+    """booktabs LaTeX version of a stored table."""
+    ncol = len(t["header"][-1])
+    lines = ["\\begin{table}[H]", "\\centering", f"\\caption{{{t['caption']}}}",
+             f"\\label{{tab:{t.get('label_tex') or name}}}", "\\small",
+             f"\\begin{{tabular}}{{{t['colspec']}}}", "\\toprule"]
+    for h in t["header"]:
         lines.append(" & ".join(h) + " \\\\")
     lines.append("\\midrule")
-    for r in rows:
+    for r in t["rows"]:
         if r is None:
             lines.append("\\midrule")
         elif isinstance(r, str):
@@ -98,14 +104,15 @@ def emit(name, caption, header, rows, colspec=None, notes=None, label_tex=None):
         else:
             lines.append(" & ".join(str(x) for x in r) + " \\\\")
     lines += ["\\bottomrule", "\\end{tabular}"]
-    if notes:
-        lines.append(f"\\par\\smallskip\\footnotesize {notes}")
+    if t.get("notes"):
+        lines.append(f"\\par\\smallskip\\footnotesize {t['notes']}")
     lines += ["\\end{table}", ""]
     with open(os.path.join(TABS, name + ".tex"), "w") as f:
         f.write("\n".join(lines))
-    print("wrote", name)
 
 
+# ###################################################################### #
+# Part A: tables of the original benchmark
 # ====================================================================== #
 # Table: the alpha functions (descriptive)
 emit(
@@ -590,6 +597,625 @@ emit(
     rows, colspec="lcccccccccc",
 )
 
+
+# ###################################################################### #
+# Part B: tables of the revision (inputs: outputs of scripts 06-11)
+# ====================================================================== #
+ALPHA_LABEL.update({"sfit": "Soave-is", "tfit": "Twu-is", "tunc": "Twu-is (unconstrained)"})
+P, H, RL, RV = "$p^{sat}$", "$\\Delta h_{vap}$", "$\\rho'$", "$\\rho''$"
+PROP_LABEL = {"psat": P, "h": H, "rho": RL, "rhov": RV}
+
+wp2 = pd.read_csv(os.path.join(DATA, "paired_comparisons.csv")).set_index("key")
+bias = pd.read_csv(os.path.join(DATA, "signed_deviations.csv"))
+fam = json.load(open(os.path.join(DATA, "comparison_families.json")))
+wp3c = pd.read_csv(os.path.join(DATA, "insample_comparisons.csv")).set_index("key")
+holm_ext = pd.read_csv(os.path.join(DATA, "holm_extended.csv"), index_col=0)
+pooled3 = pd.read_csv(os.path.join(DATA, "insample_pooled.csv"))
+perfluid3 = pd.read_csv(os.path.join(DATA, "insample_per_fluid.csv")).set_index("fluid")
+fits = pd.read_csv(os.path.join(DATA, "insample_fit.csv"))
+pr78s = pd.read_csv(os.path.join(DATA, "pr78_summary.csv"))
+pr78 = json.load(open(os.path.join(DATA, "pr78.json")))
+shift = pd.read_csv(os.path.join(DATA, "volume_shift.csv")).set_index("fluid")
+hv = pd.read_csv(os.path.join(DATA, "hvap_absolute.csv"))
+tab4 = json.load(open(os.path.join(DATA, "compilation_constants.json")))
+tabpf = pd.read_csv(os.path.join(DATA, "compilation_constants_per_fluid.csv")).set_index("fluid")
+
+
+def pfmt(p):
+    if p >= 0.10:
+        return f"{p:.2f}"
+    if p >= 0.001:
+        return f"{p:.3f}"
+    e = int(np.floor(np.log10(p)))
+    m = p / 10 ** e
+    if round(m) >= 10:
+        m, e = 1.0, e + 1
+    return f"{m:.0f} × 10{str(e).translate(SUP)}"
+
+
+def f2(x, nd=2):
+    return "--" if x is None or (isinstance(x, float) and not np.isfinite(x)) else f"{x:.{nd}f}"
+
+
+def sf2(x, nd=2):
+    if x is None or (isinstance(x, float) and not np.isfinite(x)):
+        return "--"
+    if abs(x) < 0.5 * 10 ** (-nd):
+        return f"{0.0:.{nd}f}"
+    return f"{x:+.{nd}f}"
+
+
+def label(tag):
+    parts = tag.split("_")
+    if len(parts) == 3:
+        return CUBIC_LABEL[parts[0]] + {"vt": "-VT", "vtc": "-VT$_{corr}$"}[parts[2]]
+    c, a = parts
+    return f"{CUBIC_LABEL[c]}-{ALPHA_LABEL[a]}" + ("$^{\\dagger}$" if a == "tf" else "") + ("$^{\\ddagger}$" if a in ("sfit", "tfit") else "")
+
+
+# emit(): the storing version defined in Part A
+
+
+def pool3(tag, prop="psat"):
+    return pooled3[(pooled3.model == tag) & (pooled3.prop == prop)].iloc[0]
+
+
+def ci3(tag, prop):
+    r = pool3(tag, prop)
+    return f"{r['aad|All']:.2f} ({r['ci_lo|All']:.2f}--{r['ci_hi|All']:.2f})"
+
+
+# ====================================================================== #
+# 1. Comparative table (new Table 1, Introduction)
+emit(
+    "tab_compare",
+    "Comparative assessments of cubic equations of state closest to the present benchmark, by the elements that define "
+    "a benchmark: the cubics and $\\alpha$-functions compared, whether the $\\alpha$-functions are generalized (predictive) "
+    "or component-fitted, the properties, the fluids and the reference standard, the treatment of volume translation, the "
+    "statistics reported, and whether the $\\alpha$-function is exchanged across both cubics under one protocol and the "
+    "code released. The large compilations provide breadth of chemistry; the present work provides attribution and "
+    "statistical resolution on a narrower set.",
+    [["Study", "Cubics; $\\alpha$-functions", "Properties", "Fluids; standard", "Translation", "Statistics", "$\\alpha$ exchanged; code"]],
+    [
+        ["Trebble and Bishnoi 1986 [cite:trebble1986]", "ten cubics; $\\alpha$-functions as published", "$p^{sat}$, saturated volumes",
+         "polar and non-polar compounds; experimental data", "none", "average deviations", "no; no"],
+        ["Young et al. 2016 [cite:young2016]", "PR; 20 $\\alpha$-functions, generalized and component-fitted", "$p^{sat}$",
+         "pure compounds of several classes; experimental data", "none", "average deviations", "no (PR only); no"],
+        ["Le Guennec et al. 2016 [cite:leguennec2016b]", "tc-PR, tc-RK; consistent Twu-91, component-fitted",
+         "$p^{sat}$, $\\Delta h_{vap}$, $c_p^{liq}$, $v^{liq}$", "pure compounds; DIPPR pseudo-experimental data",
+         "one constant per fluid ($T_r = 0.8$)", "average deviations", "no; parameters tabulated"],
+        ["Bell et al. 2018 [cite:bell2018]", "PR; consistent Twu-91, fitted per fluid", "$p^{sat}$, $\\Delta h_{vap}$",
+         "> 2500 fluids; critically evaluated experimental data (NIST TDE)", "none", "average deviations", "no; parameters released"],
+        ["Pi\\~na-Martinez et al. 2019 [cite:pina2019]", "RK, PR; updated generalized Soave $m(\\omega)$",
+         "$p^{sat}$, $\\Delta h_{vap}$, $c_p^{liq}$", "1721 compounds; DIPPR pseudo-experimental data", "none",
+         "average deviations", "same database for both cubics; no"],
+        ["Pi\\~na-Martinez et al. 2022 [cite:pina2022]", "SRK, PR (classical Soave); tc-RK, tc-PR (consistent Twu-91, component-fitted)",
+         "$p^{sat}$, $\\Delta h_{vap}$, $c_p^{liq}$, $v^{liq}$", "1800 fluids, $\\approx$300,000 points; DIPPR pseudo-experimental data",
+         "one constant per fluid ($T_r = 0.8$; tc models)", "MAPE, pooled and per compound; self-/non-self-associating split", "no; parameters tabulated"],
+        ["Mohamed et al. 2024 [cite:mohamed2024]", "PR, RK; Soave (generalized) and Twu-91 (fitted per component, consistency constraints)",
+         "$p^{sat}$, $\\Delta h_{vap}$, $c_p^{liq}$ (fit); $\\rho'$, speed of sound (test set)",
+         "147 components grouped by interaction type; NIST and compiled data", "in a test set only",
+         "average deviations; consistency", "Soave and Twu on both; no"],
+        ["Xiao and Yang 2025 [cite:xiao2025]", "PR, SRK, PTV, YFR; Soave, Twu, Coquelet, MS, Heyen", "viscosity by residual-entropy scaling",
+         "124 fluids; REFPROP 10", "none", "AAD and bias", "Coquelet and MS on PR and SRK; no"],
+        ["This work", "SRK, PR; six generalized $\\alpha$-functions, one out-of-sample fitted reference, in-sample fits of two forms",
+         "$p^{sat}$, $\\Delta h_{vap}$, $\\rho'$, $\\rho''$", "37 fluids, 1480 states; reference Helmholtz-energy EoS; compilation critical constants as a second input set",
+         "Rackett- and density-anchored constants, critical-matched diagnostic; anchor sweep; $Z_c$ dependence",
+         "fluid-level bootstrap CIs; paired tests with Holm adjustment; paired-difference CIs; signed deviations",
+         "yes, one protocol; open pipeline (MIT, Zenodo)"],
+    ],
+    colspec="p{2.3cm}p{2.9cm}p{2.0cm}p{2.6cm}p{2.0cm}p{2.3cm}p{2.1cm}",
+)
+
+# ====================================================================== #
+# 2. Table of models: explicit alpha(Tr) and the PR76/PR78 statement
+tm = tables["tab_models"]
+tm["header"] = [["Label", "Form, $\\alpha(T_r)$", "Parameterization", "Fitted to", "Ref."]]
+tm["rows"][0][1] = "Soave, Eq. {eq:soave}: $[1 + m(1 - \\sqrt{T_r})]^2$"
+tm["rows"][0][2] = "original $m(\\omega)$ of each cubic (SRK 1972; PR 1976, i.e., PR76; the 1978 modification PR78 is reported in {stab:tabS_pr78})"
+tm["rows"][1][1] = "Soave, Eq. {eq:soave}"
+tm["rows"][2][1] = "Twu, Eq. {eq:twu95}: $\\alpha^{(0)} + \\omega(\\alpha^{(1)} - \\alpha^{(0)})$"
+tm["rows"][3][1] = "Twu-91, Eq. {eq:twu91}: $T_r^{N(M-1)} \\exp[L(1 - T_r^{NM})]$"
+tm["rows"][4][1] = "exponential, Eq. {eq:coq}"
+tm["rows"][5][1] = "exponential, consistent, Eq. {eq:ms}"
+tm["rows"][6][1] = "Twu-91, Eq. {eq:twu91}"
+tm["rows"].append(["Soave-is$^{\\ddagger}$ / Twu-is$^{\\ddagger}$", "Eqs. {eq:soave} / {eq:twu91}", "$m$, or consistent $(L, M, N)$, fitted per fluid and cubic to the reference $p^{sat}$ of this benchmark (Section 2.5)",
+                   "in-sample; the paper's own 40-point grid", "this work"])
+tm["colspec"] = "p{2.2cm}p{4.2cm}p{4.6cm}p{3.0cm}p{1.4cm}"
+tm["caption"] = ("The $\\alpha$-functions compared, with their functional form, parameterization, fitting database and source. The "
+                 "first six are generalized (input: $T_c$, $p_c$, $\\omega$ only); the seventh uses component-specific parameters "
+                 "and serves only as an out-of-sample fitted reference; the last row denotes the in-sample fits of Section 2.5, which "
+                 "are not models but the per-fluid optimum of each form on this benchmark. The constants of all generalized functions "
+                 "are listed in {stab:tabS_alpha_constants}.")
+
+# ====================================================================== #
+# 3. Table 2 (overall) and Tables psat / hvap by range: in-sample rows
+to = tables["tab_overall"]
+rows = to["rows"]
+ins_rows = []
+for c in ("srk", "pr"):
+    for a in ("sfit", "tfit"):
+        t = f"{c}_{a}"
+        ins_rows.append([label(t), ci3(t, "psat"), ci3(t, "h"), ci3(t, "rho"), ci3(t, "rhov")])
+# insert after the 14 model rows (before the None rule of the translated block)
+i_rule = rows.index(None)
+to["rows"] = rows[:i_rule] + [None] + ins_rows + rows[i_rule:]
+to["caption"] = to["caption"].replace(
+    "$^{\\dagger}$Component-specific parameters; fitted reference, not a predictive model.",
+    "$^{\\dagger}$Component-specific parameters of [cite:pina2022]; out-of-sample fitted reference, not a predictive model. "
+    "$^{\\ddagger}$In-sample fits (Section 2.5): the per-fluid optimum of the one-parameter Soave form (Soave-is) and of the "
+    "three-parameter consistent Twu-91 form (Twu-is) on the reference vapor pressures of this benchmark; not models, but the "
+    "lowest vapor-pressure AAD each cubic reaches with that form (for Twu-is, the floor of Section 2.5).")
+
+BIN_ROWS = [("0.50-0.70", "0.50–0.70"), ("0.70-0.90", "0.70–0.90"), ("0.90-0.985", "0.90–0.985")]
+FAM_ROWS = FAMILY_ORDER
+SUB_ROWS = [("H-bonding", "H-bonding (4)"), ("polar aprotic", "polar aprotic (6)")]
+for name, prop in (("tab_psat", "psat"), ("tab_hvap", "h")):
+    t = tables[name]
+    new_rows = []
+    srk_rows = [r for r in t["rows"]]
+    # rebuild: SRK block (7 + rule + 2 in-sample), rule, PR block
+    out = []
+    block = {"srk": [], "pr": []}
+    for r in t["rows"]:
+        if isinstance(r, list):
+            block["srk" if r[0].startswith("SRK") else "pr"].append(r)
+    for c in ("srk", "pr"):
+        rs = block[c]
+        out += rs[:6] + [None] + rs[6:]
+        for a in ("sfit", "tfit"):
+            q = pool3(f"{c}_{a}", prop)
+            out.append([label(f"{c}_{a}")] + [f2(q[f"aad|{k}"]) for k, _ in BIN_ROWS] + [f2(q["aad|< 0.90"]), f2(q["aad|All"])]
+                       + [f2(q[f"aad|{fm}"]) for fm in FAM_ROWS] + [f2(q[f"aad|{k}"]) for k, _ in SUB_ROWS])
+        if c == "srk":
+            out.append(None)
+    t["rows"] = out
+    t["caption"] = t["caption"].replace("(\\textdagger, component-specific parameters, fitted reference)", "")
+    if "$^{\\ddagger}$" not in t["caption"]:
+        t["caption"] += (" $^{\\ddagger}$In-sample fits (Section 2.5): the lowest vapor-pressure AAD each cubic reaches with the form "
+                         "(for Twu-is, the floor)." if name == "tab_psat" else
+                         " $^{\\ddagger}$In-sample fits (Section 2.5): $\\alpha$-functions fitted to the vapor pressure; $\\Delta h_{vap}$ "
+                         "follows without further fitting.")
+
+# ====================================================================== #
+# 4. Table 3 (sign tests): paired-difference interval and Holm-adjusted p; in-sample rows; the two text-only exchanges
+def row_from(key_, desc, prop_label, src, holm_src=None):
+    r = src.loc[key_]
+    ph = holm_src.loc[key_, "p_holm_ext"] if (holm_src is not None and key_ in holm_src.index) else np.nan
+    return [desc, prop_label, f"{r.dAAD:+.2f} ({r.ci_lo:+.2f} to {r.ci_hi:+.2f})", f"{int(r.wins)}/{int(r.n)}", pfmt(r.p),
+            pfmt(ph) if np.isfinite(ph) else "--"]
+
+
+rows = ["Cubic form, at fixed $\\alpha$-function (family F1)"]
+for a in ALPHAS:
+    rows.append(row_from(f"psat:pr_{a}_vs_srk_{a}", f"PR vs. SRK ({ALPHA_LABEL[a]}{'$^{\\dagger}$' if a == 'tf' else ''})", P, wp2, holm_ext))
+for a in ("sfit", "tfit"):
+    rows.append(row_from(f"psat:pr_{a}_vs_srk_{a}", f"PR vs. SRK ({ALPHA_LABEL[a]}$^{{\\ddagger}}$)", P, wp3c, holm_ext))
+for a in ALPHAS:
+    rows.append(row_from(f"h:pr_{a}_vs_srk_{a}", f"PR vs. SRK ({ALPHA_LABEL[a]}{'$^{\\dagger}$' if a == 'tf' else ''})", H, wp2, holm_ext))
+for a in ("sfit", "tfit"):
+    rows.append(row_from(f"h:pr_{a}_vs_srk_{a}", f"PR vs. SRK ({ALPHA_LABEL[a]}$^{{\\ddagger}}$)", H, wp3c, holm_ext))
+rows.append(row_from("rho:pr_s_vs_srk_s", "PR vs. SRK (Soave)", RL, wp2, holm_ext))
+rows.append(row_from("rho:pr_s_vt_vs_srk_s_vt", "PR-VT vs. SRK-VT", RL, wp2, holm_ext))
+rows.append(row_from("rhov:pr_s_vs_srk_s", "PR vs. SRK (Soave)", RV, wp2))
+rows.append("$\\alpha$-function, at fixed cubic (family F2)")
+F2_DESC = [("psat:srk_s19_vs_srk_s", "SRK-Soave-19 vs. SRK-Soave"), ("psat:pr_s19_vs_pr_s", "PR-Soave-19 vs. PR-Soave"),
+           ("psat:srk_t95_vs_srk_s", "SRK-Twu-95 vs. SRK-Soave"), ("psat:pr_t95_vs_pr_s", "PR-Twu-95 vs. PR-Soave"),
+           ("psat:srk_tc_vs_srk_t95", "SRK-Twu-c vs. SRK-Twu-95"), ("psat:pr_tc_vs_pr_t95", "PR-Twu-c vs. PR-Twu-95"),
+           ("psat:pr_tc_vs_pr_s", "PR-Twu-c vs. PR-Soave"), ("psat:srk_ms_vs_srk_t95", "SRK-MS vs. SRK-Twu-95"),
+           ("psat:srk_ms_vs_srk_s", "SRK-MS vs. SRK-Soave"), ("psat:pr_ms_vs_pr_s", "PR-MS vs. PR-Soave"),
+           ("psat:pr_ms_vs_pr_t95", "PR-MS vs. PR-Twu-95"), ("psat:srk_coq_vs_srk_s", "SRK-Coquelet vs. SRK-Soave"),
+           ("psat:srk_coq_vs_srk_t95", "SRK-Coquelet vs. SRK-Twu-95"), ("psat:pr_coq_vs_pr_s", "PR-Coquelet vs. PR-Soave"),
+           ("psat:srk_tf_vs_srk_s", "SRK-Twu-fit$^{\\dagger}$ vs. SRK-Soave"), ("psat:srk_tf_vs_srk_t95", "SRK-Twu-fit$^{\\dagger}$ vs. SRK-Twu-95"),
+           ("psat:srk_tf_vs_srk_ms", "SRK-Twu-fit$^{\\dagger}$ vs. SRK-MS"), ("psat:pr_tf_vs_pr_s", "PR-Twu-fit$^{\\dagger}$ vs. PR-Soave"),
+           ("psat:pr_tf_vs_pr_ms", "PR-Twu-fit$^{\\dagger}$ vs. PR-MS")]
+for k, d in F2_DESC:
+    rows.append(row_from(k, d, P, wp2, holm_ext))
+for c in ("srk", "pr"):
+    C = CUBIC_LABEL[c]
+    rows.append(row_from(f"psat:{c}_sfit_vs_{c}_s", f"{C}-Soave-is$^{{\\ddagger}}$ vs. {C}-Soave", P, wp3c, holm_ext))
+    rows.append(row_from(f"psat:{c}_tfit_vs_{c}_sfit", f"{C}-Twu-is$^{{\\ddagger}}$ vs. {C}-Soave-is$^{{\\ddagger}}$", P, wp3c, holm_ext))
+    rows.append(row_from(f"psat:{c}_tfit_vs_{c}_tf", f"{C}-Twu-is$^{{\\ddagger}}$ vs. {C}-Twu-fit$^{{\\dagger}}$", P, wp3c, holm_ext))
+rows.append(row_from("h:srk_t95_vs_srk_s", "SRK-Twu-95 vs. SRK-Soave", H, wp2, holm_ext))
+rows.append(row_from("h:pr_t95_vs_pr_s", "PR-Twu-95 vs. PR-Soave", H, wp2, holm_ext))
+rows.append("Volume translation (family F3)")
+for k, d, pl in (("rho:pr_s_vtc_vs_pr_s", "PR-VT$_{corr}$ vs. PR", RL), ("rho:srk_s_vtc_vs_srk_s", "SRK-VT$_{corr}$ vs. SRK", RL),
+                 ("rho:pr_s_vt_vs_pr_s_vtc", "PR-VT vs. PR-VT$_{corr}$", RL), ("rhov:pr_s_vt_vs_pr_s", "PR-VT vs. PR", RV)):
+    r = wp2.loc[k]
+    rows.append([d, pl, f"{r.dAAD:+.2f} ({r.ci_lo:+.2f} to {r.ci_hi:+.2f})", f"{int(r.wins)}/{int(r.n)}", pfmt(r.p), pfmt(r.p_holm_family)])
+emit(
+    "tab_signtests",
+    "Paired per-fluid comparisons: pooled difference in AAD between the first- and the second-named model (percentage points; "
+    "negative = first-named model more accurate) with its paired fluid-level bootstrap 95\\% confidence interval, the number of "
+    "the 37 fluids for which the first-named model has the lower AAD (wins), the nominal two-sided $p$-value of the exact binomial "
+    "sign test, and the $p$-value adjusted by the Holm procedure within its family (F1: cubic form at fixed "
+    "$\\alpha$-function, 20 tests; F2: $\\alpha$-function exchanges discussed in the text, 27 tests; F3: volume translation, 4 "
+    "tests; Section 2.5). No ties occurred. The complete set of comparisons, with the Benjamini--Yekutieli adjustment over all "
+    "242 of them, is given in {stab:tabS_signtests_full}. $^{\\dagger}$Component-specific parameters; $^{\\ddagger}$in-sample fit.",
+    [["Comparison", "Property", "$\\Delta$AAD (95\\% CI)", "Wins", "$p$", "$p_{Holm}$"]],
+    rows, colspec="llcccc",
+)
+
+# ====================================================================== #
+# 5. Table S14 (full set): long format with paired intervals and BY q
+rows = []
+PROPS = ["psat", "h", "rho", "rhov"]
+
+
+by_all = pd.read_csv(os.path.join(DATA, "by_all_comparisons.csv"), index_col=0)
+
+
+def long_row(k, r, holm_col):
+    prop, rest = k.split(":")
+    a, b = rest.split("_vs_")
+    fam_ = r.get("family", "descriptive")
+    return [f"{label(a)} vs. {label(b)}", PROP_LABEL[prop], f"{r.dAAD:+.2f}", f"{r.ci_lo:+.2f} to {r.ci_hi:+.2f}",
+            f"{int(r.wins)}/{int(r.n)}", pfmt(r.p), (fam_ if fam_ != "descriptive" else "--"),
+            pfmt(holm_col) if np.isfinite(holm_col) else "--", pfmt(by_all.loc[k, "q_BY_all"])]
+
+
+for prop in PROPS:
+    rows.append(f"{PROP_LABEL[prop]}: PR vs. SRK at fixed $\\alpha$-function")
+    for a in ALPHAS:
+        k = f"{prop}:pr_{a}_vs_srk_{a}"
+        rows.append(long_row(k, wp2.loc[k], holm_ext.loc[k, "p_holm_ext"] if k in holm_ext.index else np.nan))
+    for c in ("srk", "pr"):
+        rows.append(f"{PROP_LABEL[prop]}: $\\alpha$-function pairs, {CUBIC_LABEL[c]}")
+        for j, a in enumerate(ALPHAS):
+            for b in ALPHAS[:j]:
+                k = f"{prop}:{c}_{a}_vs_{c}_{b}"
+                rows.append(long_row(k, wp2.loc[k], holm_ext.loc[k, "p_holm_ext"] if k in holm_ext.index else np.nan))
+rows.append("Volume translation (classical Soave $\\alpha$)")
+for k in ["rho:pr_s_vt_vs_srk_s_vt", "rho:pr_s_vtc_vs_srk_s_vtc", "rho:pr_s_vtc_vs_pr_s", "rho:srk_s_vtc_vs_srk_s",
+          "rho:pr_s_vt_vs_pr_s_vtc", "rho:srk_s_vt_vs_srk_s_vtc", "rhov:pr_s_vt_vs_pr_s", "rhov:srk_s_vt_vs_srk_s",
+          "rhov:pr_s_vtc_vs_pr_s", "rhov:srk_s_vtc_vs_srk_s"]:
+    r = wp2.loc[k]
+    hc = holm_ext.loc[k, "p_holm_ext"] if k in holm_ext.index else (r.p_holm_family if r.family != "descriptive" else np.nan)
+    rows.append(long_row(k, r, hc))
+rows.append("In-sample fits (Section 2.5; $^{\\ddagger}$)")
+for k, r in wp3c.iterrows():
+    hc = holm_ext.loc[k, "p_holm_ext"] if k in holm_ext.index else np.nan
+    rows.append(long_row(k, r, hc))
+n_total = len([r for r in rows if isinstance(r, list)])
+emit(
+    "tabS_signtests_full",
+    f"Complete set of the {n_total} paired per-fluid comparisons: pooled difference in AAD (percentage points; negative = "
+    "first-named model more accurate) with its paired fluid-level bootstrap 95\\% confidence interval, number of the 37 fluids "
+    "for which the first-named model has the lower AAD, nominal two-sided $p$-value of the exact binomial sign test, "
+    f"family (F1, F2, F3; -- = exploratory), Holm-adjusted $p$ within the family, and Benjamini--Yekutieli "
+    f"adjusted $q$ over all {n_total} comparisons (valid under arbitrary dependence). No ties occurred. "
+    "The translated variants share $p^{sat}$ and $\\Delta h_{vap}$ with the untranslated models. $^{\\dagger}$Component-specific "
+    "parameters; $^{\\ddagger}$in-sample fit; 'unconstrained' = Twu-91 fitted without the consistency constraints (diagnostic only).",
+    [["Comparison", "Property", "$\\Delta$AAD", "95\\% CI", "Wins", "$p$", "Family", "$p_{Holm}$", "$q_{BY}$"]],
+    rows, colspec="llccccccc",
+)
+
+# ====================================================================== #
+# 6. Table S11 (translation constants): dimensionless shift columns
+tv = tables["tabS_vt"]
+tv["header"] = [["", "", "", "SRK (cm$^3$ mol$^{-1}$)", "", "", "", "PR (cm$^3$ mol$^{-1}$)", "", "", "", ""],
+                ["Fluid", "$Z_c^{ref}$", "$T_{r,anchor}$", "$c_{fit}$", "$c_{corr}$", "$c_{Z_c}$", "$s_{fit}$", "$c_{fit}$", "$c_{corr}$", "$c_{Z_c}$", "$s_{fit}$", "$c_{lit}$"]]
+new_rows = []
+for r in tv["rows"]:
+    if isinstance(r, list):
+        q = shift.loc[r[0]]
+        new_rows.append(r[:6] + [f"{q.s_fit_srk:.3f}"] + r[6:9] + [f"{q.s_fit_pr:.3f}"] + r[9:])
+    else:
+        new_rows.append(r)
+tv["rows"] = new_rows
+tv["colspec"] = "l" + "c" * 11
+tv["caption"] = tv["caption"].replace(
+    "for SRK and PR (classical Soave $\\alpha$), and, for comparison,",
+    "for SRK and PR (classical Soave $\\alpha$), the dimensionless shift $s_{fit} = c_{fit}/b$ with $b = \\Omega_b R T_c/p_c$ "
+    "(the form used in PVT packages), and, for comparison,")
+
+# ====================================================================== #
+# 7. Table S13 (near-critical): absolute enthalpy-of-vaporization deviations
+tn = tables["tabS_nearcrit"]
+mods = ["srk_s", "pr_s", "srk_t95", "pr_t95", "srk_tc", "pr_tc"]
+
+
+def hv_val(tag, rg, col):
+    return hv[(hv.model == tag) & (hv.range == rg)].iloc[0][col]
+
+
+tn["rows"].append("Enthalpy of vaporization, mean absolute deviation (kJ mol$^{-1}$)")
+for rg, lab in (("< 0.90", "< 0.90"), ("0.90-0.95", "0.90–0.95"), ("0.95-0.985", "0.95–0.985")):
+    tn["rows"].append([lab] + [f"{hv_val(t, rg, 'mean_abs_dev_kJmol'):.2f}" for t in mods] + ["as PR-Soave"])
+tn["rows"].append("Enthalpy of vaporization, mean signed deviation (kJ mol$^{-1}$)")
+for rg, lab in (("< 0.90", "< 0.90"), ("0.90-0.95", "0.90–0.95"), ("0.95-0.985", "0.95–0.985")):
+    tn["rows"].append([lab] + [f"{hv_val(t, rg, 'mean_signed_dev_kJmol'):+.2f}" for t in mods] + ["as PR-Soave"])
+tn["rows"].append("Enthalpy of vaporization, absolute deviation relative to the fluid's $\\Delta h_{vap}$ at $T_r = 0.70$ (\\%)")
+for rg, lab in (("< 0.90", "< 0.90"), ("0.90-0.95", "0.90–0.95"), ("0.95-0.985", "0.95–0.985")):
+    tn["rows"].append([lab] + [f"{hv_val(t, rg, 'abs_dev_rel_h07_pct'):.2f}" for t in mods] + ["as PR-Soave"])
+tn["caption"] = ("The near-critical range split in two: AAD (\\%) for $0.90 \\le T_r < 0.95$ and $0.95 \\le T_r \\le 0.985$, and, "
+                 "for the enthalpy of vaporization, the absolute deviation (mean $|\\Delta h_{vap}^{EoS} - \\Delta h_{vap}^{ref}|$ in "
+                 "kJ mol$^{-1}$), its mean signed value and the absolute deviation divided by each fluid's reference $\\Delta h_{vap}$ "
+                 "at $T_r = 0.70$ (the grid point nearest the anchoring temperature; pooled over fluids), for $T_r < 0.90$ and the two "
+                 "near-critical ranges; the mean reference $\\Delta h_{vap}$ is "
+                 f"{hv_val('pr_s', '< 0.90', 'mean_ref_hvap_kJmol'):.1f}, {hv_val('pr_s', '0.90-0.95', 'mean_ref_hvap_kJmol'):.1f} and "
+                 f"{hv_val('pr_s', '0.95-0.985', 'mean_ref_hvap_kJmol'):.1f} kJ mol$^{{-1}}$ in the three ranges. "
+                 "PR-VT is the density-anchored translated PR (classical $\\alpha$); it shares the vapor pressure and enthalpy of "
+                 "vaporization of PR-Soave.")
+
+# ====================================================================== #
+# 8. New SI tables: signed deviations (S16a-d)
+BCOLS = ["bias|0.50-0.70", "bias|0.70-0.90", "bias|0.90-0.985", "bias|< 0.90", "bias|All", "bias|Inorganic gases", "bias|Alkanes",
+         "bias|Aromatics", "bias|Polar/associating", "bias|Refrigerants", "bias|H-bonding", "bias|polar aprotic"]
+HDR1 = ["", "Reduced-temperature range", "", "", "", "", "Chemical family", "", "", "", "", "Subgroup", ""]
+HDR2 = ["Model", "0.50--0.70", "0.70--0.90", "0.90--0.985", "< 0.90", "All (95\\% CI)", "Inorg. (6)", "Alk. (11)", "Arom. (6)", "Polar (10)",
+        "Refr. (4)", "H-bond (4)", "Aprotic (6)"]
+
+
+def bias_rows(prop, extra=()):
+    b = bias[bias.prop == prop].set_index("model")
+    rows = []
+    for c in ("srk", "pr"):
+        for a in ALPHAS:
+            t = f"{c}_{a}"
+            r = b.loc[t]
+            vals = [sf2(r[k]) for k in BCOLS]
+            vals[4] = f"{r['bias|All']:+.2f} ({r['bias_ci_lo|All']:+.2f} to {r['bias_ci_hi|All']:+.2f})"
+            rows.append([label(t)] + vals)
+        if c == "srk":
+            rows.append(None)
+    if extra:
+        rows.append(None)
+        for t in extra:
+            r = b.loc[t]
+            vals = [sf2(r[k]) for k in BCOLS]
+            vals[4] = f"{r['bias|All']:+.2f} ({r['bias_ci_lo|All']:+.2f} to {r['bias_ci_hi|All']:+.2f})"
+            rows.append([label(t)] + vals)
+    return rows
+
+
+for prop, nm, cap in (("psat", "tabS_signed_psat", "vapor pressure"), ("h", "tabS_signed_h", "enthalpy of vaporization"),
+                      ("rho", "tabS_signed_rho", "saturated-liquid density (untranslated cubics, and the translated variants of the classical pair)"),
+                      ("rhov", "tabS_signed_rhov", "saturated-vapor density (the same constants applied to the vapor volume)")):
+    extra = ("srk_s_vtc", "srk_s_vt", "pr_s_vtc", "pr_s_vt") if prop in ("rho", "rhov") else ()
+    emit(nm,
+         f"Mean signed deviation (\\%; positive = overprediction) in {cap} by reduced-temperature range, chemical family and "
+         "polar/associating subgroup, with the fluid-level bootstrap 95\\% confidence interval of the overall value. "
+         "$^{\\dagger}$Component-specific parameters.",
+         [HDR1, HDR2], bias_rows(prop, extra), colspec="l" + "c" * 12)
+
+# ====================================================================== #
+# 9. In-sample fits: per-fluid AADs (S17) and parameters (S18), floor + loss (S19)
+rows = []
+for fam_ in FAMILY_ORDER:
+    rows.append(fam_)
+    for _, r in fl[fl.family == fam_].sort_values("omega").iterrows():
+        q = perfluid3.loc[r.fluid]
+        f_ = {c: fits[(fits.fluid == r.fluid) & (fits.cubic == c)].iloc[0] for c in ("SRK", "PR")}
+        rows.append([r.fluid, f2(q.psat_srk_s), f2(q.psat_srk_sfit), f2(q.psat_srk_tf), f2(q.psat_srk_tfit),
+                     f2(f_["SRK"].aad_twu_unc), f2(q.h_srk_tfit), f2(q.psat_pr_s), f2(q.psat_pr_sfit), f2(q.psat_pr_tf), f2(q.psat_pr_tfit),
+                     f2(f_["PR"].aad_twu_unc), f2(q.h_pr_tfit), f"{q.psat_pr_tfit - q.psat_srk_tfit:+.2f}"])
+rows.append(None)
+for lab, grp in (("All fluids (pooled)", "All"), ("Alkanes (pooled)", "Alkanes"), ("H-bonding (pooled)", "H-bonding")):
+    rows.append([lab] + [f2(pool3(t, "psat")[f"aad|{grp}"]) for t in ("srk_s", "srk_sfit", "srk_tf", "srk_tfit", "srk_tunc")]
+                + [f2(pool3("srk_tfit", "h")[f"aad|{grp}"])]
+                + [f2(pool3(t, "psat")[f"aad|{grp}"]) for t in ("pr_s", "pr_sfit", "pr_tf", "pr_tfit", "pr_tunc")]
+                + [f2(pool3("pr_tfit", "h")[f"aad|{grp}"]), f"{pool3('pr_tfit', 'psat')[f'aad|{grp}'] - pool3('srk_tfit', 'psat')[f'aad|{grp}']:+.2f}"])
+emit(
+    "tabS_insample",
+    "In-sample $\\alpha$-function fits (Section 2.5): per-fluid AAD (\\%) in vapor pressure with the generalized Soave correlation "
+    "(Soave), the Soave form with $m$ fitted per fluid (Soave-is), the out-of-sample component-specific Twu-91 parameters of "
+    "[cite:pina2022] (Twu-fit$^{\\dagger}$), the consistent Twu-91 form with $(L, M, N)$ fitted per fluid under the consistency "
+    "constraints (Twu-is), and, as a diagnostic only, the Twu-91 form fitted without the consistency constraints (unc.); AAD (\\%) "
+    "in the enthalpy of vaporization implied by the in-sample Twu-91 fit; and the PR $-$ SRK difference at the Twu-is optimum "
+    "(percentage points). Pooled rows are point-weighted means.",
+    [["", "SRK: $p^{sat}$", "", "", "", "", "$\\Delta h_{vap}$", "PR: $p^{sat}$", "", "", "", "", "$\\Delta h_{vap}$", "PR $-$ SRK"],
+     ["Fluid", "Soave", "Soave-is", "Twu-fit$^{\\dagger}$", "Twu-is", "unc.", "Twu-is", "Soave", "Soave-is", "Twu-fit$^{\\dagger}$", "Twu-is", "unc.", "Twu-is", "Twu-is"]],
+    rows, colspec="l" + "c" * 13,
+)
+
+rows = []
+for fam_ in FAMILY_ORDER:
+    rows.append(fam_)
+    for _, r in fl[fl.family == fam_].sort_values("omega").iterrows():
+        a = {c: fits[(fits.fluid == r.fluid) & (fits.cubic == c)].iloc[0] for c in ("SRK", "PR")}
+
+        def act(x):
+            s = []
+            if x.active_Q3:
+                s.append("α‴")
+            if x.active_P2:
+                s.append("α″")
+            if x.active_M1:
+                s.append("M = 1")
+            return ", ".join(s) if s else "--"
+        rows.append([r.fluid, f"{a['SRK'].m_gen:.4f}", f"{a['SRK'].m_fit:.4f}", f"{a['SRK'].L_fit:.4f}", f"{a['SRK'].M_fit:.4f}", f"{a['SRK'].N_fit:.4f}", act(a["SRK"]),
+                     f"{a['PR'].m_gen:.4f}", f"{a['PR'].m_fit:.4f}", f"{a['PR'].L_fit:.4f}", f"{a['PR'].M_fit:.4f}", f"{a['PR'].N_fit:.4f}", act(a["PR"])])
+emit(
+    "tabS_insample_params",
+    "Parameters of the in-sample fits: the generalized and the fitted Soave slope parameter $m$, the fitted consistent Twu-91 "
+    "parameters $(L, M, N)$ and the consistency condition active at the optimum (α‴: third-derivative condition; "
+    "α″: second-derivative condition; M = 1: bound), for SRK and PR. The Twu-91 parameters are partly interchangeable "
+    "over the grid (different $(L, M, N)$ give nearly the same $\\alpha(T_r)$), so the optimum AAD of {stab:tabS_insample} is "
+    "better determined than the parameters themselves; the in-sample $\\alpha(T_r)$ differs from that of the published parameters "
+    "[cite:pina2022] by less than 0.8\\% anywhere on the grid for every fluid.",
+    [["", "SRK", "", "", "", "", "", "PR", "", "", "", "", ""],
+     ["Fluid", "$m$ (gen.)", "$m$ (is)", "$L$", "$M$", "$N$", "active", "$m$ (gen.)", "$m$ (is)", "$L$", "$M$", "$N$", "active"]],
+    rows, colspec="l" + "c" * 12,
+)
+
+fs, fp = pool3("srk_tfit")["aad|All"], pool3("pr_tfit")["aad|All"]
+rows = [["Floor (Twu-is$^{\\ddagger}$)", f2(fs), "--", f2(fp), "--", f"{fs - fp:+.2f}", f"{fs - fp:+.2f}", "--"]]
+for a in ALPHAS:
+    s_, p_ = key["overall"][f"psat_srk_{a}"], key["overall"][f"psat_pr_{a}"]
+    rows.append([ALPHA_LABEL[a] + ("$^{\\dagger}$" if a == "tf" else ""), f2(s_), f2(s_ - fs), f2(p_), f2(p_ - fp), f"{s_ - p_:+.2f}",
+                 f"{fs - fp:+.2f}", f"{(s_ - fs) - (p_ - fp):+.2f}"])
+s_, p_ = pool3("srk_sfit")["aad|All"], pool3("pr_sfit")["aad|All"]
+rows.append(["Soave-is$^{\\ddagger}$", f2(s_), f2(s_ - fs), f2(p_), f2(p_ - fp), f"{s_ - p_:+.2f}", f"{fs - fp:+.2f}", f"{(s_ - fs) - (p_ - fp):+.2f}"])
+emit(
+    "tabS_floorloss",
+    "The pooled vapor-pressure AAD (\\%) of every combination written as the floor of its cubic (the in-sample optimum of the "
+    "consistent Twu-91 form, Twu-is) plus the parameterization loss of its $\\alpha$-function, and the SRK--PR gap (percentage "
+    "points, SRK minus PR) as the difference of the floors plus the difference of the losses. The floor difference is the "
+    "contribution of the cubic form at the flexibility of the consistent three-parameter form; the loss difference is what the "
+    "$\\alpha$-function of the row gives up against that form on each cubic. For an $\\alpha$-function fitted to the same data by the same "
+    "procedure on both cubics, the sum of the two is the contribution of the cubic form at that flexibility (fitted Soave form: "
+    "$0.15 + 0.43 = 0.58$ points); for the published correlations the loss difference also contains their regression histories "
+    "(Section 3.2.3 of the main text). $^{\\dagger}$Component-specific parameters; $^{\\ddagger}$in-sample fit.",
+    [["", "SRK", "", "PR", "", "SRK $-$ PR gap", "", ""], ["$\\alpha$-function", "AAD", "loss", "AAD", "loss", "total", "floor part", "loss part"]],
+    rows, colspec="lccccccc",
+)
+
+# ====================================================================== #
+# 10. PR78 (S20)
+RANGES = ["0.50-0.70", "0.70-0.90", "0.90-0.985", "< 0.90", "All"]
+RLAB = {"0.50-0.70": "0.50--0.70", "0.70-0.90": "0.70--0.90", "0.90-0.985": "0.90--0.985", "< 0.90": "< 0.90", "All": "All"}
+rows = []
+mm = pr78["m"]
+for f_ in ("methanol", "ethanol"):
+    rows.append(f"{f_} ($\\omega = {mm[f_]['omega']:.3f}$; $m$ = {mm[f_]['m76']:.4f} (PR76), {mm[f_]['m78']:.4f} (PR78))")
+    for rg in RANGES:
+        r = pr78s[(pr78s.fluid == f_) & (pr78s.range == rg)].iloc[0]
+        rows.append([RLAB[rg], f2(r.psat_PR76), f2(r.psat_PR78), f2(r.h_PR76), f2(r.h_PR78), f2(r.rhov_PR76), f2(r.rhov_PR78),
+                     f2(r.rho_PR76), f2(r.rho_PR78), f2(r.rho_vt_PR76), f2(r.rho_vt_PR78)])
+sm, se = pr78["spot"]["methanol"], pr78["spot"]["ethanol"]
+emit(
+    "tabS_pr78",
+    "PR76 versus PR78: AAD (\\%) of PR with the 1976 correlation for $m(\\omega)$ (PR76, used throughout the main text) and with "
+    "the 1978 modification [cite:robinson1978], $m = 0.379642 + 1.48503\\,\\omega - 0.164423\\,\\omega^2 + 0.016666\\,\\omega^3$ for "
+    "$\\omega > 0.49$ (PR78), for the two fluids of the set above the switch, by reduced-temperature range; the density-anchored "
+    "translation is re-anchored on the variant. The other 35 fluids, including n-decane ($\\omega = 0.488$), are unaffected. "
+    f"At $T_r = 0.50$ the vapor-pressure deviation changes from {sm['Tr050_dev_p_PR76']:+.1f}\\% to {sm['Tr050_dev_p_PR78']:+.1f}\\% for "
+    f"methanol and from {se['Tr050_dev_p_PR76']:+.1f}\\% to {se['Tr050_dev_p_PR78']:+.1f}\\% for ethanol.",
+    [["", "$p^{sat}$", "", "$\\Delta h_{vap}$", "", "$\\rho''$", "", "$\\rho'$", "", "$\\rho'$, PR-VT", ""],
+     ["$T_r$ range", "PR76", "PR78", "PR76", "PR78", "PR76", "PR78", "PR76", "PR78", "PR76", "PR78"]],
+    rows, colspec="l" + "c" * 10,
+)
+
+# ====================================================================== #
+# 11. Compilation constants (S21) and sensitivities (S22)
+A = tab4["summary"]["All"]
+rows = []
+for c in ("srk", "pr"):
+    for a in ALPHAS:
+        t = f"{c}_{a}"
+        ch = tab4["changes"][t]
+        rows.append([label(t), f2(A[f"psat_{t}_ref"]), f2(A[f"psat_{t}_src"]), f2(A[f"h_{t}_ref"]), f2(A[f"h_{t}_src"]),
+                     f2(A[f"rho_{t}_ref"]), f2(A[f"rho_{t}_src"]), f2(A[f"rhov_{t}_ref"]), f2(A[f"rhov_{t}_src"]),
+                     f"{ch['max_increase']:+.2f} ({ch['fluid_max_increase']})", f"{ch['n_worse']}/{ch['n_better']}"])
+    if c == "srk":
+        rows.append(None)
+emit(
+    "tabS_srcconst",
+    "Model-form error versus input error: pooled AAD (\\%) of the fourteen combinations evaluated with the critical constants of "
+    "the reference equations of state (ref, as in the main text) and with the critical temperatures and pressures listed in the "
+    "compilation of [cite:pina2022] (src; acentric factors unchanged, same absolute temperatures, same reference values; "
+    f"differences between the two sets of constants up to {tabpf.dTc_pct.abs().max():.1f}\\% in $T_c$ and {tabpf.dpc_pct.abs().max():.1f}\\% in $p_c$, "
+    "{stab:tabS_twufit_src}), with the largest per-fluid increase of the vapor-pressure AAD (percentage points, fluid in "
+    "parentheses) and the number of fluids whose vapor-pressure AAD becomes worse/better. For the fitted reference the "
+    "compilation constants are those its parameters were regressed with (Section 3.2.4); for the twelve generalized "
+    "combinations they are an input error on top of the model-form error.",
+    [["", "$p^{sat}$", "", "$\\Delta h_{vap}$", "", "$\\rho'$", "", "$\\rho''$", "", "Largest increase, $p^{sat}$", "Worse/better"],
+     ["Model", "ref", "src", "ref", "src", "ref", "src", "ref", "src", "", ""]],
+    rows, colspec="l" + "c" * 10,
+)
+
+S = tab4["sensitivities"]["PR"]
+
+
+def srange(d):
+    return f"{d['median']:.2f} ({d['min']:.2f} to {d['max']:.2f})"
+
+
+rows = []
+for tr in ("Tr=0.5", "Tr=0.7", "Tr=0.9", "Tr=0.985"):
+    q = S[tr]
+    rows.append([tr.replace("Tr=", "$T_r$ = "), str(q["dlnp_dTc"]["n"]), srange(q["dlnp_dTc"]), f"{q['dlnp_dpc']['median']:.2f}", srange(q["dlnp_dw"]),
+                 srange(q["dlnh_dTc"]), f"{abs(q['dlnh_dpc']['median']):.2f}", srange(q["dlnh_dw"]), srange(q["dlnrho_dTc"]),
+                 f"{q['dlnrho_dpc']['median']:.2f}", srange(q["dlnrho_dw"])])
+emit(
+    "tabS_sens",
+    "Input sensitivities of the PR-Soave saturation properties at fixed absolute temperature: logarithmic derivatives with "
+    "respect to $T_c$, $p_c$ and $\\omega$ (central differences, $\\pm 0.05\\%$ in $T_c$ and $p_c$, $\\pm 0.005$ in $\\omega$), "
+    "evaluated for every fluid at the grid point nearest $T_r$ = 0.50, 0.70, 0.90 and 0.985; median over the $n$ fluids present at "
+    "that $T_r$ with the range over the fluids in parentheses. The SRK-Soave vapor-pressure sensitivities agree within 3\\%. At fixed $T$, $T_c$ and "
+    "$\\omega$ every two-parameter cubic gives $p^{sat}$, $\\rho'$ and $\\rho''$ exactly proportional to $p_c$ and $\\Delta h_{vap}$ "
+    "independent of $p_c$; $\\partial \\ln p^{sat}/\\partial \\omega$ is close to $-\\ln 10$ at $T_r = 0.70$ because the $m(\\omega)$ "
+    "correlations follow the definition of the acentric factor.",
+    [["", "", "$p^{sat}$", "", "", "$\\Delta h_{vap}$", "", "", "$\\rho'$", "", ""],
+     ["", "$n$", "$\\partial \\ln p/\\partial \\ln T_c$", "$\\partial \\ln p/\\partial \\ln p_c$", "$\\partial \\ln p/\\partial \\omega$",
+      "$\\partial \\ln \\Delta h/\\partial \\ln T_c$", "$\\partial \\ln \\Delta h/\\partial \\ln p_c$", "$\\partial \\ln \\Delta h/\\partial \\omega$",
+      "$\\partial \\ln \\rho'/\\partial \\ln T_c$", "$\\partial \\ln \\rho'/\\partial \\ln p_c$", "$\\partial \\ln \\rho'/\\partial \\omega$"]],
+    rows, colspec="l" + "c" * 10,
+)
+
+# Physical diagnostics (tabS_physics): attraction-parameter sensitivities, alpha spread, near-critical exponents,\n# Zc dependence of the density error, Clapeyron split, n-decane example
+phys = json.load(open(os.path.join(DATA, "physical_diagnostics.json")))
+spread = pd.read_csv(os.path.join(DATA, "physics_alpha_spread.csv"))
+expo_w = pd.read_csv(os.path.join(DATA, "physics_nearcrit_closure.csv"))
+expo_h = pd.read_csv(os.path.join(DATA, "physics_hvap_exponent.csv"))
+sens_a = pd.read_csv(os.path.join(DATA, "physics_alpha_sensitivity.csv"))
+
+
+def mr(series, nd=2):
+    return f"{series.median():.{nd}f} ({series.min():.{nd}f} to {series.max():.{nd}f})"
+
+
+rows = ["Sensitivity to the attraction parameter at fixed $T$ and $b$ (classical $\\alpha$; median, range over the fluids)"]
+for q, lab in (("dlnp_dlna", "$\\partial \\ln p^{sat}/\\partial \\ln a$"), ("dlnrhol_dlna", "$\\partial \\ln \\rho'/\\partial \\ln a$")):
+    for trq in (0.5, 0.7, 0.9):
+        g = {c: sens_a[(sens_a.cubic == c) & (sens_a.Tr == trq)][q] for c in ("SRK", "PR")}
+        rows.append([f"{lab}, $T_r$ = {trq:.1f}", mr(g["SRK"]), mr(g["PR"]), "--"])
+rows.append("Exchange of the generalized $\\alpha$-functions (five functions against the classical one, every grid point)")
+for q, lab in (("max_dalpha_pct", "largest relative difference in $\\alpha$ (\\%)"),
+               ("max_dpsat_pts", "largest change of the $p^{sat}$ deviation (points)"),
+               ("max_drho_pts", "largest change of the $\\rho'$ deviation (points)")):
+    rows.append([lab, f2(spread[spread.cubic == "SRK"][q].max()), f2(spread[spread.cubic == "PR"][q].max()), "--"])
+rows.append("Closure of the coexistence curve, $0.93 \\le T_r \\le 0.985$ (classical $\\alpha$; median, range over the fluids)")
+rows.append(["effective exponent of $\\rho' - \\rho''$", mr(expo_w.beta_srk, 3), mr(expo_w.beta_pr, 3), mr(expo_w.beta_ref, 3)])
+rows.append(["effective exponent of $\\Delta h_{vap}$", mr(expo_h.beta_h_srk, 3), mr(expo_h.beta_h_pr, 3), mr(expo_h.beta_h_ref, 3)])
+cl = phys["closure"]
+rows.append(["fluids for which $(\\rho' - \\rho_c)/\\rho_c$ at $T_r = 0.985$ is smaller for the cubic, with its own $\\rho_c$, than for the reference",
+             f"{cl['cubic_closer_srk']}/{cl['n_fluids']}", f"{cl['cubic_closer_pr']}/{cl['n_fluids']}", "--"])
+rows.append(["mean signed deviation of $\\rho'$ at $T_r = 0.985$ (\\%; untranslated)", f"{cl['mean_dev_top_rho_srk']:.1f}", f"{cl['mean_dev_top_rho_pr']:.1f}", "--"])
+rows.append(["mean signed deviation of $\\rho''$ at $T_r = 0.985$ (\\%)", f"{cl['mean_dev_top_rhov_srk']:.1f}", f"{cl['mean_dev_top_rhov_pr']:.1f}", "--"])
+rows.append("Mean signed $\\rho'$ deviation below $T_r = 0.70$ against the reference $Z_c$ (untranslated, classical $\\alpha$; 36 fluids)")
+zc_ = phys["zc_density"]
+rows.append(["correlation coefficient $r$", f"{zc_['bias_lo_srk']['r']:.2f}", f"{zc_['bias_lo_pr']['r']:.2f}", "--"])
+rows.append(["slope (points per 0.01 in $Z_c$)", f"{zc_['bias_lo_srk']['slope_pct_per_0p01Zc']:.1f}", f"{zc_['bias_lo_pr']['slope_pct_per_0p01Zc']:.1f}", "--"])
+rows.append(["$Z_c$ at zero mean deviation", f"{zc_['bias_lo_srk']['Zc_at_zero']:.3f}", f"{zc_['bias_lo_pr']['Zc_at_zero']:.3f}", "--"])
+zrd = phys["zc_reducing"]["regression"]
+rows.append(["$r$ with the reducing-point $Z_c$ of methyl chloride and n-heptane", f"{zrd['bias_lo_srk']['r_red_two']:.2f}", f"{zrd['bias_lo_pr']['r_red_two']:.2f}", "--"])
+hsp = phys["hvap_split"]
+rows.append("Enthalpy of vaporization split by the Clapeyron equation (mean logarithmic deviation, \\%; range over the seven "
+            "$\\alpha$-functions, in-sample Twu-91 in brackets)")
+for rg, lab in (("lo", "$0.50 \\le T_r < 0.70$"), ("mid", "$0.70 \\le T_r < 0.90$"), ("nc", "$0.90 \\le T_r \\le 0.985$")):
+    for q, qlab in (("h", "$\\Delta h_{vap}$"), ("dZ", "$\\Delta Z_{vap}$ part")) + ((("Zv", "$Z''$"),) if rg == "mid" else ()):
+        rows.append([f"{lab}: {qlab}"] + [f"{hsp[c + '|' + rg][q][0]:.2f} to {hsp[c + '|' + rg][q][1]:.2f} [{hsp[c + '|' + rg]['tfit'][q]:.2f}]"
+                                          for c in ("srk", "pr")] + ["--"])
+dx = phys["decane_example"]
+rows.append("Heavy-alkane example: n-decane at $T_r = 0.50$ (Twu-95 and MS against the classical $\\alpha$)")
+rows.append(["change of $\\alpha$ (\\%), Twu-95 / MS"] + [f"{dx[c]['dalpha_pct_t95']:+.2f} / {dx[c]['dalpha_pct_ms']:+.2f}" for c in ("SRK", "PR")] + ["--"])
+rows.append(["$\\partial \\ln p^{sat}/\\partial \\ln a$"] + [f"{dx[c]['dlnp_dlna']:.2f}" for c in ("SRK", "PR")] + ["--"])
+rows.append(["resulting change of $p^{sat}$ (\\%), Twu-95 / MS"] + [f"{dx[c]['dpsat_pct_t95']:+.2f} / {dx[c]['dpsat_pct_ms']:+.2f}" for c in ("SRK", "PR")] + ["--"])
+rows.append(["$p^{sat}$ deviation (\\%): classical; Twu-95 / MS"] + [f"{dx[c]['dev_classical']:+.2f}; {dx[c]['dev_t95']:+.2f} / {dx[c]['dev_ms']:+.2f}" for c in ("SRK", "PR")] + ["--"])
+emit(
+    "tabS_physics",
+    "Physical diagnostics behind the interpretation in Sections 3 and 4 of the main text. Sensitivities are central "
+    "differences ($\\pm 0.01\\%$ in $\\Omega_a$, which scales $a$ at fixed $T$ and $b$) at $T_r$ = 0.5, 0.7 and 0.9 exactly, for the fluids whose grid includes that temperature (28, 36 and 37 fluids). "
+    "Effective exponents are least-squares slopes of $\\ln(\\rho' - \\rho'')$ and $\\ln \\Delta h_{vap}$ against $\\ln(1 - T_r)$ over "
+    "the grid points with $T_r \\ge 0.93$; for the cubics the width is normalized by their own critical density, for the reference "
+    "equations by the reference critical density. The $Z_c$ regression excludes carbon dioxide, which has no grid point below $T_r = 0.70$; "
+    "the reducing-point $Z_c$ is $p/(\\rho R T)$ of the reference equation at its reducing temperature and density, which differs from the "
+    "critical-point value of Table S2 for methyl chloride (0.269 against 0.294) and n-heptane (0.263 against 0.275), whose reference "
+    "equations place the critical point 2.3 K and 1.1 K above the reducing temperature. The Clapeyron split writes "
+    "$\\ln(\\Delta h_{vap}^{EoS}/\\Delta h_{vap}^{ref}) = \\ln(\\Delta Z_{vap}^{EoS}/\\Delta Z_{vap}^{ref}) + \\ln(s^{EoS}/s^{ref})$ "
+    "with $\\Delta Z_{vap} = Z'' - Z'$ and $s = d\\ln p^{sat}/dT$, each model at its own saturation state; the first term is the "
+    "volumetric part, the second, the difference of the two rows, follows the $\\alpha$-function.",
+    [["Diagnostic", "SRK", "PR", "Reference"]],
+    rows, colspec="p{6.2cm}ccc",
+)
+
+
+# ====================================================================== #
+# LaTeX files and tables.json from the final content
+for name, t in tables.items():
+    write_tex(name, t)
 with open(os.path.join(TABS, "tables.json"), "w") as f:
     json.dump(tables, f, indent=1)
-print("wrote tables.json with", len(tables), "tables")
+print("wrote", len(tables), "tables (.tex and tables.json)")

@@ -21,3 +21,6 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Word/PDF builds of the manuscript (delivered separately; keep out of the public history)
+submission/

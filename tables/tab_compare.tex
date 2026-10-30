@@ -1,0 +1,21 @@
+\begin{table}[H]
+\centering
+\caption{Comparative assessments of cubic equations of state closest to the present benchmark, by the elements that define a benchmark: the cubics and $\alpha$-functions compared, whether the $\alpha$-functions are generalized (predictive) or component-fitted, the properties, the fluids and the reference standard, the treatment of volume translation, the statistics reported, and whether the $\alpha$-function is exchanged across both cubics under one protocol and the code released. The large compilations provide breadth of chemistry; the present work provides attribution and statistical resolution on a narrower set.}
+\label{tab:tab_compare}
+\small
+\begin{tabular}{p{2.3cm}p{2.9cm}p{2.0cm}p{2.6cm}p{2.0cm}p{2.3cm}p{2.1cm}}
+\toprule
+Study & Cubics; $\alpha$-functions & Properties & Fluids; standard & Translation & Statistics & $\alpha$ exchanged; code \\
+\midrule
+Trebble and Bishnoi 1986 [cite:trebble1986] & ten cubics; $\alpha$-functions as published & $p^{sat}$, saturated volumes & polar and non-polar compounds; experimental data & none & average deviations & no; no \\
+Young et al. 2016 [cite:young2016] & PR; 20 $\alpha$-functions, generalized and component-fitted & $p^{sat}$ & pure compounds of several classes; experimental data & none & average deviations & no (PR only); no \\
+Le Guennec et al. 2016 [cite:leguennec2016b] & tc-PR, tc-RK; consistent Twu-91, component-fitted & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$, $v^{liq}$ & pure compounds; DIPPR pseudo-experimental data & one constant per fluid ($T_r = 0.8$) & average deviations & no; parameters tabulated \\
+Bell et al. 2018 [cite:bell2018] & PR; consistent Twu-91, fitted per fluid & $p^{sat}$, $\Delta h_{vap}$ & > 2500 fluids; critically evaluated experimental data (NIST TDE) & none & average deviations & no; parameters released \\
+Pi\~na-Martinez et al. 2019 [cite:pina2019] & RK, PR; updated generalized Soave $m(\omega)$ & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ & 1721 compounds; DIPPR pseudo-experimental data & none & average deviations & same database for both cubics; no \\
+Pi\~na-Martinez et al. 2022 [cite:pina2022] & SRK, PR (classical Soave); tc-RK, tc-PR (consistent Twu-91, component-fitted) & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$, $v^{liq}$ & 1800 fluids, $\approx$300,000 points; DIPPR pseudo-experimental data & one constant per fluid ($T_r = 0.8$; tc models) & MAPE, pooled and per compound; self-/non-self-associating split & no; parameters tabulated \\
+Mohamed et al. 2024 [cite:mohamed2024] & PR, RK; Soave (generalized) and Twu-91 (fitted per component, consistency constraints) & $p^{sat}$, $\Delta h_{vap}$, $c_p^{liq}$ (fit); $\rho'$, speed of sound (test set) & 147 components grouped by interaction type; NIST and compiled data & in a test set only & average deviations; consistency & Soave and Twu on both; no \\
+Xiao and Yang 2025 [cite:xiao2025] & PR, SRK, PTV, YFR; Soave, Twu, Coquelet, MS, Heyen & viscosity by residual-entropy scaling & 124 fluids; REFPROP 10 & none & AAD and bias & Coquelet and MS on PR and SRK; no \\
+This work & SRK, PR; six generalized $\alpha$-functions, one out-of-sample fitted reference, in-sample fits of two forms & $p^{sat}$, $\Delta h_{vap}$, $\rho'$, $\rho''$ & 37 fluids, 1480 states; reference Helmholtz-energy EoS; compilation critical constants as a second input set & Rackett- and density-anchored constants, critical-matched diagnostic; anchor sweep; $Z_c$ dependence & fluid-level bootstrap CIs; paired tests with Holm adjustment; paired-difference CIs; signed deviations & yes, one protocol; open pipeline (MIT, Zenodo) \\
+\bottomrule
+\end{tabular}
+\end{table}

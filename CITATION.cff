@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the software release and the article."
+type: software
+title: "SRK / Peng-Robinson saturation-property benchmark: error-budget edition"
+version: 2.1.0
+date-released: 2026-10-21
+authors:
+  - family-names: Alhasan
+    given-names: Rami
+    affiliation: "American University of the Middle East, Egaila, Kuwait"
+license: MIT
+repository-code: "https://github.com/ramialhasan91/srk-pr-benchmark"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21370716
+    description: "Zenodo concept DOI (all versions); the version DOI of v2.1.0 is listed in README.md"
+keywords:
+  - cubic equation of state
+  - Soave-Redlich-Kwong
+  - Peng-Robinson
+  - alpha function
+  - volume translation
+  - vapor pressure
+  - saturated density
+  - enthalpy of vaporization
+  - reproducibility
+preferred-citation:
+  type: article
+  title: "An Error Budget for the SRK and PR Equations of State: alpha-Function Parameterization and Volume Translation in a Reproducible Pure-Fluid Saturation-Property Benchmark"
+  authors:
+    - family-names: Alhasan
+      given-names: Rami
+  journal: Thermo
+  year: 2026
+  notes: "under review (manuscript Thermo-4636081)"

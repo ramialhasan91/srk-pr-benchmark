@@ -1,59 +1,25 @@
-"""
-Generic two-parameter cubic equation of state (SRK and PR) for pure fluids,
-with an extensible set of alpha functions.
+"""Two-parameter cubic equation of state (SRK, PR) for pure fluids with an extensible set of alpha functions:
+    p = RT/(v - b) - a(T) / [(v + d1 b)(v + d2 b)],  (d1, d2) = (1, 0) for SRK, (1+sqrt2, 1-sqrt2) for PR.
+SRK: Soave, Chem. Eng. Sci. 27 (1972) 1197. PR: Peng & Robinson, Ind. Eng. Chem. Fundam. 15 (1976) 59.
 
-Cubic forms
------------
-  - Soave-Redlich-Kwong (SRK): Soave, Chem. Eng. Sci. 27 (1972) 1197-1203.
-  - Peng-Robinson (PR): Peng & Robinson, Ind. Eng. Chem. Fundam. 15 (1976) 59-64.
+Alpha functions (analytic alpha and d(alpha)/dTr):
+  "s"    Soave form [1 + m(1 - sqrt Tr)]^2 with the original m(omega) of each cubic.
+  "s19"  Soave form with the updated m(omega) of Pina-Martinez et al., Fluid Phase Equilib. 485 (2019) 264.
+  "t95"  Generalized Twu function alpha0 + omega (alpha1 - alpha0), alpha_i = Tr^(N_i(M_i-1)) exp[L_i(1 - Tr^(N_i M_i))]:
+         Twu, Coon & Cunningham, Fluid Phase Equilib. 105 (1995) 49 (PR) and 61 (RK); subcritical sets only.
+  "tc"   Generalized consistent Twu-91, alpha = Tr^(N(M-1)) exp[L(1 - Tr^(N M))], N = 2, L and M quadratic in omega:
+         PR from Pina-Martinez et al., AIChE J. 68 (2022) e17518 (as quoted by Privat & Jaubert, Fluid Phase
+         Equilib. 567 (2023) 113697); SRK from Pina-Martinez et al., J. Chem. Eng. Data 63 (2018) 3980.
+  "coq"  Coquelet, Chapoy & Richon, Int. J. Thermophys. 25 (2004) 133: exp[C1(1 - Tr)] [1 + C2(1 - sqrt Tr)^2 + C3(1 - sqrt Tr)^3]^2,
+         generalized C1..C3(omega) for PR and SRK from Xiao & Yang, ACS Omega 10 (2025) 29021 (Table 2, Eqs. 24-31).
+  "ms"   Mahmoodi & Sedigh, Fluid Phase Equilib. 436 (2017) 69: exp{2 C1 u - (C2 u)^2 + (2/3)(C3 u)^3}, u = 1 - sqrt Tr,
+         C1..C3(omega) from Xiao & Yang (2025), Table 2, Eqs. 32-39.
+  "tf"   Component-specific consistent Twu-91 parameters of Pina-Martinez et al. (2022), SI Table S3, passed per
+         fluid through `twu_params`; fitted reference, not predictive.
 
-The generic pressure-explicit form is
-    p = RT/(v - b) - a(T) / [(v + d1*b)(v + d2*b)]
-with (d1, d2) = (1, 0) for SRK and (1+sqrt(2), 1-sqrt(2)) for PR.
-
-Alpha functions (all analytic in alpha and d(alpha)/dTr)
---------------------------------------------------------
-  "s"    Classical Soave form, alpha = [1 + m(1 - sqrt(Tr))]^2, with the
-         original m(omega) of each model (Soave 1972 for SRK, Peng-Robinson
-         1976 for PR).
-  "s19"  Same Soave form with the updated generalized m(omega) of
-         Pina-Martinez, Privat, Jaubert & Peng, Fluid Phase Equilib. 485 (2019)
-         264-269 (cubic polynomials fitted to 1721 compounds).
-  "t95"  Generalized Twu alpha function, alpha = alpha0 + omega*(alpha1 - alpha0),
-         alpha_i = Tr^(N_i(M_i-1)) exp[L_i(1 - Tr^(N_i M_i))]:
-         Twu, Coon & Cunningham, Fluid Phase Equilib. 105 (1995) 49-59 (PR)
-         and 61-69 (RK). Subcritical parameter sets only (grid is Tr <= 0.985).
-  "tc"   Generalized *consistent* Twu-91 alpha function of the Nancy group,
-         alpha = Tr^(N(M-1)) exp[L(1 - Tr^(N M))] with N = 2 and L, M quadratic
-         in omega:
-           PR : L = 0.0544 + 0.7536 w + 0.0297 w^2, M = 0.8678 - 0.1785 w + 0.1401 w^2
-                (Pina-Martinez, Privat & Jaubert, AIChE J. 68 (2022) e17518,
-                 as quoted by Privat & Jaubert, Fluid Phase Equilib. 567 (2023) 113697)
-           SRK: L = 0.1359 + 0.7535 w + 0.0611 w^2, M = 0.8787 - 0.2063 w + 0.1709 w^2
-                (Pina-Martinez, Le Guennec, Privat, Jaubert & Mathias,
-                 J. Chem. Eng. Data 63 (2018) 3980-3988)
-  "coq"  Exponential alpha function of Coquelet, Chapoy & Richon (Int. J.
-         Thermophys. 25 (2004) 133-158),
-         alpha = exp[C1(1 - Tr)] [1 + C2(1 - sqrt(Tr))^2 + C3(1 - sqrt(Tr))^3]^2,
-         with the generalized C1..C3(omega) for PR and SRK as compiled by
-         Xiao & Yang, ACS Omega 10 (2025) 29021-29036 (Table 2, Eqs. 24-31),
-         after Coquelet et al. (2004) and Mahmoodi & Sedigh (2017).
-  "ms"   Consistent generalized alpha function of Mahmoodi & Sedigh (Fluid
-         Phase Equilib. 436 (2017) 69-84),
-         alpha = exp{2 C1 u - (C2 u)^2 + (2/3)(C3 u)^3}, u = 1 - sqrt(Tr),
-         with C1..C3(omega) for PR and SRK as compiled by Xiao & Yang (2025),
-         Table 2, Eqs. 32-39.
-  "tf"   Component-specific consistent Twu-91 parameters (L, M, N) taken from
-         the 1800-fluid compilation of Pina-Martinez et al. (2022), Supporting
-         Information Table S3; supplied per fluid through `twu_params`. Not
-         predictive: used only as a fitted reference.
-
-Also implemented: fugacity coefficients, saturation-pressure solver,
-analytic residual enthalpy / enthalpy of vaporization, and a quadrature check
-of the volume-translation identity ln(phi_t) = ln(phi) - c p/(RT)
-(Jaubert et al., Fluid Phase Equilib. 419 (2016) 88-95).
-
-All quantities in SI units (Pa, K, m^3/mol, J/mol, J/mol/K).
+Also: fugacity coefficients, saturation-pressure solver, analytic residual enthalpy and enthalpy of
+vaporization, and a quadrature check of the translation identity ln(phi_t) = ln(phi) - c p/(RT)
+(Jaubert et al., Fluid Phase Equilib. 419 (2016) 88). SI units throughout (Pa, K, m^3/mol, J/mol).
 """
 
 import numpy as np
@@ -84,9 +50,7 @@ M_SOAVE = {
     ("PR", "s19"): lambda w: 0.3919 + 1.4996 * w - 0.2721 * w**2 + 0.1063 * w**3,   # Pina-Martinez 2019
 }
 
-# Generalized coefficients of the Coquelet (2004) and Mahmoodi-Sedigh (2017)
-# alpha functions, quadratic in omega (C3 of MS is a Gaussian in omega), as
-# compiled in Table 2 of Xiao & Yang, ACS Omega 10 (2025) 29021-29036.
+# Generalized coefficients of the Coquelet (2004) and Mahmoodi-Sedigh (2017) functions, quadratic in omega\n# (C3 of MS Gaussian in omega), from Table 2 of Xiao & Yang, ACS Omega 10 (2025) 29021.
 COQUELET_GENERALIZED = {
     "PR": dict(C1=(0.40464, 1.3361, -0.07987), C2=(-0.08139, 0.96493, -0.85454), C3=(0.31953, 0.001007, -0.88858)),
     "SRK": dict(C1=(0.53591, 1.4492, -0.13969), C2=(-0.2741, 0.59006, -0.54412), C3=(0.54293, 0.53258, -1.4927)),
@@ -322,17 +286,11 @@ class CubicEOS:
         return R * T / (v - self.b) - self.a(T) / ((v + self.d1 * self.b) * (v + self.d2 * self.b))
 
     def lnphi_translated_quadrature(self, T, p, Z, c, n_gauss=200):
-        """
-        Fugacity coefficient of the c-TRANSLATED EoS at (T, p), for the phase
-        whose UNTRANSLATED compressibility factor is Z, evaluated by direct
-        Gauss-Legendre quadrature of the exact volume-space departure integral
-            ln(phi) = Zt - 1 - ln(Zt) + (1/RT) * Int_{vt}^{inf} [p(T,v') - RT/v'] dv',
-        where vt = v - c and the translated pressure is p_t(T, v') = p(T, v' + c).
-
-        Used only to verify the analytic identity
-            ln(phi_translated) = ln(phi) - c*p/(R*T)
-        (and hence the invariance of psat and Delta h_vap under constant
-        translation); it plays no role in the benchmark itself.
+        """Fugacity coefficient of the c-translated EoS at (T, p) for the phase with untranslated compressibility
+        factor Z, by Gauss-Legendre quadrature of the departure integral
+            ln(phi) = Zt - 1 - ln(Zt) + (1/RT) Int_{vt}^{inf} [p_t(T, v') - RT/v'] dv',
+        with vt = v - c and p_t(T, v') = p(T, v' + c). Used only to verify ln(phi_t) = ln(phi) - c p/(RT), and
+        hence the invariance of psat and Delta h_vap under constant translation.
         """
         v = Z * R * T / p
         vt = v - c

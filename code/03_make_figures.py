@@ -31,7 +31,7 @@ CUBIC_C = {"srk": "#0072B2", "pr": "#D55E00"}          # cubic form -> hue
 ALPHA_C = {"s": "#0072B2", "s19": "#56B4E9", "t95": "#D55E00", "tc": "#009E73", "coq": "#CC79A7", "ms": "#E69F00", "tf": "white"}
 ALPHA_L = {"s": "Soave", "s19": "Soave-19", "t95": "Twu-95", "tc": "Twu-c", "coq": "Coquelet", "ms": "MS", "tf": "Twu-fit"}
 ALPHA_LS = {"s": "-", "t95": "--", "tc": "-.", "tf": ":"}
-VT_C = {"none": None, "vtc": "0.78", "vt": "0.42"}       # translation rungs -> greys (hues are reserved for the cubics/alphas)
+VT_C = {"none": None, "vtc": "0.78", "vt": "0.42"}       # translation levels -> greys (hues are reserved for the cubics/alphas)
 FAM_MARK = {
     "Inorganic gases": "o", "Alkanes": "s", "Aromatics": "^", "Polar/associating": "D", "Refrigerants": "v",
 }
@@ -256,16 +256,37 @@ fig.tight_layout()
 save(fig, "fig6_rholiq_dev_vs_Tr")
 
 # ================================================================== #
-# Figure 7: near-critical density deviation vs the Zc-mismatch limit
+# Figure 7: the saturated-liquid density error and the critical compressibility factor
+# (a) low-temperature mean signed deviation vs the reference Zc; (b) near-critical deviation vs the Zc-mismatch limit
 top = df.loc[df.groupby("fluid").Tr.idxmax()].set_index("fluid")
 zc = fl.set_index("fluid").Zc_ref
 fluids = sorted(df.fluid.unique())
-fig, ax = plt.subplots(figsize=(4.6, 3.6))
+fig, axes = plt.subplots(1, 2, figsize=(6.8, 3.0))
+ax = axes[0]
+low = df[df.Tr < 0.70].groupby("fluid")
+ax.axhline(0, color="0.6", lw=0.8)
+for c, mk in (("srk", "o"), ("pr", "s")):
+    bias = low[f"dev_rho_{c}_s"].mean()
+    xv = np.array([zc[f] for f in bias.index])
+    yv = bias.to_numpy()
+    r = np.corrcoef(xv, yv)[0, 1]
+    k, d = np.polyfit(xv, yv, 1)
+    ax.scatter(xv, yv, marker=mk, s=24, facecolor=CUBIC_C[c], edgecolor="k", linewidth=0.4, zorder=3,
+               label=f"{c.upper()} ($r={r:.2f}$)")
+    xs = np.array([0.21, 0.30])
+    ax.plot(xs, k * xs + d, color=CUBIC_C[c], lw=1.0, ls="--", zorder=2)
+ax.set_xlim(0.21, 0.30)
+ax.set_xlabel(r"reference critical compressibility factor $Z_c^{\rm ref}$")
+ax.set_ylabel(r"mean signed $\rho'$ deviation, $T_r<0.70$ (%)")
+ax.set_title("(a) low temperature", loc="left", fontweight="bold")
+ax.grid(alpha=0.25, lw=0.4)
+ax.legend(frameon=False, loc="upper left")
+ax = axes[1]
 for c, mk in (("srk", "o"), ("pr", "s")):
     xv = np.array([100.0 * (zc[f] / ZC_MODEL[c] - 1.0) for f in fluids])
     yv = np.array([top.loc[f, f"dev_rho_{c}_s"] for f in fluids])
     r = np.corrcoef(xv, yv)[0, 1]
-    ax.scatter(xv, yv, marker=mk, s=30, facecolor=CUBIC_C[c], edgecolor="k", linewidth=0.4, zorder=3,
+    ax.scatter(xv, yv, marker=mk, s=24, facecolor=CUBIC_C[c], edgecolor="k", linewidth=0.4, zorder=3,
                label=f"{c.upper()} ($r={r:.2f}$)")
 lims = [-40, 0]
 ax.plot(lims, lims, color="0.4", lw=0.9, ls="--", zorder=2, label="1:1")
@@ -273,6 +294,7 @@ ax.set_xlim(lims)
 ax.set_ylim(-45, 0)
 ax.set_xlabel(r"$Z_c$-mismatch limit, $100\,(Z_c^{\rm ref}/Z_c^{\rm EoS}-1)$ (%)")
 ax.set_ylabel(r"$\rho'$ deviation at $T_r=0.985$ (%)")
+ax.set_title("(b) near the critical point", loc="left", fontweight="bold")
 ax.grid(alpha=0.25, lw=0.4)
 ax.legend(frameon=False, loc="upper left")
 fig.tight_layout()
@@ -355,10 +377,7 @@ for ax in axes:
 fig.tight_layout()
 save(fig, "figS2_alpha_functions")
 
-# ================================================================== #
-# Figure S3: the translation ladder resolved in temperature for four further
-# fluids (same encoding as Figure 5): methane (density inversion), n-decane,
-# R-134a, methanol
+# Figure S3: the translation ladder against Tr for four further fluids (encoding of Figure 6): methane, n-decane, R-134a, methanol
 fig, axes = plt.subplots(2, 2, figsize=(6.8, 5.2), sharex=True)
 for ax, f in zip(axes.ravel(), ["methane", "n-decane", "R-134a", "methanol"]):
     g = df[df.fluid == f].sort_values("Tr")
@@ -408,7 +427,7 @@ for i, c in enumerate(("srk", "pr")):
 ax.set_xticks(xs)
 ax.set_xticklabels([p[1] for p in lad], fontsize=10)
 ax.set_ylabel("liquid-density AAD, 37 fluids (%)", fontsize=11)
-ax.set_title("volume translation: sets the density error", fontsize=13, fontweight="bold", loc="left")
+ax.set_title("volumetric part: sets the density error", fontsize=13, fontweight="bold", loc="left")
 ax.legend(frameon=False, fontsize=11, loc="upper right")
 ax.set_ylim(0, 15)
 for ax in axes:

@@ -1,31 +1,17 @@
-"""
-Statistical analysis of the benchmark results.
+"""Statistics of the benchmark results. The 40 points of a fluid lie on one smooth deviation curve, so the
+effective sample size of a pooled statistic is the number of fluids.
 
-The state points are not independent: the 40 points of one fluid lie on a
-smooth deviation curve, so the effective sample size for pooled statistics is
-the number of fluids, not the number of points. Three things are done here:
+1. Fluid-level (cluster) bootstrap 95% CIs of every pooled AAD: fluids resampled with replacement
+   (B = 10000, fixed seed), the pooled AAD recomputed over their points, 2.5/97.5 percentiles
+   (implemented through per-fluid sums of |dev| and point counts, which is exact and fast).
+2. Exact two-sided binomial sign tests on per-fluid AADs: PR vs SRK at every alpha, every pair of
+   alphas within each cubic (21 per cubic) and the translated-density comparisons, for all four
+   properties. Ties would be excluded from n; none occur. The p-values are nominal; 08 and 09 add the
+   paired intervals and the multiplicity adjustments.
+3. Near-critical density mechanism: signed liquid-density deviation at Tr = 0.985 against the limit
+   100 (Zc_ref / Zc_model - 1): Pearson r and OLS slope/intercept.
 
-1. Confidence intervals for pooled AADs by a CLUSTER bootstrap: the fluids are
-   resampled with replacement (B = 10000, fixed seed), the pooled AAD is
-   recomputed over the points of the resampled fluids, and the 2.5/97.5
-   percentiles give a 95% CI. (Implemented through per-fluid sums of |dev| and
-   point counts, which is exactly equivalent to concatenating the resampled
-   point sets and much faster.)
-
-2. Per-fluid model comparisons ("model A beats model B for k of n fluids")
-   with an exact two-sided binomial sign test at the fluid level: PR vs SRK
-   at every alpha-function, every pair of alpha-functions within each cubic
-   (21 pairs per cubic), and the translated-density comparisons, for all
-   four properties. Ties (identical per-fluid AADs) are excluded from n;
-   none occur in the present data. The p-values are nominal (no adjustment
-   for multiple comparisons) and are reported as descriptive evidence.
-
-3. The near-critical density mechanism: the signed saturated-liquid-density
-   deviation at the highest grid temperature (Tr = 0.985) against the limiting
-   value implied by the critical compressibility factors,
-   100 (Zc_ref / Zc_model - 1): Pearson correlation and OLS slope/intercept.
-
-Outputs ../data/stats.json.
+Writes ../data/stats.json.
 """
 
 import json
@@ -153,11 +139,7 @@ for cub in ("srk", "pr"):
         x_limit=dict(zip(fluids, x.round(3))), y_obs=dict(zip(fluids, y.round(3))),
     )
 
-# ------------------------------------------------------------------ #
-# 4. Generalized-vs-fitted Twu parameters: how far the generalized consistent
-#    correlations L(omega), M(omega) sit from the component-specific values of
-#    the 1800-fluid compilation for the benchmark fluids (a check on the
-#    transcribed correlations and a measure of the generalization loss).
+# 4. Generalized vs fitted Twu parameters: distance of the generalized L(omega), M(omega) from the\n#    component-specific values of the 1800-fluid compilation (checks the transcription; measures the generalization loss).
 gen_vs_fit = {}
 for cub in ("srk", "pr"):
     dL = fl[f"L_tc_{cub}"] - fl[f"L_tf_{cub}"]
