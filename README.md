@@ -86,8 +86,6 @@ version; the previous Zenodo version is the submitted one.
 ├── figures/                       fig1–fig7 (main text; file numbers = figure numbers), figS1–figS3
 │                                  (SI), graphical_abstract.
 ├── tables/                        Generated LaTeX tables and tables.json (35 tables).
-├── manuscript/                    Manuscript sources: main.md, si.md, refs.py, make_word.py
-│                                  (MDPI-style Word build), make_letters.py.
 ├── requirements.txt               Pinned library versions (environment.yml: the same for conda).
 ├── CITATION.cff
 ├── LICENSE                        MIT.
@@ -125,13 +123,6 @@ python code/03_make_figures.py               # -> figures/*.pdf, *.png
 python code/05_check_manuscript_numbers.py   # 775 checks against the numbers quoted in the texts; exit code 1 on any mismatch
 ```
 
-To rebuild the Word files (needs `python-docx` and `pandoc`):
-
-```bash
-python manuscript/make_word.py     # -> submission/Main_Manuscript_Thermo.docx, Supplementary_Materials_Thermo.docx,
-                                   #    submission/figures_numbered/, submission/Graphical_Abstract.png
-```
-
 The pipeline is deterministic (fixed bootstrap seed, 20260714, shared by scripts 04, 08 and 09); a
 clean run reproduces the committed `data/`, `tables/` and `figures/`. The benchmark itself (01, 04, 06)
 gives identical results under Python 3.11.15 with NumPy 2.4.4 and pandas 3.0.2 (the versions of the
@@ -166,9 +157,9 @@ unchanged from the submitted version.
 > Volume Translation in a Reproducible Pure-Fluid Saturation-Property Benchmark," *Thermo* (under
 > review, 2026).
 
-Software archive: https://doi.org/10.5281/zenodo.21370716 (concept DOI, resolves to the latest
+Software archive: https://doi.org/10.5281/zenodo.23806167 (concept DOI, resolves to the latest
 archived version; the Zenodo record lists the version DOI of each release). Version DOI of v2.1.0
-(this revision): to be added here when the release is archived.
+(this revision): DOI: 10.5281/zenodo.23806167.
 
 ## License
 
